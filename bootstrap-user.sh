@@ -4,28 +4,18 @@ source /home/vagrant/.bashrc
 export PATH="/home/vagrant/.pyenv/bin:/home/vagrant/.pyenv/shims:$PATH"
 eval "$(pyenv init -)"
 
-if [ -d "/home/vagrant/.pyenv" ]
-then
-	echo "pyenv directory exists!"
-else
-	pyenv install 2.7.7
-	pyenv rehash
-	pyenv global 2.7.7
-	pyenv virtualenv 2.7.7 svven-web 
-fi
+pyenv install 2.7.7
+pyenv rehash
+pyenv global 2.7.7
+pyenv virtualenv 2.7.7 svven-web 
 
 mkdir -p /home/vagrant/svven/
 
-if [ -d "~/.ssh" ]
-then
-	echo "ssh config exists"
-else
-	printf "Host bitbucket.org\n  HostName bitbucket.org\n  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-	ssh-keygen -R bitbucket.org
-	ssh-keyscan bitbucket.org >> /home/vagrant/.ssh/known_hosts
-	ssh-keygen -R github.com
-	ssh-keyscan github.com >> /home/vagrant/.ssh/known_hosts
-fi
+printf "Host bitbucket.org\n  HostName bitbucket.org\n  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+ssh-keygen -R bitbucket.org
+ssh-keyscan bitbucket.org >> /home/vagrant/.ssh/known_hosts
+ssh-keygen -R github.com
+ssh-keyscan github.com >> /home/vagrant/.ssh/known_hosts
 
 cd ~/svven/
 git clone git@bitbucket.org:svven/web.git

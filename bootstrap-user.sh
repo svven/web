@@ -33,6 +33,10 @@ pip install flask
 export GUNC_ACCESS_LOG=~/svven/web/logs/guncacc.log
 export GUNC_LOG=~/svven/web/logs/gunc.log
 
+sudo cp conf/nginx.conf /etc/nginx/
+
+sudo service nginx start
+
 gunicorn --access-logfile $GUNC_ACCESS_LOG --log-file $GUNC_LOG --log-level debug run:app -b 0.0.0.0:8000 &
 
 

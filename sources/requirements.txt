@@ -1,2 +1,6 @@
 flask==0.10.1
+
+# Installing gunicorn may throw an error
+# yield from self.wsgi.close()
+# This can be ignored per http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
 gunicorn

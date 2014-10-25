@@ -10,6 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network "forwarded_port", guest: 8000, host: 8080
 
+  config.vm.synced_folder "../bootstrap/", "/bootstrap/"
+
   config.vm.provision :shell, path: "provision.sh", keep_color: "true", 
 	args: "vagrant svven https://dl.dropboxusercontent.com/u/134594/svven/svven_rsa.pub https://dl.dropboxusercontent.com/u/134594/svven/svven_rsa"
 

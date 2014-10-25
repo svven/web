@@ -21,18 +21,18 @@ fi
 cd /home/$1
 
 ## Common
-sudo -u $1 -H bash bootstrap/common/init.sh
+sudo -u $1 -H bash /bootstrap/common/init.sh
 
 ## Add user
-sudo -u $1 -H bash bootstrap/common/adduser.sh $2
+sudo -u $1 -H bash /bootstrap/common/adduser.sh $2
 
 ## Set ssh
-sudo -u $2 -H bash bootstrap/common/setssh.sh $3 $4
+sudo -u $2 -H bash /bootstrap/common/setssh.sh $3 $4
 
 ## Base app
-sudo -u $2 -H bash bootstrap/apps/baseapp.sh
+sudo -u $2 -H bash /bootstrap/apps/baseapp.sh
 
 if [ $4 ]; then
     ## Web app
-    sudo -u $2 -H bash bootstrap/apps/webapp.sh
+    sudo -u $2 -H bash /bootstrap/apps/webapp.sh
 fi

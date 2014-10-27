@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "
 ############################################################
-## Development environment
+## Web app
 ## Machine: Ubuntu Server 14.04 LTS (e.g.: ami-f0b11187)
 ## User: $USER (e.g.: vagrant, ubuntu)
 ############################################################
@@ -17,22 +17,31 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
-## Make sure
+## Go home
 cd /home/$1
 
 ## Common
-sudo -u $1 -H bash /bootstrap/common/init.sh
+sudo -u $1 -H bash bootstrap/common/init.sh
 
-## Add user
-sudo -u $1 -H bash /bootstrap/common/adduser.sh $2
-
-## Set ssh
-sudo -u $2 -H bash /bootstrap/common/setssh.sh $3 $4
-
-## Base app
-sudo -u $2 -H bash /bootstrap/apps/baseapp.sh
+## Check if user exists
+egrep -i "^$2:" /etc/passwd
+if [ $? -eq 0 ]; then
+    echo "User already exists: $2"
+else
+    ## Add user
+    sudo -u $1 -H bash bootstrap/common/adduser.sh $2
+    ## Set ssh
+    sudo -u $2 -H bash bootstrap/common/setssh.sh $3 $4
+fi
 
 if [ $4 ]; then
-    ## Web app
-    sudo -u $2 -H bash /bootstrap/apps/webapp.sh
+    clone="-c"
+elif [ ! -d /project ]; then
+    echo "Please add add folder /project and reload."
+    exit 1
 fi
+
+## Base app
+sudo -u $2 -H bash bootstrap/apps/base.sh
+## Web app
+sudo -u $2 -H bash bootstrap/apps/web.sh $clone

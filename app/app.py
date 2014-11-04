@@ -1,5 +1,5 @@
 from werkzeug.contrib.fixers import ProxyFix
-from flask import Flask, url_for, request
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ def hello_world():
     return "Svven says Hello world!"
  
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True)
 
-svven@vagrant-ubuntu-trusty-64:~/web$ 
+
 

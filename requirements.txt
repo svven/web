@@ -1,3 +1,4 @@
 requests
-Flask==0.10.1
+flask>=0.10
+redis==2.10.3
 

@@ -1,0 +1,191 @@
+﻿/*
+ * Summary
+ * --------------------------------------------------
+*/
+.summary {
+  font-family: Georgia;
+  position: relative;
+  float: left;
+  margin-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  word-wrap: break-word;
+  line-break: loose;
+}
+
+.crop {
+  float: right;
+  overflow: hidden;
+  width: 40%;
+  height: auto;
+
+  padding: 1px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+  .crop div {
+    position: relative;
+    max-width: none;
+    width: auto;
+    height: auto;
+    margin-top: 0;
+    padding-top: 80%;
+}
+  .crop img {
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    width: auto;
+    height: 120%;
+    margin: auto; 
+    -ms-interpolation-mode: bicubic;
+  }
+
+.image {
+}
+
+.title {
+  font-family: Helvetica,Arial,sans-serif;
+  /*font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;*/
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 29px;
+  width: auto;
+  margin-top: 0;
+  /*background: rgba(0, 0, 0, .3);*/
+}
+  .title a {
+    color: #5b5256;
+  }
+    .title a:hover {
+      text-decoration: none;
+      color: #222222;
+    }
+
+.site {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: #999999;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 22px;
+  color: #333333;
+}
+
+.readers {
+  clear: both;
+  float: left;
+  margin-top: 4px;
+}
+
+.reader {
+  margin-right: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+.more {
+  float: right;
+}
+  .more .glyphicon {
+    font-size: 24px;
+    line-height: 28px;
+    color: #999999;
+  }
+
+.summary + .clearfix {
+  margin: 0 15px;
+  /* underline */
+  /*border-bottom: solid 1px #eee;*/
+}
+
+/*.cycle {
+    display: none;
+    visibility: hidden;
+    }
+    .cycle.show {
+      display: block !important;
+      visibility: visible !important;
+    }*/
+
+/*
+ * Grid
+ * --------------------------------------------------
+*/
+.enable-sm,
+.enable-md,
+.enable-lg {
+  display: none !important;
+}
+
+@media (max-width: 670px) {
+  .enable-sm {
+    display: block !important;
+  }
+
+  .summary {
+    width: 100%; /*1 col*/
+  }
+}
+
+@media (min-width: 671px) and (max-width: 980px) {
+  .enable-md {
+    display: block !important;
+  }
+
+  .summary {
+    width: 50%; /*2 cols*/
+  }
+}
+
+@media (min-width: 981px) {
+  .enable-lg {
+    display: block !important;
+  }
+
+  .summary {
+    width: 33.3333%; /*3 cols*/
+  }
+}
+
+
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.footer {
+  display: none;
+}
+
+/*
+ * Container Fluid
+ * --------------------------------------------------
+*/
+.container-fluid {
+  min-width: 320px;
+  max-width: 1080px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (max-width: 480px) {
+  .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

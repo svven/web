@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svven Dev</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/news.css">
+</head>
+<body>
+
+{% if 'username' in session %}
+    <h3>Hello {{ session['username'] }}!</h3>
+{% else %}
+    <h3>You are not logged in</h3>
+    <form action="/login" method="post">
+        <p><input type=text name=username>
+
+        <p><input type=submit value=Login>
+    </form>
+{% endif %}
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 from werkzeug.contrib.fixers import ProxyFix
-from flask import Flask, session, escape, request, redirect, url_for
+from flask import Flask, session, request, redirect, url_for, render_template
 
-from redsess import RedisSessionInterface
+from session import RedisSessionInterface
 
 
 app = Flask(__name__)
@@ -15,26 +15,25 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 
 def sum_counter():
-    try:
-        session['counter'] += 1
-    except KeyError:
-        session['counter'] = 1
+	try:
+		session['counter'] += 1
+	except KeyError:
+		session['counter'] = 1
 
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        sum_counter()
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
+	if 'username' in session:
+		sum_counter()
+	return render_template('index.html', session=session)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('index'))
-    return '''
+	if request.method == 'POST':
+		session['username'] = request.form['username']
+		return redirect(url_for('index'))
+	return '''
         <form action="" method="post">
             <p><input type=text name=username>
             <p><input type=submit value=Login>

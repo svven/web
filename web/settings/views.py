@@ -15,15 +15,13 @@ settings = Blueprint('settings', __name__, url_prefix='/settings')
 @login_required
 def profile():
 	user = User.query.filter_by(name=current_user.name).first_or_404()
-	form = ProfileForm(obj=user.user_detail,
-	                   email=current_user.email,
+	form = ProfileForm(email=current_user.email,
 	                   role_code=current_user.role_code,
 	                   status_code=current_user.status_code,
 	                   next=request.args.get('next'))
 
 	if form.validate_on_submit():
 		form.populate_obj(user)
-		form.populate_obj(user.user_detail)
 
 		db.session.add(user)
 		db.session.commit()

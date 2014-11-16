@@ -2,7 +2,8 @@
 
 import os
 
-from flask import Flask, render_template
+from flask import Flask, request, render_template
+from flask.ext.babel import Babel
 
 from .config import DefaultConfig
 from .user import User, user
@@ -71,6 +72,14 @@ def configure_extensions(app):
 
 	# flask-cache
 	cache.init_app(app)
+
+	# flask-babel
+	babel = Babel(app)
+
+	@babel.localeselector
+	def get_locale():
+		accept_languages = app.config.get('ACCEPT_LANGUAGES')
+		return request.accept_languages.best_match(accept_languages)
 
 	# flask-login
 	login_manager.login_view = 'frontend.login'

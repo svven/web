@@ -13,6 +13,7 @@ from .api import api
 from .admin import admin
 from .extensions import db, mail, cache, login_manager, oid
 from .utils import INSTANCE_FOLDER_PATH
+from session import RedisSessionInterface
 
 
 # For import *
@@ -43,6 +44,9 @@ def create_app(config=None, app_name=None, blueprints=None):
 	configure_logging(app)
 	configure_template_filters(app)
 	configure_error_handlers(app)
+
+	app.session_interface = RedisSessionInterface()
+	app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 	return app
 

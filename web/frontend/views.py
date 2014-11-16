@@ -103,6 +103,7 @@ def login():
 			remember = request.form.get('remember') == 'y'
 			if login_user(user, remember=remember):
 				flash(_("Logged in"), 'success')
+				session['username'] = request.form['username']
 			return redirect(form.next.data or url_for('user.index'))
 		else:
 			flash(_('Sorry, invalid login'), 'error')

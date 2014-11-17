@@ -37,7 +37,7 @@ class DefaultConfig(BaseConfig):
 	# Flask-Sqlalchemy: http://packages.python.org/Flask-SQLAlchemy/config.html
 	SQLALCHEMY_ECHO = True
 	# SQLITE for prototyping.
-	SQLALCHEMY_DATABASE_URI = 'postgresql://jonwilliams@localhost/svven'
+	SQLALCHEMY_DATABASE_URI = 'postgresql://svven@localhost/svven'
 	# MYSQL for production.
 	# SQLALCHEMY_DATABASE_URI = 'mysql://username:password@server/db?charset=utf8'
 

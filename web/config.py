@@ -4,6 +4,10 @@ import os
 
 from utils import make_dir, INSTANCE_FOLDER_PATH
 
+# Form validation
+USERNAME_LEN_MIN = 4
+USERNAME_LEN_MAX = 25
+
 
 class BaseConfig(object):
 	PROJECT = "web"
@@ -18,7 +22,7 @@ class BaseConfig(object):
 	ADMINS = ['youremail@yourdomain.com']
 
 	# http://flask.pocoo.org/docs/quickstart/#sessions
-	SECRET_KEY = 'secret key'
+	SECRET_KEY = 'hdjahdjashjdhjashdjashasjk'
 
 	LOG_FOLDER = os.path.join(INSTANCE_FOLDER_PATH, 'logs')
 	make_dir(LOG_FOLDER)
@@ -38,8 +42,6 @@ class DefaultConfig(BaseConfig):
 	SQLALCHEMY_ECHO = True
 	# SQLITE for prototyping.
 	SQLALCHEMY_DATABASE_URI = 'postgresql://svven@localhost/svven'
-	# MYSQL for production.
-	# SQLALCHEMY_DATABASE_URI = 'mysql://username:password@server/db?charset=utf8'
 
 	# Flask-babel: http://pythonhosted.org/Flask-Babel/
 	ACCEPT_LANGUAGES = ['zh']

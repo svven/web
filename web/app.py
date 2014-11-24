@@ -2,29 +2,24 @@
 
 import os
 
-from flask import Flask, request, render_template
-from flask.ext.babel import Babel
+from flask import Flask, render_template
 
-from .config import DefaultConfig
-from .user import User, user
-from .settings import settings
-from .frontend import frontend
-from .api import api
-from .admin import admin
+from session import RedisSessionInterface
+from config import DefaultConfig
 from .extensions import db, mail, cache, login_manager, oid
 from .utils import INSTANCE_FOLDER_PATH
-from session import RedisSessionInterface
-
+from .frontend import frontend
+from .auth import user
+from .auth import User
+from .settings import settings
 
 # For import *
 __all__ = ['create_app']
 
 DEFAULT_BLUEPRINTS = (
-	frontend,
-	user,
-	settings,
-	api,
-	admin,
+frontend,
+user,
+settings,
 )
 
 
@@ -38,7 +33,6 @@ def create_app(config=None, app_name=None, blueprints=None):
 
 	app = Flask(app_name, instance_path=INSTANCE_FOLDER_PATH, instance_relative_config=True)
 	configure_app(app, config)
-	configure_hook(app)
 	configure_blueprints(app, blueprints)
 	configure_extensions(app)
 	configure_logging(app)
@@ -46,7 +40,7 @@ def create_app(config=None, app_name=None, blueprints=None):
 	configure_error_handlers(app)
 
 	app.session_interface = RedisSessionInterface()
-	app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
+	app.secret_key = DefaultConfig.SECRET_KEY
 
 	return app
 
@@ -63,8 +57,8 @@ def configure_app(app, config=None):
 	if config:
 		app.config.from_object(config)
 
-		# Use instance folder instead of env variables to make deployment easier.
-		# app.config.from_envvar('%s_APP_CONFIG' % DefaultConfig.PROJECT.upper(), silent=True)
+	# Use instance folder instead of env variables to make deployment easier.
+	# app.config.from_envvar('%s_APP_CONFIG' % DefaultConfig.PROJECT.upper(), silent=True)
 
 
 def configure_extensions(app):
@@ -77,14 +71,6 @@ def configure_extensions(app):
 	# flask-cache
 	cache.init_app(app)
 
-	# flask-babel
-	babel = Babel(app)
-
-	@babel.localeselector
-	def get_locale():
-		accept_languages = app.config.get('ACCEPT_LANGUAGES')
-		return request.accept_languages.best_match(accept_languages)
-
 	# flask-login
 	login_manager.login_view = 'frontend.login'
 	login_manager.refresh_view = 'frontend.reauth'
@@ -93,7 +79,7 @@ def configure_extensions(app):
 	def load_user(id):
 		return User.query.get(id)
 
-	login_manager.setup_app(app)
+	login_manager.init_app(app)
 
 	# flask-openid
 	oid.init_app(app)
@@ -110,10 +96,6 @@ def configure_template_filters(app):
 	@app.template_filter()
 	def pretty_date(value):
 		return pretty_date(value)
-
-	@app.template_filter()
-	def format_date(value, format='%Y-%m-%d'):
-		return value.strftime(format)
 
 
 def configure_logging(app):
@@ -141,7 +123,7 @@ def configure_logging(app):
 
 	# Testing
 	# app.logger.info("testing info.")
-	#app.logger.warn("testing warn.")
+	# app.logger.warn("testing warn.")
 	#app.logger.error("testing error.")
 
 	mail_handler = SMTPHandler(app.config['MAIL_SERVER'],
@@ -156,12 +138,6 @@ def configure_logging(app):
 		'[in %(pathname)s:%(lineno)d]')
 	)
 	app.logger.addHandler(mail_handler)
-
-
-def configure_hook(app):
-	@app.before_request
-	def before_request():
-		pass
 
 
 def configure_error_handlers(app):

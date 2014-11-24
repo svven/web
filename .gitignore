@@ -1,3 +1,6 @@
 .vagrant
 env
 .idea
+web/include
+web/lib
+web/.Python

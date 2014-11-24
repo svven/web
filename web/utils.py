@@ -13,33 +13,6 @@ from datetime import datetime
 # Instance folder path, make it independent.
 INSTANCE_FOLDER_PATH = os.path.join('/tmp', 'instance')
 
-# Form validation
-
-USERNAME_LEN_MIN = 4
-USERNAME_LEN_MAX = 25
-
-REALNAME_LEN_MIN = 4
-REALNAME_LEN_MAX = 25
-
-PASSWORD_LEN_MIN = 6
-PASSWORD_LEN_MAX = 16
-
-AGE_MIN = 1
-AGE_MAX = 300
-
-# Sex type.
-MALE = 1
-FEMALE = 2
-OTHER = 9
-SEX_TYPE = {
-	MALE: u'Male',
-	FEMALE: u'Female',
-	OTHER: u'Other',
-}
-
-# Model
-STRING_LEN = 256
-
 
 def get_current_time():
 	return datetime.utcnow()
@@ -59,13 +32,13 @@ def pretty_date(dt, default=None):
 	diff = now - dt
 
 	periods = (
-		(diff.days / 365, 'year', 'years'),
-		(diff.days / 30, 'month', 'months'),
-		(diff.days / 7, 'week', 'weeks'),
-		(diff.days, 'day', 'days'),
-		(diff.seconds / 3600, 'hour', 'hours'),
-		(diff.seconds / 60, 'minute', 'minutes'),
-		(diff.seconds, 'second', 'seconds'),
+	(diff.days / 365, 'year', 'years'),
+	(diff.days / 30, 'month', 'months'),
+	(diff.days / 7, 'week', 'weeks'),
+	(diff.days, 'day', 'days'),
+	(diff.seconds / 3600, 'hour', 'hours'),
+	(diff.seconds / 60, 'minute', 'minutes'),
+	(diff.seconds, 'second', 'seconds'),
 	)
 
 	for period, singular, plural in periods:

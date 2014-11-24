@@ -2,12 +2,11 @@
 
 from flask_script import Manager
 
-from web import create_app
+from web.app import create_app
 from web.extensions import db
-from web.user import User, ADMIN, ACTIVE
 
 
-app = create_app()
+app = create_app
 manager = Manager(app)
 
 
@@ -24,15 +23,6 @@ def initdb():
 
 	db.drop_all()
 	db.create_all()
-
-	admin = User(
-		name=u'admin',
-		email=u'admin@example.com',
-		password=u'123456',
-		role_code=ADMIN,
-		status_code=ACTIVE)
-	db.session.add(admin)
-	db.session.commit()
 
 
 manager.add_option('-c', '--config',

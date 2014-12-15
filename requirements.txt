@@ -13,8 +13,12 @@ Flask-Login
 Flask-OpenID
 Flask-Script
 Flask-WTF
+WTForms-Alchemy==0.12.8
 Flask-Babel
 psycopg2
+raven
+blinker
+#git+ssh://git@bitbucket.org/svven/database.git@master#egg=svven-database
 
 
 

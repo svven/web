@@ -18,7 +18,6 @@ def profile():
     user = s.query(User).filter_by(name=current_user.name)
     if user is None:
         abort(404)
-    # user = User.query.filter_by(name=current_user.name).first_or_404()
     form = ProfileForm(next=request.args.get('next'))
 
     if form.validate_on_submit():

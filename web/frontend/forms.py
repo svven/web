@@ -21,7 +21,7 @@ class LoginForm(Form):
 class SignupForm(Form):
     next = HiddenField()
     screen_name = StringField(u'Choose your username', [DataRequired(), Length(USERNAME_LEN_MIN, USERNAME_LEN_MAX)],
-                              description=u"Don't worry. you can change it later.")
+                              description=u"Don't worry, you can change it later.")
     name = StringField(u'Please provide your name', [DataRequired(), Length(USERNAME_LEN_MIN, USERNAME_LEN_MAX)],
                        description=u"First name and surname.")
     email = StringField(u'And email please', [DataRequired(), Length(USERNAME_LEN_MIN, USERNAME_LEN_MAX)])

@@ -1,12 +1,29 @@
 """
-Web package.
+Web initialization.
 """
+import config, database, aggregator
 
+from flask_cache import Cache
 # from flask_sqlalchemy import SQLAlchemy
-# db = SQLAlchemy()
 
-# from flask_cache import Cache
-# cache = Cache()
+def init(config_updates=None):
+    """
+    Delayed init to allow config updates.
+    Updates can be passed as param here or set onto `config` upfront.
+    i.e. `config.SETTING = updates.PREFIX_SETTING or updates.SETTING`
+    """
+    if config_updates:
+        config.from_object(config_updates)
 
-# from flask_login import LoginManager
-# login_manager = LoginManager()
+    global db
+
+    ## Database
+    database.init(config)
+    db = database.db # just sqlalchemy
+    # db = SQLAlchemy() # flask_sqlalchemy
+
+    ## Aggregator
+    aggregator.init(config) # delayed init
+
+    # ## Cache
+    # cache = Cache()

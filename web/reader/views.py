@@ -18,8 +18,10 @@ def marks(screen_name):
 
     user = User.query.filter_by(screen_name=screen_name).first()
     if user and user.reader:
-        marks = user.reader.marks.join(Link).\
-            options(contains_eager(Mark.link)).\
+        marks = user.reader.marks.\
+            join(Status, Link).options(
+                contains_eager(Mark.twitter_status),
+                contains_eager(Mark.link)).\
             order_by(Mark.moment.desc()).limit(30)
     else:
         marks = []

@@ -19,6 +19,7 @@ def page():
 
     marks = Mark.query.\
         join(Status, Link, Reader, User).options(
+            contains_eager(Mark.twitter_status),
             contains_eager(Mark.link),
             contains_eager(Mark.reader, Reader.twitter_user)).\
         order_by(Status.created_at.desc()).limit(15)

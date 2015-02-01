@@ -1,9 +1,12 @@
-<div class="link">{% set link = mark.link %}
+{% set link = mark.link %}
+{% set user = user or mark.reader.twitter_user %}
+<div class="link">
 	<h2 class="title">
 		<a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(75, end="...") }}{% endif %}</a>
 	</h2>
 	<p class="site">
 		<span>{{ link.site }}</span>
+		(<a href="{{ mark.twitter_status.url }}">url</a>, <a href="https://twitter.com/{{ user.screen_name}}/status/{{ mark.twitter_status.status_id }}">tweet</a>)
 	</p>{% if link.image_url != none %}
 	<div class="crop">
 		<div><img class="image" src="{{ link.image_url }}" /></div>
@@ -14,8 +17,8 @@
 		</p>{% endif %}
 	</div>
 	<div class="readers">
-		{% set user = user or mark.reader.twitter_user %}
 		<a href="/@{{ user.screen_name }}">
 			<img class="reader" style="margin-top:4px" src="{{ user.profile_image_url}}" title="@{{ user.screen_name }}" /></a>
 	</div>
+	<div class="clearfix pull-right site" style="margin-top:12px">{{ mark.twitter_status.status_id }}</div>
 </div>

@@ -32,6 +32,7 @@
 		</div>
 
 		<div class="footer readers">
+			<hr />
 			{% for reader in readers %}
 			<a href="/@{{ reader.twitter_user.screen_name }}">
 				<img class="reader" style="margin-top:4px" src="{{ reader.twitter_user.profile_image_url}}" title="@{{ reader.twitter_user.screen_name }}" /></a>

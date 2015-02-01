@@ -4,7 +4,7 @@ Web initialization.
 import config, database, aggregator
 
 from flask_cache import Cache
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 def init(config_updates=None):
     """
@@ -19,8 +19,8 @@ def init(config_updates=None):
 
     ## Database
     database.init(config)
-    db = database.db # just sqlalchemy
-    # db = SQLAlchemy() # flask_sqlalchemy
+    # db = database.db # just sqlalchemy
+    db = SQLAlchemy() # flask_sqlalchemy
 
     ## Aggregator
     aggregator.init(config) # delayed init

@@ -13,4 +13,9 @@
 			{{ link.description|striptags|truncate(150, end="...") }}
 		</p>{% endif %}
 	</div>
+	<div class="readers">
+		{% set user = user or mark.reader.twitter_user %}
+		<a href="/@{{ user.screen_name }}">
+			<img class="reader" style="margin-top:4px" src="{{ user.profile_image_url}}" title="@{{ user.screen_name }}" /></a>
+	</div>
 </div>

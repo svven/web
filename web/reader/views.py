@@ -5,18 +5,17 @@ from flask import Blueprint, render_template
 
 from sqlalchemy.orm import joinedload, contains_eager
 
-from database.news import *
-from database.twitter import *
+from database.models import *
 
 reader = Blueprint('reader', __name__)
 
 @reader.route('/@<screen_name>')
 def marks(screen_name):
-    readers = Reader.query.join(User).\
+    readers = Reader.query.join(TwitterUser).\
         options(contains_eager(Reader.twitter_user)).\
-        order_by(User.screen_name).all() # temporary
+        order_by(TwitterUser.screen_name).all() # temporary
 
-    user = User.query.filter_by(screen_name=screen_name).first()
+    user = TwitterUser.query.filter_by(screen_name=screen_name).first()
     if user and user.reader:
         marks = user.reader.marks.\
             join(Status, Link).options(

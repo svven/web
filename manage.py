@@ -10,11 +10,8 @@ manager = Manager(app)
 
 @manager.command
 def run():
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
 
-@manager.command
-def init_db():
-    db.create_all()
 
 ## Static content, temporarily
 import os

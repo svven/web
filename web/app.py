@@ -1,157 +1,54 @@
-# -*- coding: utf-8 -*-
+"""
+Web app factory.
+"""
+import config
+from . import init
 
-import os
+import os.path as path
+import pkgutil, importlib
 
-from flask import Flask, render_template
+from flask import Flask, Blueprint, render_template
 
-from database.auth.models import User
-from database import db
-from session import RedisSessionInterface
-from config import DefaultConfig
-from .extensions import mail, cache, login_manager, oid
-from .utils import INSTANCE_FOLDER_PATH
-from .frontend import frontend
-from .settings import settings
-from .user import user
+__all__ = ['create_app'] # from app import *
 
-# For import *
-__all__ = ['create_app']
+def create_app(config_updates=None):
+    "Create and configure the Flask app."
+    
+    init(config_updates) # delayed init
+    from . import db, assets #, mail, security
 
-DEFAULT_BLUEPRINTS = (
-    frontend,
-    settings,
-    user,
-)
+    package_name = __name__.split('.')[0]
+    app = Flask(package_name)
+    app.config.from_object(config)
 
+    db.init_app(app)
+    assets.init_app(app)
+    # mail.init_app(app)
+    # security.init_app(app)
 
-def create_app(config=None, app_name=None, blueprints=None):
-    """Create a Flask app."""
+    package_path = path.dirname(__file__)
+    register_blueprints(app, package_name, package_path)
 
-    if app_name is None:
-        app_name = DefaultConfig.PROJECT
-    if blueprints is None:
-        blueprints = DEFAULT_BLUEPRINTS
-
-    app = Flask(app_name, instance_path=INSTANCE_FOLDER_PATH, instance_relative_config=True)
-    configure_app(app, config)
-    configure_blueprints(app, blueprints)
-    configure_extensions(app)
-    configure_logging(app)
-    configure_template_filters(app)
-    configure_error_handlers(app)
-
-    app.session_interface = RedisSessionInterface()
-    app.secret_key = DefaultConfig.SECRET_KEY
+    if not app.debug:
+        for e in [403, 404, 500]:
+            app.errorhandler(e)(handle_error)
 
     return app
 
+def handle_error(e):
+    return render_template('errors/%s.html' % e.code), e.code
 
-def configure_app(app, config=None):
-    """Different ways of configurations."""
-
-    # http://flask.pocoo.org/docs/api/#configuration
-    app.config.from_object(DefaultConfig)
-
-    # http://flask.pocoo.org/docs/config/#instance-folders
-    app.config.from_pyfile('production.cfg', silent=True)
-
-    if config:
-        app.config.from_object(config)
-
-
-        # Use instance folder instead of env variables to make deployment easier.
-        # app.config.from_envvar('%s_APP_CONFIG' % DefaultConfig.PROJECT.upper(), silent=True)
-
-
-def configure_extensions(app):
-    # flask-sqlalchemy
-    # db.init_app(app)
-
-    # flask-mail
-    mail.init_app(app)
-
-    # flask-cache
-    cache.init_app(app)
-
-    # flask-login
-    login_manager.login_view = 'frontend.login'
-    login_manager.refresh_view = 'frontend.reauth'
-
-    @login_manager.user_loader
-    def load_user(id):
-        s = db.Session()
-        return s.query(User).get(id)
-
-    login_manager.init_app(app)
-
-    # flask-openid
-    oid.init_app(app)
-
-
-def configure_blueprints(app, blueprints):
-    """Configure blueprints in views."""
-
-    for blueprint in blueprints:
-        app.register_blueprint(blueprint)
-
-
-def configure_template_filters(app):
-    @app.template_filter()
-    def pretty_date(value):
-        return pretty_date(value)
-
-
-def configure_logging(app):
-    """Configure file(info) and email(error) logging."""
-
-    if app.debug or app.testing:
-        # Skip debug and test mode. Just check standard output.
-        return
-
-    import logging
-    from logging.handlers import SMTPHandler
-
-    # Set info level on logger, which might be overwritten by handers.
-    # Suppress DEBUG messages.
-    app.logger.setLevel(logging.INFO)
-
-    info_log = os.path.join(app.config['LOG_FOLDER'], 'info.log')
-    info_file_handler = logging.handlers.RotatingFileHandler(info_log, maxBytes=100000, backupCount=10)
-    info_file_handler.setLevel(logging.INFO)
-    info_file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]')
-    )
-    app.logger.addHandler(info_file_handler)
-
-    # Testing
-    # app.logger.info("testing info.")
-    # app.logger.warn("testing warn.")
-    # app.logger.error("testing error.")
-
-    mail_handler = SMTPHandler(app.config['MAIL_SERVER'],
-                               app.config['MAIL_USERNAME'],
-                               app.config['ADMINS'],
-                               'O_ops... %s failed!' % app.config['PROJECT'],
-                               (app.config['MAIL_USERNAME'],
-                                app.config['MAIL_PASSWORD']))
-    mail_handler.setLevel(logging.ERROR)
-    mail_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]')
-    )
-    app.logger.addHandler(mail_handler)
-
-
-def configure_error_handlers(app):
-    @app.errorhandler(403)
-    def forbidden_page(error):
-        return render_template("errors/forbidden_page.html"), 403
-
-    @app.errorhandler(404)
-    def page_not_found(error):
-        return render_template("errors/page_not_found.html"), 404
-
-    @app.errorhandler(500)
-    def server_error_page(error):
-        return render_template("errors/server_error.html"), 500
+def register_blueprints(app, package_name, package_path):
+    """
+    Register all Blueprint instances on the specified 
+    Flask app found in all modules for the specified package.
+    """
+    rv = []
+    for _, name, _ in pkgutil.iter_modules(path=[package_path]):
+        m = importlib.import_module('%s.%s' % (package_name, name))
+        for item in dir(m):
+            item = getattr(m, item)
+            if isinstance(item, Blueprint):
+                app.register_blueprint(item)
+            rv.append(item)
+    return rv

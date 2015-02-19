@@ -1,36 +1,25 @@
-# -*- coding: utf-8 -*-
+"""
+Web manager.
+"""
+from web.app import *
+app = create_app()
 
 from flask_script import Manager
-
-from web.app import create_app
-from web.extensions import db
-
-
-app = create_app()
 manager = Manager(app)
-app.config['SENTRY_DSN'] = 'http://e2e8239ee0044f7cbe57c2055820cb10:4c55a700f0554e198ce4fcdcc01a66e9@localhost:9000/2'
-# sentry = Sentry(app)
 
 
 @manager.command
 def run():
-    """Run in local machine."""
-
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
 
 
-@manager.command
-def initdb():
-    """Init/reset database."""
+## Static content, temporarily
+import os
+@app.route('/<path:path>')
+def static_proxy(path):
+    # send_static_file will guess the correct MIME type
+    return app.send_static_file(path)
 
-    db.drop_all()
-    db.create_all()
-
-
-manager.add_option('-c', '--config',
-                   dest="config",
-                   required=False,
-                   help="config file")
 
 if __name__ == "__main__":
     manager.run()

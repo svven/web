@@ -1,6 +1,8 @@
 """
 Config settings for web app.
 """
+import os
+
 def from_object(updates):
     "Update same name (or prefixed) settings."
     import sys
@@ -20,4 +22,6 @@ DEBUG = True
 ## SQLAlchemy
 ## http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
 SQLALCHEMY_ECHO = sqlalchemy_echo = True
-SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@localhost/svven'
+
+DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
+SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/svven' % DATABASE_HOST

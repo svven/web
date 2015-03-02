@@ -9,8 +9,34 @@ body {
   height: 100%;
 }
 
+.header {
+  margin-top: 20px;
+}
 .footer {
   /*display: none;*/
+}
+
+/*
+ * Common
+ * --------------------------------------------------
+*/
+.logo {
+  width: 50px;
+  height: 50px;
+}
+.logo .marque-path {
+  fill: #5b5256; /*#292f33*/
+}
+.logo:hover .marque-path {
+  fill: #222222;
+}
+
+.twitter {
+  width: 32px;
+  height: 32px;
+}
+.twitter .marque-path {
+  fill: #cdd6dd; /*#55acee*/
 }
 
 /*
@@ -123,8 +149,8 @@ body {
   font-family: Helvetica,Arial,sans-serif;
   /*font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;*/
   font-weight: 700;
-  font-size: 23px;
-  line-height: 29px;
+  font-size: 24px;
+  line-height: 30px;
   width: auto;
   margin-top: 0;
   /*background: rgba(0, 0, 0, .3);*/
@@ -158,8 +184,8 @@ body {
 
 .reader {
   margin-right: 4px;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -179,12 +205,3 @@ body {
   /* underline */
   /*border-bottom: solid 1px #eee;*/
 }
-
-/*.cycle {
-    display: none;
-    visibility: hidden;
-    }
-    .cycle.show {
-      display: block !important;
-      visibility: visible !important;
-    }*/

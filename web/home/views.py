@@ -21,5 +21,5 @@ def page():
             contains_eager(Mark.link),
             contains_eager(Mark.reader, Reader.twitter_user)).\
         order_by(Status.created_at.desc()).limit(30)
-    return render_template('reader/marks.html',
+    return render_template('news/marks.html',
         marks=marks, readers=readers)

@@ -25,3 +25,14 @@ SQLALCHEMY_ECHO = sqlalchemy_echo = True
 
 DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
 SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/svven' % DATABASE_HOST
+
+## Twitter # @SvvenDotCom
+TWITTER_CONSUMER_KEY = 'Jrp1bcXiSahhWAqn3VJb4fzsg'
+TWITTER_CONSUMER_SECRET = '36xO8Y8YT7Y0hRHDwoULuTU2xyru6cPkCSrRxLoJAzZ3hmxhfS'
+
+OAUTH_CREDENTIALS = {
+    'twitter': {
+        'key': TWITTER_CONSUMER_KEY,
+        'secret': TWITTER_CONSUMER_SECRET
+    }
+}

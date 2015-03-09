@@ -10,3 +10,4 @@ psycopg2==2.5.4
 rauth==0.7.1
 git+ssh://git@bitbucket.org/svven/database.git@master#egg=svven-database # -e ../database
 git+ssh://git@bitbucket.org/svven/aggregator.git@master#egg=svven-aggregator # -e ../aggregator
+git+https://github.com/svven/tweepy.git@master#egg=tweepy # -e ../tweepy

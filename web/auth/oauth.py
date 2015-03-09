@@ -5,6 +5,7 @@ http://blog.miguelgrinberg.com/post/oauth-authentication-with-flask
 from rauth import OAuth1Service, OAuth2Service
 from flask import current_app, url_for, request, redirect, session
 
+from tweepy.models import User
 
 class OAuth(object):
     "Base authentication class."
@@ -65,7 +66,8 @@ class TwitterAuth(OAuth):
             request_token[0], request_token[1],
             data={'oauth_verifier': request.args['oauth_verifier']}
         )
-        user = oauth_session.get('account/verify_credentials.json').json()
+        user = User.parse(None, 
+            oauth_session.get('account/verify_credentials.json').json())
         key = oauth_session.access_token
         secret = oauth_session.access_token_secret
         return user, key, secret

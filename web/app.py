@@ -15,16 +15,14 @@ def create_app(config_updates=None):
     "Create and configure the Flask app."
     
     init(config_updates) # delayed init
-    from . import db, assets #, mail, security
+    from . import bootstrap, db
 
     package_name = __name__.split('.')[0]
     app = Flask(package_name)
     app.config.from_object(config)
 
+    bootstrap.init_app(app)
     db.init_app(app)
-    assets.init_app(app)
-    # mail.init_app(app)
-    # security.init_app(app)
 
     package_path = path.dirname(__file__)
     register_blueprints(app, package_name, package_path)

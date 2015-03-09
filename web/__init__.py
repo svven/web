@@ -3,7 +3,7 @@ Web initialization.
 """
 import config, database, aggregator
 
-from flask_cache import Cache
+from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
 def init(config_updates=None):
@@ -15,15 +15,15 @@ def init(config_updates=None):
     if config_updates:
         config.from_object(config_updates)
 
-    global db
-
-    ## Database
-    database.init(config)
-    # db = database.db # just sqlalchemy
-    db = SQLAlchemy() # flask_sqlalchemy
+    global bootstrap, db #, assets, cache
 
     ## Aggregator
     aggregator.init(config) # delayed init
 
-    # ## Cache
-    # cache = Cache()
+    ## Bootstrap
+    bootstrap = Bootstrap()
+
+    ## Database
+    database.init(config)
+    # db = database.db # just sqlalchemy
+    db = SQLAlchemy() # flask_sqlalchemy    

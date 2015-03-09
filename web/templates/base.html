@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/google.html" as google %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+    <!-- Extra -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/.css')}}">
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+{{google.uanalytics(id=config['GOOGLE_ANALYTICS_ID'],
+                    domain=config['GOOGLE_ANALYTICS_DOMAIN'])}}
+{% endblock %}

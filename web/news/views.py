@@ -23,5 +23,5 @@ def marks(screen_name):
             order_by(Mark.moment.desc()).limit(30)
     else:
         marks = []
-    return render_template('news/marks.html', 
+    return render_template('news/edition.html', 
         user=user, marks=marks, readers=readers)

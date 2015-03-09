@@ -21,8 +21,8 @@ class OAuth(object):
         pass
 
     def get_callback_url(self):
-        return url_for('oauth_callback', 
-            provider=self.provider_name, _external=True)
+        return url_for('.oauth_callback', 
+            provider_name=self.provider_name, _external=True)
 
     providers = None
 
@@ -34,38 +34,6 @@ class OAuth(object):
                 provider = provider_class()
                 self.providers[provider.provider_name] = provider
         return self.providers[provider_name]
-
-
-class FacebookAuth(OAuth):
-    "Facebook authentication."
-    def __init__(self):
-        super(FacebookAuth, self).__init__('facebook')
-        self.service = OAuth2Service(
-            name='facebook',
-            client_id=self.consumer_key,
-            client_secret=self.consumer_secret,
-            authorize_url='https://graph.facebook.com/oauth/authorize',
-            access_token_url='https://graph.facebook.com/oauth/access_token',
-            base_url='https://graph.facebook.com/'
-        )
-
-    def authorize(self):
-        return redirect(self.service.get_authorize_url(
-            scope='email',
-            response_type='code',
-            redirect_uri=self.get_callback_url())
-        )
-
-    def callback(self):
-        if 'code' not in request.args:
-            return None
-        oauth_session = self.service.get_auth_session(
-            data={'code': request.args['code'],
-                  'grant_type': 'authorization_code',
-                  'redirect_uri': self.get_callback_url()}
-        )
-        me = oauth_session.get('me').json()
-        return me
 
 
 class TwitterAuth(OAuth):
@@ -94,9 +62,42 @@ class TwitterAuth(OAuth):
         if 'oauth_verifier' not in request.args:
             return None
         oauth_session = self.service.get_auth_session(
-            request_token[0],
-            request_token[1],
+            request_token[0], request_token[1],
             data={'oauth_verifier': request.args['oauth_verifier']}
         )
-        me = oauth_session.get('account/verify_credentials.json').json()
-        return me
+        user = oauth_session.get('account/verify_credentials.json').json()
+        key = oauth_session.access_token
+        secret = oauth_session.access_token_secret
+        return user, key, secret
+
+
+# class FacebookAuth(OAuth):
+#     "Facebook authentication."
+#     def __init__(self):
+#         super(FacebookAuth, self).__init__('facebook')
+#         self.service = OAuth2Service(
+#             name='facebook',
+#             client_id=self.consumer_key,
+#             client_secret=self.consumer_secret,
+#             authorize_url='https://graph.facebook.com/oauth/authorize',
+#             access_token_url='https://graph.facebook.com/oauth/access_token',
+#             base_url='https://graph.facebook.com/'
+#         )
+#
+#     def authorize(self):
+#         return redirect(self.service.get_authorize_url(
+#             scope='email',
+#             response_type='code',
+#             redirect_uri=self.get_callback_url())
+#         )
+#
+#     def callback(self):
+#         if 'code' not in request.args:
+#             return None
+#         oauth_session = self.service.get_auth_session(
+#             data={'code': request.args['code'],
+#                   'grant_type': 'authorization_code',
+#                   'redirect_uri': self.get_callback_url()}
+#         )
+#         user = oauth_session.get('me').json()
+#         return user #, key, secret

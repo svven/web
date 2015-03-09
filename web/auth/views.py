@@ -1,37 +1,51 @@
 """
 Auth blueprint.
 """
-from flask import Blueprint, current_app
-from flask.ext.login import UserMixin, LoginManager, \
-    login_user, logout_user, current_user
+from flask import Blueprint, render_template, \
+    current_app, request, flash, url_for, redirect, session, abort
+from flask.ext.login import LoginManager, \
+    login_user, login_required, logout_user, current_user
 
 from oauth import OAuth
-from database.auth.models import User as AuthUser
-from database.twitter.models import User as TwitterUser
-
-class User(UserMixin, AuthUser):
-    pass
+from models import User
 
 auth = Blueprint('auth', __name__)
-login = LoginManager(current_app)
+login_manager = LoginManager()
 
-@login.user_loader
+@login_manager.user_loader
 def load_user(id):
-    return User.query.get(id)
+    return User.query.get(int(id))
 
-@auth.route('/authorize/<provider>')
-def oauth_authorize(provider):
+@auth.record_once
+def on_load(state):
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(state.app)
+
+@auth.route('/authorize/<provider_name>')
+def oauth_authorize(provider_name):
     if not current_user.is_anonymous():
-        return redirect(url_for('page'))
-    oauth = OAuthSignIn.get_provider(provider)
+        return redirect(url_for('home.page'))
+    oauth = OAuth.get_provider(provider_name)
     return oauth.authorize()
 
-@auth.route('/callback/<provider>')
-def oauth_callback(provider):
-    # TODO
-    pass
+@auth.route('/callback/<provider_name>')
+def oauth_callback(provider_name):
+    if not current_user.is_anonymous():
+        return redirect(url_for('home.page'))
+    oauth = OAuth.get_provider(provider_name)
+    user_credentials = oauth.callback()
+    if user_credentials is None:
+        return 'Not authorized.'
+    user = User.authenticate(provider_name, *user_credentials)
+    login_user(user, True)
+    return redirect(url_for('home.page'))
+
+@auth.route('/login')
+def login():
+    return redirect(url_for('.oauth_authorize', provider_name='twitter'))
 
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('page'))
+    return 'Logged out.'
+

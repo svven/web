@@ -18,6 +18,8 @@ def from_object(updates):
         if value: setattr(config, key, value)
 
 DEBUG = True
+# SERVER_NAME = 'dev.svven.com'
+SECRET_KEY = '\xc6d\xd4\xbeg\x18V?\xe0\x81\xe5D\x95_\xca02B\x83\t\x07\xb1\x84\x91'
 
 ## SQLAlchemy
 ## http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html

@@ -22,10 +22,9 @@ class User(AuthUser, UserMixin):
             db.session.add(user)
         else: # exists
             user.load(user_data) # update
-            user = db.session.merge(user) # just in case
             if not user.token:
                 user.token = Token(user_id=user_id, key=key, secret=secret)
-            else:
+            else: # update access token
                 user.token.key = key
                 user.token.secret = secret
             if not user.timeline:
@@ -35,14 +34,11 @@ class User(AuthUser, UserMixin):
         if not reader: # new
             reader = Reader(twitter_user_id=user_id)
             db.session.add(reader)
-        db.session.commit() # atomic
         if not reader.auth_user: # new
-            user = User(user_data) # auth_user
-            db.session.add(user)
+            user = AuthUser(user_data) # auth_user
             reader.auth_user = user
         else: # exists
-            user = User.query.get(reader.auth_user.id) # auth_user
-            user.load(user_data) # update
-            user = db.session.merge(user) # just in case
+            reader.auth_user.load(user_data) # update
         db.session.commit() # atomic
+        user = User.query.get(reader.auth_user.id)
         return user

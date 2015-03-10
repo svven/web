@@ -25,5 +25,5 @@ def init(config_updates=None):
 
     ## Database
     database.init(config)
-    # db = database.db # just sqlalchemy
-    db = SQLAlchemy() # flask_sqlalchemy    
+    db = database.db # just sqlalchemy
+    # db = SQLAlchemy() # flask_sqlalchemy    

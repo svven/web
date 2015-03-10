@@ -30,10 +30,12 @@ class User(AuthUser, UserMixin):
                 user.token.secret = secret
             if not user.timeline:
                 user.timeline = Timeline(user_id=user_id)
+        db.session.commit() # atomic
         reader = Reader.query.filter_by(twitter_user_id=user_id).first() # reader
         if not reader: # new
             reader = Reader(twitter_user_id=user_id)
             db.session.add(reader)
+        db.session.commit() # atomic
         if not reader.auth_user: # new
             user = User(user_data) # auth_user
             db.session.add(user)

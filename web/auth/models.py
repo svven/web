@@ -4,6 +4,7 @@ Auth models.
 from flask.ext.login import UserMixin
 
 from .. import db
+from database.news.models import Reader
 from database.auth.models import User as AuthUser
 from database.twitter.models import User as TwitterUser
 

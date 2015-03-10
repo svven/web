@@ -37,7 +37,7 @@ def oauth_callback(provider_name):
     if user_credentials is None:
         return 'Not authorized.'
     user = User.authenticate(provider_name, *user_credentials)
-    login_user(user, True)
+    login_user(user)
     return redirect(url_for('home.page'))
 
 @auth.route('/login')

@@ -19,7 +19,6 @@ class User(AuthUser, UserMixin):
         auth_user = User.register_auth_user(user)
         twitter_user = User.register_twitter_user(user, key, secret)
         news_reader = User.register_news_reader(auth_user, twitter_user)
-        auth_user.reader = news_reader # mixed_reader
         return auth_user
 
     @classmethod
@@ -70,3 +69,8 @@ class User(AuthUser, UserMixin):
         reader.auth_user_id = auth_user.id # anyhow
         db.session.commit()
         return reader # mixed_reader
+
+    
+    @property
+    def reader(self):
+        return MixedReader.query.filter_by(auth_user_id=self.id).one()

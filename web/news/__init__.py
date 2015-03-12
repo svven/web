@@ -1,1 +1,1 @@
-from views import news
+from views import news, edition

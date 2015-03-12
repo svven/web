@@ -1,1 +1,1 @@
-from views import home
+from views import home, page

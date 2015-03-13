@@ -8,6 +8,7 @@ import os.path as path
 import pkgutil, importlib
 
 from flask import Flask, Blueprint, render_template
+# from flask_debugtoolbar import DebugToolbarExtension
 
 __all__ = ['create_app'] # from app import *
 
@@ -23,6 +24,8 @@ def create_app(config_updates=None):
 
     bootstrap.init_app(app)
     db.init_app(app)
+    
+    # toolbar = DebugToolbarExtension(app)
 
     package_path = path.dirname(__file__)
     register_blueprints(app, package_name, package_path)

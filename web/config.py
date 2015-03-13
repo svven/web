@@ -28,6 +28,13 @@ SQLALCHEMY_ECHO = sqlalchemy_echo = True
 DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
 SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/svven' % DATABASE_HOST
 
+## Aggregator
+AGGREGATOR_REDIS_HOST = os.environ.get('AGGREGATOR_REDIS_HOST', 'localhost')
+AGGREGATOR_REDIS_PORT = 6379
+AGGREGATOR_REDIS_DB = 1
+
+AGGREGATOR_BASE_UXTIME = 1420070400 # datetime(2015, 1, 1, 0, 0) # 1
+
 ## Twitter # @SvvenDotCom
 TWITTER_CONSUMER_KEY = 'Jrp1bcXiSahhWAqn3VJb4fzsg'
 TWITTER_CONSUMER_SECRET = '36xO8Y8YT7Y0hRHDwoULuTU2xyru6cPkCSrRxLoJAzZ3hmxhfS'
@@ -39,9 +46,5 @@ OAUTH_CREDENTIALS = {
     }
 }
 
-## Aggregator
-AGGREGATOR_REDIS_HOST = os.environ.get('AGGREGATOR_REDIS_HOST', 'localhost')
-AGGREGATOR_REDIS_PORT = 6379
-AGGREGATOR_REDIS_DB = 1
-
-AGGREGATOR_BASE_UXTIME = 1420070400 # datetime(2015, 1, 1, 0, 0) # 1
+# ## DebugToolbar
+# DEBUG_TB_HOSTS = ('127.0.0.1', )

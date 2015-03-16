@@ -4,9 +4,7 @@
         <a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(75, end="...") }}{% endif %}</a>
     </h2>
     <p class="site">
-        <span>{{ link.site }}</span>{% if status is defined %}
-        <!-- {{ status.status_id }}
-        {{ status.url }} -->{% endif %}
+        <span>{{ link.site }}</span>
     </p>{% if link.image_url != none %}
     <div class="crop">
         <div><img class="image" src="{{ link.image_url }}" /></div>
@@ -16,8 +14,13 @@
             {{ link.description|striptags|truncate(150, end="...") }}
         </p>{% endif %}
     </div>
+    <p class="site debug">{% if status is defined %}
+        <a href="{{ status.url }}">url</a>
+        <a href="https://twitter.com/svvendotcom/status/{{ status.status_id }}">tweet</a>{% endif %}{% if link.relevance is defined %}
+        <span>{{ link.relevance }}</span>{% endif %}
+    </p>
     <div class="readers">
-        {% for fellow in link_fellows %}<a href="/@{{ fellow.screen_name }}/marks">
+        {% for fellow in link_fellows %}<a href="/@{{ fellow.screen_name }}">
             <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>{% endfor %}
     </div>
 </div>

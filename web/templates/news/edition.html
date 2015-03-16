@@ -39,8 +39,9 @@
         <div class="footer readers">
             <hr />
             {% for fellow in fellows %}
-            <a href="/@{{ fellow.screen_name }}/marks">{#{ url_for('news.marks', screen_name=fellow.screen_name) }#}
-                <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>
+            <a href="/@{{ fellow.screen_name }}">{#{ url_for('news.marks', screen_name=fellow.screen_name) }#}
+                <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>{% if fellow.fellowship is defined %}
+            <div class="debug"><span class="site">{{ fellow.fellowship }}</span><br /></div>{% endif %}
             {% endfor %}
             <hr />
         </div>

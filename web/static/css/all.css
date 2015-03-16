@@ -16,6 +16,10 @@ body {
   /*display: none;*/
 }
 
+.debug {
+  display: none !important;
+}
+
 /*
  * Common
  * --------------------------------------------------

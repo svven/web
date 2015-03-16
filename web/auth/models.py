@@ -70,7 +70,13 @@ class User(AuthUser, UserMixin):
         db.session.commit()
         return reader # mixed_reader
 
-    
+
+    def __repr__(self):
+        return '<User (%s): %s>' % (self.id, self.screen_name)
+
     @property
     def reader(self):
-        return MixedReader.query.filter_by(auth_user_id=self.id).one()
+        # return MixedReader.query.filter_by(auth_user_id=self.id).one()
+        base_reader = super(User, self).reader
+        base_reader.__class__ = MixedReader
+        return base_reader # cached

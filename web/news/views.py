@@ -12,7 +12,7 @@ news = Blueprint('news', __name__)
 @news.route('/@<screen_name>/marks')
 def marks(screen_name):
     reader = MixedReader.query.\
-        join(TwitterUser).options(
+        outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
         filter(TwitterUser.screen_name == screen_name).first()
     if not reader:
@@ -29,7 +29,7 @@ def marks(screen_name):
 @news.route('/@<screen_name>/edition')
 def edition(screen_name):
     reader = MixedReader.query.\
-        join(TwitterUser).options(
+        outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
         filter(TwitterUser.screen_name == screen_name).first()
     if not reader:

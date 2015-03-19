@@ -16,7 +16,7 @@ def marks(screen_name):
     reader = MixedReader.query.\
         outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
-        filter(TwitterUser.screen_name == screen_name).first()
+        filter(TwitterUser.screen_name.ilike(screen_name)).first()
     if not reader:
         abort(404)
     
@@ -34,7 +34,7 @@ def edition(screen_name):
     reader = MixedReader.query.\
         outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
-        filter(TwitterUser.screen_name == screen_name).first()
+        filter(TwitterUser.screen_name.ilike(screen_name)).first()
     if not reader:
         abort(404)
     

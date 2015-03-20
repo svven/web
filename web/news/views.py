@@ -8,8 +8,12 @@ from sqlalchemy.orm import joinedload, contains_eager
 
 from database.models import *
 from aggregator.mixes import *
+from aggregator.utils import munixtime
 
 news = Blueprint('news', __name__)
+
+import datetime
+timeago = lambda **kvargs: datetime.datetime.utcnow() - datetime.timedelta(**kvargs)
 
 @news.route('/@<screen_name>')
 def marks(screen_name):
@@ -38,7 +42,9 @@ def edition(screen_name):
     if not reader:
         abort(404)
     
-    reader.aggregate() # temp
+    # reader.aggregate() # temp
+    reader.set_fellows()
+    reader.set_edition(moment_min=munixtime(timeago(days=7)))
     
     # fellows = reader.fellows.all()
     fellows_ids = {fid[0]: fid[1] for fid in reader.get_fellows(withscores=True)}

@@ -3,22 +3,24 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="page-header header" style="border:0">
-            <div class="pull-left">
-                <a href="/" ><div class="logo">
+        <div class="navbar" role="navigation">
+            <div class="navbar-header navbar-left">
+                <a href="/"><div class="logo">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
                         L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" class="marque-path" />
-                    </svg>
-                </div></a>
-            </div>
-            <div class="pull-right">
-            {% if reader %}
-                <a href="/@{{ reader.screen_name }}">
+                    </svg></div>
+                </a>
+            </div>{% if reader %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#edition">
+                    <span>edition</span></a>
+                <li><a href="#fellows">
+                    <span>fellows</span></a>
+                <li><a href="/@{{ reader.screen_name }}">
                     <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" /></a>
-            {% endif %}
-            </div>
-            <div class="clearfix" />
+                </li>
+            </ul>{% endif %}
         </div>
 
         <div class="page-content">

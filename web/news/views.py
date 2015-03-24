@@ -13,7 +13,8 @@ from aggregator.utils import munixtime
 news = Blueprint('news', __name__)
 
 import datetime
-timeago = lambda **kvargs: datetime.datetime.utcnow() - datetime.timedelta(**kvargs)
+timeago = lambda **kvargs:\
+    datetime.datetime.utcnow() - datetime.timedelta(**kvargs)
 
 @news.route('/@<screen_name>')
 def marks(screen_name):

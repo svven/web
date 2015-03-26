@@ -3,8 +3,8 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="navbar" role="navigation">
-            <div class="navbar-header navbar-left">
+        <div id="header">
+            <div class="brand pull-left">
                 <a href="/"><div class="logo">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
@@ -12,18 +12,28 @@
                     </svg></div>
                 </a>
             </div>{% if reader %}
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="menu list-unstyled pull-right">{% if edition is defined %}
                 <li><a href="#edition">
-                    <span>edition</span></a>
+                    <span class="glyphicon glyphicon-th-large"></span></a>
                 <li><a href="#fellows">
-                    <span>fellows</span></a>
-                <li><a href="/@{{ reader.screen_name }}">
+                    <span class="glyphicon glyphicon-user"></span></a>{% endif %}
+                <li><a href="/@{{ reader.screen_name }}/">
                     <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" /></a>
                 </li>
             </ul>{% endif %}
         </div>
 
-        <div class="page-content">
+        <div id="fellows">
+            <div class="row">
+                <ul class="list-unstyled">{% for fellow in fellows %}
+                    <li>{% include "news/fellow.html" %}
+                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+                    </li>{% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div id="edition">
             <div class="row">
                 <ul class="list-unstyled">
                 {% if edition is defined %}{% for link in edition %}{% set link_fellows = link.fellows %}
@@ -36,16 +46,6 @@
                     </li>{% endfor %}{% endif %}
                 </ul>
             </div>
-        </div>
-
-        <div class="footer readers">
-            <hr />
-            {% for fellow in fellows %}
-            <a href="/@{{ fellow.screen_name }}">{#{ url_for('news.marks', screen_name=fellow.screen_name) }#}
-                <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>{% if fellow.fellowship is defined %}
-            <div class="debug"><span class="site">{{ fellow.fellowship }}</span><br /></div>{% endif %}
-            {% endfor %}
-            <hr />
         </div>
     </div>
 {% endblock %}

@@ -14,43 +14,73 @@ body {
 }
 
 /*
- * Navbar
+ * Header
  * --------------------------------------------------
 */
-.navbar {
-  margin: 0;
-  min-height: 0;
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 70px;
+  background-color: rgba(255,255,255,0.9);
+  border-bottom: solid 1px #eee;
 }
-  .navbar .logo {
-    width: 60px;
-    height: 60px;
+  #header > * {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
-    .navbar .logo .marque-path {
-      fill: #5b5256; /*#292f33*/
-    }
-    .navbar .logo:hover .marque-path {
-      fill: #222222;
-    }
-  .navbar .reader {
+
+.brand {
+}
+  .brand .logo {
+    width: 50px;
+    height: 50px;
+  }
+.menu {
+}
+  .menu .reader {
     width: 38px;
     height: 38px;
   }
-
-.navbar-header {
-  padding-top: 8px;
-}
-.navbar-nav {
-  padding-top: 16px;
-}
-  .navbar-nav li a {
-    padding-top: 0;
-    padding-bottom: 0;
+  .menu .glyphicon {
+    font-size: 16px;
+    padding: 10px;
+    color: #5b5256;
+    border-color: #cccccc;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
   }
-  .navbar-nav li a:hover,
-  .navbar-nav li a:focus {
-    background-color: transparent;
-  }
+    .menu li {
+      float: left;
+      margin-left: 15px;
+    }
+    .menu li a:hover .glyphicon {
+      color: #222222;
+      border-color: #999999;
+    }
+    .menu li a:focus .glyphicon {
+      color: red;
+      background-color: #222222;
+    }
 
+/*
+ * Icons
+ * --------------------------------------------------
+*/
+.logo .marque-path {
+  fill: #5b5256;
+}
+.logo:hover .marque-path {
+  fill: #222222;
+}
 /*.twitter {
   width: 32px;
   height: 32px;
@@ -58,20 +88,28 @@ body {
 .twitter .marque-path {
   fill: #cdd6dd;
 }*/
+.reader {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
 
 /*
  * Container Fluid
  * --------------------------------------------------
 */
 .container-fluid {
+  position: relative;
   min-width: 320px;
   max-width: 1080px;
-  padding-left: 40px;
-  padding-right: 40px;
 }
+  .container-fluid > * {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 
 @media (max-width: 480px) {
-  .container-fluid {
+  .container-fluid > * {
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -92,7 +130,7 @@ body {
     display: block !important;
   }
 
-  .link {
+  .link, .fellow {
     width: 100%; /*1 col*/
   }
 }
@@ -102,7 +140,7 @@ body {
     display: block !important;
   }
 
-  .link {
+  .link, .fellow {
     width: 50%; /*2 cols*/
   }
 }
@@ -112,15 +150,25 @@ body {
     display: block !important;
   }
 
-  .link {
+  .link, .fellow {
     width: 33.3333%; /*3 cols*/
   }
 }
 
 /*
- * Article
+ * Edition
  * --------------------------------------------------
 */
+#edition {
+  position: absolute;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  /* display: none; */
+}
+  #edition:target {
+    display: block;
+  }
+
 .link {
   font-family: Georgia;
   position: relative;
@@ -131,6 +179,17 @@ body {
   word-wrap: break-word;
   line-break: loose;
 }
+  .link .reader {
+    width: 32px;
+    height: 32px;
+  }
+  .link + .clearfix {
+    margin: 0 15px;
+    /* underline */
+    /* padding-bottom: 15px; */
+    /* border-bottom: solid 1px #eee; */
+  }
+
 
 .crop {
   float: right;
@@ -194,29 +253,59 @@ body {
   color: #333333;
 }
 
-.reader {
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
+.readers a {
+  margin-top: 4px;
+  margin-right: 4px;
 }
 
-.readers {
-  clear: both;
-  float: left;
-  margin-top: 4px;
+/*
+ * Fellows
+ * --------------------------------------------------
+*/
+#fellows {
+  /* position: absolute; */
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: none;
 }
-  .readers a:hover {
+  #fellows:target {
+    display: block;
+  }
+  #fellows:target + #edition {
+    display: none;
+  }
+
+.fellow {
+  position: relative;
+  float: left;
+  margin-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+  .fellow a {
+    float: left;
+  }
+  .fellow a:hover {
     text-decoration: none;
   }
-  .readers .reader {
-    margin-top: 4px;
-    margin-right: 4px;
-    width: 32px;
-    height: 32px;
+  .fellow .pic {
+    float: left;
+    margin-right: 10px;
   }
-
-.link + .clearfix {
-  margin: 0 15px;
-  /* underline */
-  /*border-bottom: solid 1px #eee;*/
-}
+    .fellow .reader {
+      width: 48px;
+      height: 48px;
+    }
+  .fellow .info {
+    float: left;
+  }
+    .fellow .name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #5b5256;
+    }
+    .fellow .screen_name {
+      line-height: 28px;
+      padding-top: 5px;
+      color: #999999;
+    }

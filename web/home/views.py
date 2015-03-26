@@ -11,8 +11,7 @@ from aggregator.mixes import *
 
 home = Blueprint('home', __name__)
 
-# @home.route('/')
-@home.route('/edition')
+@home.route('/')
 @login_required
 def page():
     # return "Hey %s." % current_user.screen_name

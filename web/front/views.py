@@ -13,10 +13,14 @@ front = Blueprint('front', __name__)
 
 @front.route('/')
 def page():
-    # if current_user.is_authenticated():
+    if current_user.is_authenticated():
         # return redirect(url_for('home.page'))
-        # return home.page() # @login_required
-    
+        return home.page() # @login_required
+    else:
+        return breaking()
+
+@front.route('/breaking')
+def breaking():
     # readers = Reader.query.join(TwitterUser).\
         # options(contains_eager(Reader.twitter_user)).\
         # order_by(TwitterUser.screen_name).all() # temporary

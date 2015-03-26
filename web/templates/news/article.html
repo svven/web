@@ -19,8 +19,9 @@
         <a href="https://twitter.com/svvendotcom/status/{{ status.status_id }}">tweet</a>{% endif %}{% if link.relevance is defined %}
         <span>{{ link.relevance }}</span>{% endif %}
     </p>
-    <div class="readers">
-        {% for fellow in link_fellows %}<a href="/@{{ fellow.screen_name }}">
+    <div class="clearfix"></div>
+    <div class="readers">{% for fellow in link_fellows %}
+        <a href="/@{{ fellow.screen_name }}/">
             <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>{% endfor %}
     </div>
 </div>

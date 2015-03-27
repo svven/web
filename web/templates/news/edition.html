@@ -8,18 +8,29 @@
                 <a href="/"><div class="logo">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
-                        L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" class="marque-path" />
+                        L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
                     </svg></div>
                 </a>
             </div>{% if reader %}
             <ul class="menu list-unstyled pull-right">{% if edition is defined %}
-                <li><a href="#edition">
-                    <span class="glyphicon glyphicon-th-large"></span></a>
-                <li><a href="#fellows">
-                    <span class="glyphicon glyphicon-user"></span></a>{% endif %}
+                <li><a href="#edition"><div class="edition icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                    <rect x="94.722" y="39.852" width="42.015" height="42.015" />
+                    <rect x="39.722" y="94.852" width="42.015" height="42.015" />
+                    <rect x="39.722" y="39.852" width="42.015" height="42.015" />
+                    <rect x="94.722" y="94.852" width="42.015" height="42.015" />
+                    </svg>
+                    </div></a></li>
+                <li><a href="#fellows"><div class="fellows icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                    <circle cx="60.729" cy="60.859" r="21.034"/>
+                    <circle cx="115.729" cy="60.915" r="21.033"/>
+                    <circle cx="88" cy="102.981" r="21.033"/>
+                    </svg>
+                    </div></a></li>{% endif %}
                 <li><a href="/@{{ reader.screen_name }}/">
-                    <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" /></a>
-                </li>
+                    <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" />
+                    </a></li>
             </ul>{% endif %}
         </div>
 

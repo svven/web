@@ -40,6 +40,10 @@ body {
   .brand .logo {
     width: 50px;
     height: 50px;
+    fill: #5b5256;
+  }
+  .brand .logo:hover {
+    fill: #222222;
   }
 .menu {
 }
@@ -47,10 +51,10 @@ body {
     width: 38px;
     height: 38px;
   }
-  .menu .glyphicon {
-    font-size: 16px;
-    padding: 10px;
-    color: #5b5256;
+  .menu .icon {
+    width: 36px;
+    height: 36px;
+    fill: #5b5256;
     border-color: #cccccc;
     border-width: 1px;
     border-style: solid;
@@ -58,29 +62,15 @@ body {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
   }
+    .menu .icon:hover {
+      fill: #222222;
+      border-color: #999999;
+    }
     .menu li {
       float: left;
       margin-left: 15px;
     }
-    .menu li a:hover .glyphicon {
-      color: #222222;
-      border-color: #999999;
-    }
-    .menu li a:focus .glyphicon {
-      color: red;
-      background-color: #222222;
-    }
 
-/*
- * Icons
- * --------------------------------------------------
-*/
-.logo .marque-path {
-  fill: #5b5256;
-}
-.logo:hover .marque-path {
-  fill: #222222;
-}
 /*.twitter {
   width: 32px;
   height: 32px;
@@ -88,6 +78,7 @@ body {
 .twitter .marque-path {
   fill: #cdd6dd;
 }*/
+
 .reader {
   border-radius: 50%;
   -webkit-border-radius: 50%;

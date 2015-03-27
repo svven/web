@@ -52,10 +52,10 @@ body {
     height: 38px;
   }
   .menu .icon {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     fill: #5b5256;
-    border-color: #cccccc;
+    border-color: #dddddd;
     border-width: 1px;
     border-style: solid;
     border-radius: 50%;
@@ -64,7 +64,7 @@ body {
   }
     .menu .icon:hover {
       fill: #222222;
-      border-color: #999999;
+      border-color: #aaaaaa;
     }
     .menu li {
       float: left;

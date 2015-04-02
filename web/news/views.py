@@ -1,7 +1,6 @@
 """
 News blueprint.
 """
-from operator import attrgetter
 from flask import Blueprint, render_template, abort
 from flask.ext.login import login_required
 from sqlalchemy.orm import joinedload, contains_eager
@@ -30,21 +29,13 @@ def edition(screen_name):
     reader.set_fellows()
     reader.set_edition(moment_min=munixtime(timeago(days=1)))
     
-    # fellows = reader.fellows.all()
-    fellows_ids = {fid[0]: fid[1] for fid in reader.get_fellows(withscores=True)}
-    fellows = MixedReader.query.filter(MixedReader.id.in_(fellows_ids.keys())).all()
-    for f in fellows: f.fellowship = fellows_ids[str(f.id)]
-    fellows.sort(key=attrgetter('fellowship'), reverse=True)
-    
-    # edition = reader.edition.all()
-    edition_ids = {nid[0]: nid[1] for nid in reader.get_edition(withscores=True)}
-    edition = MixedLink.query.filter(MixedLink.id.in_(edition_ids.keys())).all()
-    for n in edition: n.relevance = edition_ids[str(n.id)]
-    edition.sort(key=attrgetter('relevance'), reverse=True)
+    fellows = reader.fellows
+    edition = reader.edition
     
     for link in edition:
         markers_ids = link.get_markers()
         link.fellows = [f for f in fellows if str(f.id) in markers_ids]
+    
     return render_template('news/edition.html', 
         reader=reader, edition=edition, fellows=fellows)
 

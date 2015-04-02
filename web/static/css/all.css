@@ -255,8 +255,10 @@ body {
 }
 
 .readers a {
-  margin-top: 4px;
   margin-right: 4px;
+}
+.readers .reader {
+  margin-top: 4px;
 }
 
 /*

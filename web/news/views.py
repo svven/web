@@ -32,9 +32,9 @@ def edition(screen_name):
     fellows = reader.fellows
     edition = reader.edition
     
+    fellows_dict = {str(f.id): f for f in fellows}
     for link in edition:
-        markers_ids = link.get_markers()
-        link.fellows = [f for f in fellows if str(f.id) in markers_ids]
+        link.fellows = [fellows_dict[fid] for fid in link.fellows_ids]
     
     return render_template('news/edition.html', 
         reader=reader, edition=edition, fellows=fellows)

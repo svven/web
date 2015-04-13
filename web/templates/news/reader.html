@@ -1,34 +1,53 @@
 ﻿{% extends "base.html" %}
-{% block title %}{% if reader %}@{{ reader.screen_name }}{% else %}Svven{% endif %}{% endblock %}
+{% block title %}@{{ reader.screen_name }}{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div id="header">
             <div class="brand pull-left">
-                <a href="/"><div class="logo">
+                <a href="/"><div class="logo" title="Svven">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
                         L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
                     </svg></div>
                 </a>
-            </div>{% if reader %}
-            <ul class="menu list-unstyled pull-right">{% if edition is defined %}
-                <li><a href="#edition"><div class="icon">
+            </div>
+            <ul class="menu list-unstyled pull-right">
+                <li><a href="#edition"><div class="icon" title="#edition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <path d="m124.537,52.052l0,72.748l-72.615,0l0,-72.748l72.615,0m12.2,-12.2l-97.015,0l0,97.148l97.01601,0l0,-97.148l-0.00101,0z" />
+                    <rect x="39.5" y="39.5" width="97" height="97"/>
                     </svg>
                     </div></a></li>
-                <li><a href="#fellows"><div class="icon">
+                <li><a href="#fellows"><div class="icon" title="#fellows">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <path d="m88.229,52.052c20.021,0 36.30799,16.288 36.30799,36.308c0,20.021 -16.28699,36.308 -36.30799,
-                        36.308c-20.02,0 -36.30799,-16.28701 -36.30799,-36.308c0.001,-20.021 16.288,-36.308 36.30799,-36.308m0,-12.2c-26.79,0 -48.508,
-                        21.718 -48.508,48.508s21.718,48.508 48.508,48.508s48.508,-21.71799 48.508,-48.508s-21.717,-48.508 -48.508,-48.508l0,0z" />
+                    <circle cx="88" cy="88" r="48.5"/>
                     </svg>
-                    </div></a></li>{% endif %}
-                <li><a href="/@{{ reader.screen_name }}/">
+                    </div></a></li>
+                <li><a href="#marks"><div class="icon" title="#marks">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                    <!-- <polygon points="88,39.5 100.039,76.549 
+                    138.995,76.551 107.48,99.449 119.518,136.5 88,113.603 56.483,136.5 68.52,99.449 37.004,76.551 75.96,76.549  "/> -->
+                    <polygon points="88,39.5 103.758,71.431 138.997,76.551 
+                    113.498,101.404 119.517,136.5 88,119.931 56.482,136.5 62.501,101.404 37.003,76.551 72.241,71.431    "/>
+                    </svg>
+                    </div></a></li>
+            </ul>
+            <div class="profile pull-center">
+                <a href="/@{{ reader.screen_name }}/">
                     <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" />
-                    </a></li>
-            </ul>{% endif %}
+                    </a>
+            </div>
+        </div>
+
+        <div id="marks">
+            <div class="row">
+                <ul class="list-unstyled">
+                {% if marks is defined %}{% for link in marks %}{% set link_fellows = [reader] %}
+                    <li>{% include "news/link.html" %}
+                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+                    </li>{% endfor %}{% endif %}
+                </ul>
+            </div>
         </div>
 
         <div id="fellows">
@@ -45,11 +64,7 @@
             <div class="row">
                 <ul class="list-unstyled">
                 {% if edition is defined %}{% for link in edition %}{% set link_fellows = link.fellows %}
-                    <li>{% include "news/article.html" %}
-                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}{% endif %}
-                {% if marks is defined %}{% for mark in marks %}{% set link = mark.link %}{% set link_fellows = [mark.reader] %}{% set status = mark.twitter_status %}
-                    <li>{% include "news/article.html" %}
+                    <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}{% endif %}
                 </ul>

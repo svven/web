@@ -9,6 +9,10 @@ body {
   height: 100%;
 }
 
+.pull-center {
+  margin: 0 50% !important;
+}
+
 .debug {
   display: none !important;
 }
@@ -49,30 +53,35 @@ body {
   .brand .logo:hover {
     fill: #222222;
   }
+.profile {
+}
+  .profile .reader {
+    width: 48px;
+    height: 48px;
+  }
 .menu {
 }
-  .menu .reader {
-    width: 38px;
-    height: 38px;
-  }
   .menu .icon {
-    width: 38px;
-    height: 38px;
-    fill: #5b5256;
-    border-color: #dddddd;
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: #5b5256;
+    stroke-width: 13;
+    stroke-miterlimit: 10;
+    /*border-color: #dddddd;
     border-width: 1px;
     border-style: solid;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
+    -moz-border-radius: 50%;*/
   }
     .menu .icon:hover {
-      fill: #222222;
-      border-color: #aaaaaa;
+      stroke: #222222;
+      /*border-color: #aaaaaa;*/
     }
     .menu li {
       float: left;
-      margin-left: 15px;
+      margin-left: 10px;
     }
 
 /*.twitter {
@@ -160,7 +169,7 @@ body {
   position: absolute;
   padding-top: 70px;
   padding-bottom: 70px;
-  /* display: none; */
+  display: none; 
 }
   #edition:target {
     display: block;
@@ -312,3 +321,18 @@ body {
       padding-top: 5px;
       color: #999999;
     }
+
+/*
+ * Marks
+ * --------------------------------------------------
+*/
+#marks {
+  position: absolute;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: none; 
+}
+  #marks:target {
+    display: block;
+  }
+

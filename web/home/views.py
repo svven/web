@@ -16,4 +16,4 @@ home = Blueprint('home', __name__)
 def page():
     # return "Hey %s." % current_user.screen_name
     
-    return news.edition(current_user.screen_name)
+    return news.reader(current_user.screen_name)

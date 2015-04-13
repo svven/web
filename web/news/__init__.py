@@ -1,1 +1,1 @@
-from views import news, edition
+from views import news, reader

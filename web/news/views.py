@@ -17,13 +17,20 @@ timeago = lambda **kvargs:\
 
 @news.route('/@<screen_name>/')
 @login_required
-def edition(screen_name):
+def reader(screen_name):
     reader = MixedReader.query.\
         outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
         filter(TwitterUser.screen_name.ilike(screen_name)).first()
     if not reader:
         abort(404)
+
+    # marks = reader.marks.\
+    #     join(Status, Link).options(
+    #         contains_eager(Mark.twitter_status),
+    #         contains_eager(Mark.link)).\
+    #     order_by(Mark.moment.desc()).limit(30)
+    marks = reader.marks
     
     # reader.aggregate() # temp
     reader.set_fellows()
@@ -36,22 +43,5 @@ def edition(screen_name):
     for link in edition:
         link.fellows = [fellows_dict[fid] for fid in link.fellows_ids]
     
-    return render_template('news/edition.html', 
-        reader=reader, edition=edition, fellows=fellows)
-
-@news.route('/@<screen_name>/marks')
-def marks(screen_name):
-    reader = MixedReader.query.\
-        outerjoin(TwitterUser).options(
-            contains_eager(MixedReader.twitter_user)).\
-        filter(TwitterUser.screen_name.ilike(screen_name)).first()
-    if not reader:
-        abort(404)
-    
-    marks = reader.marks.\
-        join(Status, Link).options(
-            contains_eager(Mark.twitter_status),
-            contains_eager(Mark.link)).\
-        order_by(Mark.moment.desc()).limit(30)
-    return render_template('news/edition.html', 
-        reader=reader, marks=marks)
+    return render_template('news/reader.html', 
+        reader=reader, edition=edition, fellows=fellows, marks=marks)

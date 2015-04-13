@@ -17,10 +17,10 @@ def page():
         # return redirect(url_for('home.page'))
         return home.page() # @login_required
     else:
-        return breaking()
+        return latest()
 
-@front.route('/breaking')
-def breaking():
+@front.route('/latest')
+def latest():
     # readers = Reader.query.join(TwitterUser).\
         # options(contains_eager(Reader.twitter_user)).\
         # order_by(TwitterUser.screen_name).all() # temporary
@@ -30,5 +30,5 @@ def breaking():
             contains_eager(Mark.link),
             contains_eager(Mark.reader, Reader.twitter_user)).\
         order_by(Status.created_at.desc()).limit(30)
-    return render_template('news/edition.html', 
-        marks=marks) #, fellows=readers
+    return render_template('news/latest.html', 
+        marks=marks)

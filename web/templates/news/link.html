@@ -14,11 +14,11 @@
             {{ link.description|striptags|truncate(150, end="...") }}
         </p>{% endif %}
     </div>
-    <p class="site debug">{% if status is defined %}
+    <!-- <p class="site debug">{% if status is defined %}
         <a href="{{ status.url }}">url</a>
         <a href="https://twitter.com/svvendotcom/status/{{ status.status_id }}">tweet</a>{% endif %}{% if link.relevance is defined %}
         <span>{{ link.relevance }}</span>{% endif %}
-    </p>
+    </p> -->
     <div class="clearfix"></div>
     <div class="readers">{% for fellow in link_fellows %}
         <a href="/@{{ fellow.screen_name }}/">

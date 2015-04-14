@@ -39,6 +39,9 @@ body {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
+.noheader {
+  top: -70px !important; /* #header height */
+}
 
 .brand {
 }

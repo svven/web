@@ -12,14 +12,16 @@
                     </svg></div>
                 </a>
             </div>
-            <ul class="menu list-unstyled pull-right">
-                <li><a href=""><div class="icon">
+            <div class="pull-right enable-sm enable-md">
+                <a href="javascript:void(0)" rel="popover" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true"><div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <line x1="39.5" y1="123.5" x2="136.5" y2="123.5"/>
                     <line x1="39.5" y1="88" x2="136.5" y2="88"/>
                     <line x1="39.5" y1="52.5" x2="136.5" y2="52.5"/>
                     </svg>
-                    </div></a></li>
+                    </div></a>
+            </div>
+            <ul class="context menu list-unstyled pull-right enable-lg">
                 <li><a href="#edition"><div class="icon" title="#edition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <rect x="39.5" y="39.5" width="97" height="97"/>
@@ -76,4 +78,17 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+    <script>
+    $('[data-toggle="popover"]').popover({
+        content: function() {
+            var context = $('.context').clone();
+            context.removeClass('menu pull-right enable-lg');
+            return context;
+        }
+    });
+    </script>
 {% endblock %}

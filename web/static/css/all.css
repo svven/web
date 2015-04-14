@@ -62,8 +62,8 @@ body {
 .menu {
 }
   .menu .icon {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     fill: none;
     stroke: #5b5256;
     stroke-width: 13;
@@ -264,10 +264,10 @@ body {
 }
 
 .readers a {
-  margin-right: 4px;
+  margin-right: 10px;
 }
 .readers .reader {
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 /*

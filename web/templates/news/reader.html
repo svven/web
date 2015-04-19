@@ -48,20 +48,6 @@
             </div>
         </div>
 
-        <div id="profile" class="section">
-            <div class="row">
-                <div class="details center-block text-center">
-                    <h1 class="name">{{ reader.name }}</h1>
-                    <p class="screen_name">@{{ reader.screen_name }}</p>
-                </div>
-                <ul class="list-unstyled">
-                    <li>#edition</li>
-                    <li>#fellows</li>
-                    <li>#marks</li>
-                </ul>
-            </div>
-        </div>
-
         <div id="edition" class="section">
             <div class="row">{% if edition %}
                 <ol class="list-unstyled">{% for link in edition %}
@@ -98,6 +84,20 @@
                 </ol>{% else %}
                 <h2>No marks.</h2>
                 {% endif %}
+            </div>
+        </div>
+
+        <div id="profile" class="section">
+            <div class="row">
+                <div class="details center-block text-center">
+                    <h1 class="name">{{ reader.name }}</h1>
+                    <p class="screen_name">@{{ reader.screen_name }}</p>
+                </div>
+                <ul class="list-unstyled">
+                    <li>#edition</li>
+                    <li>#fellows</li>
+                    <li>#marks</li>
+                </ul>
             </div>
         </div>
 

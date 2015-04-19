@@ -1,12 +1,12 @@
 
 <div class="fellow">
     <a href="/@{{ fellow.screen_name }}/">
-        <div class="pic">
-            <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
+        <div class="mug mug-lg">
+            <img class="pic" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
         </div>
-        <div class="info">
-            <span class="name">{{ fellow.name }}</span><br />
-            <span class="screen_name">@{{ fellow.screen_name }}</span>
+        <div class="details">
+            <p class="name">{{ fellow.name }}</p>
+            <p class="screen_name">@{{ fellow.screen_name }}</p>
         </div>
         <!-- <div class="site debug">
             <span>{{ fellow.fellowship }}</span>

@@ -22,6 +22,9 @@
     <div class="clearfix"></div>
     <div class="readers">{% for fellow in link_fellows %}
         <a href="/@{{ fellow.screen_name }}/">
-            <img class="reader" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" /></a>{% endfor %}
+            <span class="mug-sm">
+                <img class="pic" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
+            </span>
+        </a>{% endfor %}
     </div>
 </div>

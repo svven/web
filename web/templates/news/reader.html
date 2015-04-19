@@ -39,44 +39,68 @@
                     </svg>
                     </div></a></li>
             </ul>
-            <div class="profile pull-center">
+            <div class="mugshot pull-center">
                 <a href="/@{{ reader.screen_name }}/">
-                    <img class="reader" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" />
-                    </a>
+                    <div class="mug-md">
+                        <img class="pic" src="{{ reader.profile_image_url}}" title="@{{ reader.screen_name }}" />
+                    </div>
+                </a>
             </div>
         </div>
 
-        <div id="marks">
+        <div id="profile" class="section">
             <div class="row">
+                <div class="details center-block text-center">
+                    <h1 class="name">{{ reader.name }}</h1>
+                    <p class="screen_name">@{{ reader.screen_name }}</p>
+                </div>
                 <ul class="list-unstyled">
-                {% if marks is defined %}{% for link in marks %}{% set link_fellows = [reader] %}
-                    <li>{% include "news/link.html" %}
-                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}{% endif %}
+                    <li>#edition</li>
+                    <li>#fellows</li>
+                    <li>#marks</li>
                 </ul>
             </div>
         </div>
 
-        <div id="fellows">
-            <div class="row">
-                <ul class="list-unstyled">{% for fellow in fellows %}
+        <div id="edition" class="section">
+            <div class="row">{% if edition %}
+                <ol class="list-unstyled">{% for link in edition %}
+                {% set link_fellows = link.fellows %}
+                    <li>{% include "news/link.html" %}
+                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+                    </li>{% endfor %}
+                </ol>{% else %}
+                <h2>No edition.</h2>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="fellows" class="section">
+            <div class="row">{% if fellows %}
+                <ol class="list-unstyled">
+                    {% for fellow in fellows %}
                     <li>{% include "news/fellow.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
-                </ul>
+                </ol>{% else %}
+                <h2>No fellows.</h2>
+                {% endif %}
             </div>
         </div>
 
-        <div id="edition">
-            <div class="row">
-                <ul class="list-unstyled">
-                {% if edition is defined %}{% for link in edition %}{% set link_fellows = link.fellows %}
+        <div id="marks" class="section">
+            <div class="row">{% if marks %}
+                <ol class="list-unstyled">{% for link in marks %}
+                    {% set link_fellows = [reader] %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}{% endif %}
-                </ul>
+                    </li>{% endfor %}
+                </ol>{% else %}
+                <h2>No marks.</h2>
+                {% endif %}
             </div>
         </div>
+
     </div>
 {% endblock %}
 

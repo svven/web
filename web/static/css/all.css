@@ -18,6 +18,30 @@ body {
 }
 
 /*
+ * Mug
+ * --------------------------------------------------
+*/
+.mug {
+}
+.pic {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+.mug-sm > .pic {
+  width: 32px;
+  height: 32px;
+}
+.mug-md > .pic {
+  width: 38px;
+  height: 38px;
+}
+.mug-lg > .pic {
+  width: 48px;
+  height: 48px;
+}
+
+/*
  * Header
  * --------------------------------------------------
 */
@@ -53,13 +77,9 @@ body {
   .brand .logo:hover {
     fill: #222222;
   }
-.profile {
+.mugshot {
   width: 38px;
 }
-  .profile .reader {
-    width: 38px;
-    height: 38px;
-  }
 .burger {
 }
 .menu {
@@ -93,12 +113,6 @@ body {
   fill: #cdd6dd;
 }*/
 
-.reader {
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-}
-
 /*
  * Container Fluid
  * --------------------------------------------------
@@ -113,12 +127,14 @@ body {
     margin-right: 0px;
   }
   .container-fluid > * {
-    padding: 0 15px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
 @media (max-width: 480px) {
   .container-fluid > * {
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -163,18 +179,43 @@ body {
 }
 
 /*
+ * Section
+ * --------------------------------------------------
+*/
+.section {
+  position: absolute;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  width: 100%;
+  display: none;
+}
+  .section:target {
+    display: block;
+  }
+
+/*
+ * Profile
+ * --------------------------------------------------
+*/
+#profile {
+}
+
+#profile .details {
+  max-width: 360px;
+}
+  #profile .name {
+  }
+  #profile .screen_name {
+    font-size: 20px;
+    color: #999999;
+  }
+
+/*
  * Edition
  * --------------------------------------------------
 */
 #edition {
-  position: absolute;
-  padding-top: 70px;
-  padding-bottom: 70px;
-  display: none; 
 }
-  #edition:target {
-    display: block;
-  }
 
 .link {
   font-family: Georgia;
@@ -185,16 +226,11 @@ body {
   padding-right: 20px;
   
   -ms-word-break: break-all;
-  /* word-break: break-all; */
   word-break: break-word;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
 }
-  .link .reader {
-    width: 32px;
-    height: 32px;
-  }
   .link + .clearfix {
     margin: 0 15px;
     /* underline */
@@ -264,11 +300,11 @@ body {
   color: #333333;
 }
 
+.readers {
+  margin-top: 5px;  
+}
 .readers a {
   margin-right: 10px;
-}
-.readers .reader {
-  margin-top: 5px;
 }
 
 /*
@@ -276,18 +312,7 @@ body {
  * --------------------------------------------------
 */
 #fellows {
-  /* position: absolute; */
-  padding-top: 70px;
-  padding-bottom: 70px;
-  display: none;
 }
-  #fellows:target {
-    display: block;
-  }
-  #fellows:target + #edition {
-    display: none;
-  }
-
 .fellow {
   position: relative;
   float: left;
@@ -301,26 +326,26 @@ body {
   .fellow a:hover {
     text-decoration: none;
   }
-  .fellow .pic {
-    float: left;
-    margin-right: 10px;
+  .fellow a:hover .name {
+    color: #222222;
   }
-    .fellow .reader {
-      width: 48px;
-      height: 48px;
-    }
-  .fellow .info {
+  .fellow .mug {
+    float: left;
+    margin-right: 15px;
+  }
+  .fellow .details {
     float: left;
   }
     .fellow .name {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       color: #5b5256;
+      margin-bottom: 5px;
     }
     .fellow .screen_name {
-      line-height: 28px;
-      padding-top: 5px;
+      font-size: 16px;
       color: #999999;
+      margin-bottom: 0;
     }
 
 /*
@@ -328,12 +353,4 @@ body {
  * --------------------------------------------------
 */
 #marks {
-  position: absolute;
-  padding-top: 70px;
-  padding-bottom: 70px;
-  display: none; 
 }
-  #marks:target {
-    display: block;
-  }
-

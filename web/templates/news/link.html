@@ -1,8 +1,8 @@
 
 <div class="link">
-    <h2 class="title">
+    <h3 class="title">
         <a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(75, end="...") }}{% endif %}</a>
-    </h2>
+    </h3>
     <p class="site">
         <span>{{ link.site }}</span>
     </p>{% if link.image_url != none %}

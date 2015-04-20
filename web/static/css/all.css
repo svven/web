@@ -82,19 +82,22 @@ body {
 }
 .burger {
 }
-.menu {
-}
-  .menu li {
-    float: left;
-    margin-left: 10px;
-  }
 .context {
 }
   .context li {
     margin-top: 10px;
   }
+.menu {
+}
+  .menu li {
+    float: left;
+    margin-top: 0;
+    margin-left: 10px;
+  }
 
 .icon {
+  display: inline-block;
+  vertical-align: top;
   fill: none;
   stroke: #5b5256;
   stroke-width: 13;
@@ -108,8 +111,8 @@ body {
   height: 38px;
 }
 .icon-lg {
-  width: 117px;
-  height: 117px;
+  width: 72px;
+  height: 72px;
 }
 
 /*.twitter {
@@ -213,24 +216,41 @@ body {
 #profile {
 }
 
-#profile .details {
+.profile .details {
   margin-top: 40px;
   max-width: 360px;
 }
-  #profile .name {
+  .profile .name {
+    display: inline-block;
   }
-  #profile .screen_name {
+  .profile .screen_name {
     font-size: 20px;
     color: #999999;
   }
+
 .tab {
+  position: relative;
   float: left;
   margin-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 20px;
-  padding-right: 20px;  
+  padding-right: 20px;
 }
+  .tab a {
+    color: #5b5256;
+  }
+  .tab a:hover {
+    text-decoration: none;
+    color: #222222;
+  }
+  .tab a:hover .icon {
+    stroke: #222222;
+  }
+  .tab .icon {
+    margin-left: -15px;
+  }
+  .tab .name {
+    /*margin: 0;*/
+  }
 
 /*
  * Edition

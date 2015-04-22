@@ -58,7 +58,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No #edition yet, sorry.</div>
+            <div class="row na center-block text-center">No #edition, sorry.</div>
             {% endif %}
         </div>
 
@@ -72,7 +72,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No #fellows yet, sorry.</div>
+            <div class="row na center-block text-center">No #fellows, sorry.</div>
             {% endif %}
         </div>
 
@@ -86,7 +86,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No #marks yet, sorry.</div>
+            <div class="row na center-block text-center">No #marks, sorry.</div>
             {% endif %}
         </div>
 
@@ -125,9 +125,9 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if edition %}<a href="#edition">
+                                {% if edition|length > 3 %}<a href="#edition">
                                     <div class="more anchor">&rarr; More</div>
-                                </a>{% else %}
+                                </a>{% elif not edition %}
                                 <div class="na">Not available.</div>
                                 {% endif %}
                             </div>
@@ -158,9 +158,9 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if fellows %}<a href="#fellows">
+                                {% if fellows|length > 3 %}<a href="#fellows">
                                     <div class="more anchor">&rarr; More</div>
-                                </a>{% else %}
+                                </a>{% elif not fellows %}
                                 <div class="na">Not available.</div>
                                 {% endif %}
                             </div>
@@ -189,9 +189,9 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if marks %}<a href="#marks">
+                                {% if marks|length > 3 %}<a href="#marks">
                                     <div class="more anchor">&rarr; More</div>
-                                </a>{% else %}
+                                </a>{% elif not marks %}
                                 <div class="na">Not available.</div>
                                 {% endif %}
                             </div>

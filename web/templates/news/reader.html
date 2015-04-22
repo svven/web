@@ -49,42 +49,45 @@
         </div>
 
         <div id="edition" class="section">
-            <div class="row">{% if edition %}
+            {% if edition %}<h2 class="hidden name">#edition</h2>
+            <div class="row">
                 <ol class="list-unstyled">{% for link in edition %}
                 {% set link_fellows = link.fellows %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
-                </ol>{% else %}
-                <h2>No edition.</h2>
-                {% endif %}
-            </div>
+                </ol>
+            </div>{% else %}
+            <div class="row na center-block text-center">No #edition yet, sorry.</div>
+            {% endif %}
         </div>
 
         <div id="fellows" class="section">
-            <div class="row">{% if fellows %}
+            {% if fellows %}<h2 class="hidden name">#fellows</h2>
+            <div class="row">
                 <ol class="list-unstyled">
                     {% for fellow in fellows %}
                     <li>{% include "news/fellow.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
-                </ol>{% else %}
-                <h2>No fellows.</h2>
-                {% endif %}
-            </div>
+                </ol>
+            </div>{% else %}
+            <div class="row na center-block text-center">No #fellows yet, sorry.</div>
+            {% endif %}
         </div>
 
         <div id="marks" class="section">
-            <div class="row">{% if marks %}
+            {% if marks %}<h2 class="hidden name">#marks</h2>
+            <div class="row">
                 <ol class="list-unstyled">{% for link in marks %}
                     {% set link_fellows = [reader] %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
-                </ol>{% else %}
-                <h2>No marks.</h2>
-                {% endif %}
-            </div>
+                </ol>
+            </div>{% else %}
+            <div class="row na center-block text-center">No #marks yet, sorry.</div>
+            {% endif %}
         </div>
 
         <div id="profile" class="profile section">
@@ -122,9 +125,11 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                <a href="#edition">
-                                    <div class="more anchor">More &rarr;</div>
-                                </a>
+                                {% if edition %}<a href="#edition">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% else %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
@@ -153,9 +158,11 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                <a href="#fellows">
-                                    <div class="more anchor">More &rarr;</div>
-                                </a>
+                                {% if fellows %}<a href="#fellows">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% else %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
@@ -182,16 +189,17 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                <a href="#marks">
-                                    <div class="more anchor">More &rarr;</div>
-                                </a>
+                                {% if marks %}<a href="#marks">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% else %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-
     </div>
 {% endblock %}
 

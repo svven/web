@@ -13,8 +13,46 @@ body {
   margin: 0 auto !important;
 }
 
+.anchor {
+  color: #428bca;
+}
+  .anchor:hover, .anchor:focus {
+    color: #2a6496;
+    text-decoration: underline;
+  }
+
+.underline {
+  padding-bottom: 15px;
+  border-bottom: solid 1px #eee;
+}
+
 .debug {
   display: none !important;
+}
+
+/*
+ * Container Fluid
+ * --------------------------------------------------
+*/
+.container-fluid {
+  position: relative;
+  min-width: 320px;
+  max-width: 1080px;
+}
+  .container-fluid .row {
+    margin-left: -15px;
+    margin-right: 15px;
+  }
+  .container-fluid > * {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+@media (max-width: 480px) {
+  .container-fluid > * {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /*
@@ -40,6 +78,43 @@ body {
   width: 48px;
   height: 48px;
 }
+
+/*
+ * Icons
+ * --------------------------------------------------
+*/
+.icon {
+  display: inline-block;
+  vertical-align: top;
+  fill: none;
+  stroke: #5b5256;
+  stroke-width: 13;
+  stroke-miterlimit: 10;
+}
+  .icon:hover {
+    stroke: #222222;
+  }
+.icon-tn {
+  width: 24px;
+  height: 24px;
+}
+.icon-sm {
+  width: 38px;
+  height: 38px;
+}
+.icon-lg {
+  width: 72px;
+  height: 72px;
+}
+
+.bird {
+  display: inline-block;
+  vertical-align: top;
+  fill: #55acee; /*#8899a6;*/
+}
+  .bird:hover {
+    /*fill: #66757f;*/
+  }
 
 /*
  * Header
@@ -94,59 +169,6 @@ body {
     margin-top: 0;
     margin-left: 10px;
   }
-
-.icon {
-  display: inline-block;
-  vertical-align: top;
-  fill: none;
-  stroke: #5b5256;
-  stroke-width: 13;
-  stroke-miterlimit: 10;
-}
-  .icon:hover {
-    stroke: #222222;
-  }
-.icon-sm {
-  width: 38px;
-  height: 38px;
-}
-.icon-lg {
-  width: 72px;
-  height: 72px;
-}
-
-/*.twitter {
-  width: 32px;
-  height: 32px;
-}
-.twitter .marque-path {
-  fill: #cdd6dd;
-}*/
-
-/*
- * Container Fluid
- * --------------------------------------------------
-*/
-.container-fluid {
-  position: relative;
-  min-width: 320px;
-  max-width: 1080px;
-}
-  .container-fluid .row {
-    margin-left: -15px;
-    margin-right: 0px;
-  }
-  .container-fluid > * {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-@media (max-width: 480px) {
-  .container-fluid > * {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
 
 /*
  * Grid
@@ -216,24 +238,26 @@ body {
 #profile {
 }
 
-.profile .details {
-  margin-top: 40px;
+.profile .card {
+  margin-top: 20px;
   max-width: 360px;
 }
   .profile .name {
     display: inline-block;
   }
-  .profile .screen_name {
-    font-size: 20px;
-    color: #999999;
+  .profile .user {
+    margin-top: 10px;
+  }
+  .profile .bird {
+    margin-right: 5px;
   }
 
 .tab {
   position: relative;
   float: left;
-  margin-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin-top: 50px;
+  /*padding-left: 20px;*/
+  /*padding-right: 20px;*/
 }
   .tab a {
     color: #5b5256;
@@ -248,9 +272,44 @@ body {
   .tab .icon {
     margin-left: -15px;
   }
-  .tab .name {
-    /*margin: 0;*/
+  .tab > .clearfix {
+    margin: 0 15px;
   }
+  .tab .more {
+    margin-top: 30px;
+  }
+
+.top {
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+  .top .mug {
+    clear: left;
+    float: left;
+    margin-right: 10px;
+  }
+  .top .details {
+    line-height: 30px;
+    padding-bottom: 2px;
+  }
+
+.screen_name {
+  color: #999999;
+}
+  .user .screen_name {
+    font-size: 20px;
+  }
+  .top .screen_name {
+    /*font-size: 14px;*/
+  }
+
+/*
+ * Marks
+ * --------------------------------------------------
+*/
+#marks {
+}
 
 /*
  * Edition
@@ -280,6 +339,31 @@ body {
     /* border-bottom: solid 1px #eee; */
   }
 
+.title {
+  font-family: Helvetica,Arial,sans-serif;
+}
+  .link .title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    margin-top: 0;
+  }
+  .title a {
+    color: #5b5256;
+  }
+    .title a:hover {
+      text-decoration: none;
+      color: #222222;
+    }
+
+.site {
+  font-family: Helvetica,Arial,sans-serif;
+  color: #999999;
+}
+  .link .site {
+    font-size: 16px;
+    line-height: 22px;    
+  }
 
 .crop {
   float: right;
@@ -312,28 +396,6 @@ body {
   }
 
 .image {
-}
-
-.title {
-  font-family: Helvetica,Arial,sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  margin-top: 0;
-}
-  .title a {
-    color: #5b5256;
-  }
-    .title a:hover {
-      text-decoration: none;
-      color: #222222;
-    }
-
-.site {
-  font-family: Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  line-height: 22px;
-  color: #999999;
 }
 
 .description {
@@ -386,13 +448,5 @@ body {
     }
     .fellow .screen_name {
       font-size: 16px;
-      color: #999999;
       margin-bottom: 0;
     }
-
-/*
- * Marks
- * --------------------------------------------------
-*/
-#marks {
-}

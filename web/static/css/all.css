@@ -6,7 +6,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 .pull-center {
@@ -38,9 +37,11 @@ body {
   position: relative;
   min-width: 320px;
   max-width: 1080px;
+  padding-left: 0;
+  padding-right: 0;
 }
   .container-fluid .row {
-    margin-left: -15px;
+    margin-left: 0;
     margin-right: 0;
   }
   .container-fluid > * {
@@ -262,8 +263,8 @@ body {
   position: relative;
   float: left;
   margin-top: 50px;
-  /*padding-left: 20px;*/
-  /*padding-right: 20px;*/
+  padding-left: 20px;
+  padding-right: 20px;
 }
   .tab a {
     color: #5b5256;
@@ -287,8 +288,7 @@ body {
 
 .top {
   margin-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  font-size: 16px;
 }
   .top .mug {
     clear: left;
@@ -305,9 +305,6 @@ body {
 }
   .user .screen_name {
     font-size: 20px;
-  }
-  .top .screen_name {
-    /*font-size: 14px;*/
   }
 
 /*

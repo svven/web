@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="burger pull-right enable-sm enable-md">
-                <a href="javascript:void(0)" rel="popover" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true"><div class="icon icon-sm">
+                <a href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true"><div class="icon icon-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <line x1="39.5" y1="123.5" x2="136.5" y2="123.5"/>
                     <line x1="39.5" y1="88" x2="136.5" y2="88"/>
@@ -203,13 +203,5 @@
 
 {% block scripts %}
 {{super()}}
-    <script>
-    $('[data-toggle="popover"]').popover({
-        content: function() {
-            var context = $('.context').clone();
-            context.removeClass('menu pull-right enable-lg');
-            return context;
-        }
-    });
-    </script>
+    <script src="{{url_for('static', filename='js/popover.js')}}"></script>
 {% endblock %}

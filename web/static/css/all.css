@@ -255,6 +255,10 @@ body {
     margin-right: 5px;
   }
 
+.user a:hover {
+  text-decoration: none;
+}
+
 .na {
   margin-top: 30px;
 }

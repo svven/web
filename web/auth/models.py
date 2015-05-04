@@ -1,13 +1,20 @@
 """
 Auth models.
 """
-from flask.ext.login import UserMixin
+# from flask_login import UserMixin
+from flask_security import UserMixin, RoleMixin
 
 from .. import db
-from database.auth.models import User as AuthUser
+from database.auth.models import User as AuthUser, Role as AuthRole
 from database.twitter.models import User as TwitterUser, Token, Timeline
 
 from aggregator.mixes import MixedReader
+
+
+class Role(AuthRole, RoleMixin):
+    "Svven Role."
+    pass
+
 
 class User(AuthUser, UserMixin):
     "Svven User."

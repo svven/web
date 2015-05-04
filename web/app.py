@@ -8,6 +8,7 @@ import os.path as path
 import pkgutil, importlib
 
 from flask import Flask, Blueprint, render_template
+from flask_security import SQLAlchemyUserDatastore
 # from flask_debugtoolbar import DebugToolbarExtension
 
 __all__ = ['create_app'] # from app import *
@@ -16,7 +17,7 @@ def create_app(config_updates=None):
     "Create and configure the Flask app."
     
     init(config_updates) # delayed init
-    from . import bootstrap, db
+    from . import bootstrap, db, security
 
     package_name = __name__.split('.')[0]
     app = Flask(package_name)
@@ -24,6 +25,10 @@ def create_app(config_updates=None):
 
     bootstrap.init_app(app)
     db.init_app(app)
+
+    from auth.models import User, Role
+    datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, datastore)
     
     # toolbar = DebugToolbarExtension(app)
 

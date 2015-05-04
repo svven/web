@@ -26,7 +26,7 @@ SECRET_KEY = '\xc6d\xd4\xbeg\x18V?\xe0\x81\xe5D\x95_\xca02B\x83\t\x07\xb1\x84\x9
 SQLALCHEMY_ECHO = sqlalchemy_echo = True
 
 DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
-SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/svven' % DATABASE_HOST
+SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/dev-svven' % DATABASE_HOST
 
 ## Aggregator
 AGGREGATOR_REDIS_HOST = os.environ.get('AGGREGATOR_REDIS_HOST', 'localhost')
@@ -46,5 +46,9 @@ OAUTH_CREDENTIALS = {
     }
 }
 
+## Security
+SECURITY_TRACKABLE = True
+
 # ## DebugToolbar
 # DEBUG_TB_HOSTS = ('127.0.0.1', )
+# SQLALCHEMY_RECORD_QUERIES = True

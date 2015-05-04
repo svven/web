@@ -2,7 +2,7 @@
 News blueprint.
 """
 from flask import Blueprint, render_template, abort
-from flask.ext.login import login_required
+from flask_security import login_required
 from sqlalchemy.orm import joinedload, contains_eager
 
 from database.models import *

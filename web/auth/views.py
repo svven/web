@@ -3,7 +3,8 @@ Auth blueprint.
 """
 from flask import Blueprint, render_template, \
     current_app, request, flash, url_for, redirect, session, abort
-from flask.ext.login import LoginManager, \
+from flask_login import LoginManager
+from flask_security import AnonymousUser, \
     login_user, login_required, logout_user, current_user
 
 from oauth import OAuth
@@ -19,6 +20,7 @@ def load_user(id):
 @auth.record_once
 def on_load(state):
     login_manager.login_view = 'auth.login'
+    login_manager.anonymous_user = AnonymousUser
     login_manager.init_app(state.app)
 
 @auth.route('/authorize/<provider_name>')

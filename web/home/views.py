@@ -2,7 +2,7 @@
 Home blueprint.
 """
 from flask import Blueprint, render_template
-from flask.ext.login import login_required, current_user
+from flask_security import login_required, current_user
 from sqlalchemy.orm import joinedload, contains_eager
 
 from .. import news

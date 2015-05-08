@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, \
 from flask.ext.login import LoginManager, \
     login_user, login_required, logout_user, current_user
 
+from .. import db
 from oauth import OAuth
 from models import User
 
@@ -37,7 +38,8 @@ def oauth_callback(provider_name):
     if user_credentials is None:
         return 'Not authorized.'
     user = User.authenticate(provider_name, *user_credentials)
-    login_user(user)
+    login_user(user) # , remember=True
+    login_tracking(user)
     return redirect(url_for('home.page'))
 
 @auth.route('/login')
@@ -45,7 +47,19 @@ def login():
     return redirect(url_for('.oauth_authorize', provider_name='twitter'))
 
 @auth.route('/logout')
+@login_required
 def logout():
     logout_user()
     return 'Logged out.'
 
+def login_tracking(user):
+    "Update login tracking data."
+    if 'X-Forwarded-For' in request.headers:
+        remote_addr = request.headers.getlist("X-Forwarded-For")[0].rpartition(' ')[-1]
+    else:
+        remote_addr = request.remote_addr or 'untrackable'
+    user.last_login_at = datetime.utcnow()
+    user.last_login_ip = remote_addr
+    user.login_count = user.login_count and user.login_count + 1 or 1
+    db.session.merge(user)
+    db.session.commit()

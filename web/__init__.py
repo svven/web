@@ -17,13 +17,18 @@ def init(config_updates=None):
 
     global bootstrap, db #, assets, cache
 
-    ## Aggregator
-    aggregator.init(config) # delayed init
-
     ## Bootstrap
     bootstrap = Bootstrap()
 
     ## Database
     database.init(config)
-    # db = database.db # just sqlalchemy
-    db = SQLAlchemy() # flask_sqlalchemy
+    
+    ## Plain SQLAlchemy
+    # db = database.db
+
+    ## Flask-SQLAlchemy
+    db = SQLAlchemy()
+    database.db = db
+
+    ## Aggregator
+    aggregator.init(config) # delayed init

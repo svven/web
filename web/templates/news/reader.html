@@ -204,4 +204,9 @@
 {% block scripts %}
 {{super()}}
     <script src="{{url_for('static', filename='js/popover.js')}}"></script>
+    <script type="text/javascript">
+        $('img').one('error', function() { 
+            this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        });
+    </script>
 {% endblock %}

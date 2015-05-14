@@ -1,6 +1,7 @@
 """
 Auth blueprint.
 """
+from datetime import datetime
 from flask import Blueprint, render_template, \
     current_app, request, flash, url_for, redirect, session, abort
 from flask.ext.login import LoginManager, \

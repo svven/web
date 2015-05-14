@@ -7,7 +7,7 @@
         <span>{{ link.site }}</span>
     </p>{% if link.image_url != none %}
     <div class="crop">
-        <div><img class="image" src="{{ link.image_url }}" /></div>
+        <div><img class="image" src="{{ link.image_url }}" alt="image not found" /></div>
     </div>{% endif %}
     <div class="description">
         {% if link.description is not none %}<p>

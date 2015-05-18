@@ -34,8 +34,7 @@
                     </div></a></li>
                 <li><a href="#marks"><div class="icon icon-sm" title="#marks">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <polygon points="88,39.5 103.758,71.431 138.997,76.551 
-                    113.498,101.404 119.517,136.5 88,119.931 56.482,136.5 62.501,101.404 37.003,76.551 72.241,71.431    "/>
+                    <rect x="49.816" y="49.816" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="76.368" height="76.368"/>
                     </svg>
                     </div></a></li>
             </ul>
@@ -102,11 +101,12 @@
                             <span class="screen_name">@{{ reader.screen_name }}</span>
                         </a>
                     </div>
+                    <div class="lead">{% if ego == True %}your profile{% elif reader.user %}registered on {{ reader.auth_user.registered_at.strftime('%-d %b %Y') }}{% elif reader.featured == True %}featured profile{% else %}not registered yet{% endif %}</div>
                 </div>
                 <ul class="list-unstyled">
                     <li>
                         <div class="tab">
-                            <div class="center-block text-center">
+                            <div class="center-block text-center underline">
                                 <a href="#edition">
                                     <div class="icon icon-lg" title="#edition">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
@@ -114,13 +114,14 @@
                                         </svg>
                                     </div>
                                     <h2 class="name">edition</h2>
+                                    <p class="explanation">latest top links from {% if ego == True %}your{% else %}@{{ reader.screen_name }}'{% if reader.screen_name[-1] != 's' %}s{% endif %} {% endif %} fellows</p>
                                 </a>
                             </div>
                             <ul class="list-unstyled">{% for link in edition[:3] %}
                                 <li><div class="top"><a href="{{ link.url }}">
                                     <span class="title">
                                         {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
-                                    </span> &mdash; 
+                                    </span> 
                                     <span class="site">{{ link.site }}</span>
                                 </a></div></li>{% endfor %}
                             </ul>
@@ -135,7 +136,7 @@
                     </li>
                     <li>
                         <div class="tab">
-                            <div class="center-block text-center">
+                            <div class="center-block text-center underline">
                                 <a href="#fellows">
                                     <div class="icon icon-lg" title="#fellows">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
@@ -143,6 +144,7 @@
                                         </svg>
                                     </div>
                                     <h2 class="name">fellows</h2>
+                                    <p class="explanation">top profiles that picked what {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %} picked recently</p>
                                 </a>
                             </div>
                             <ul class="list-unstyled">{% for fellow in fellows[:3] %}
@@ -151,7 +153,7 @@
                                         <img class="pic" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
                                     </div>
                                     <div class="details">
-                                        <span class="name">{{ fellow.name }}</span> &mdash; 
+                                        <span class="name">{{ fellow.name }}</span> 
                                         <span class="screen_name">@{{ fellow.screen_name }}</span>
                                     </div>
                                 </a></div></li>{% endfor %}
@@ -167,22 +169,22 @@
                     </li>
                     <li>
                         <div class="tab">
-                            <div class="center-block text-center">
+                            <div class="center-block text-center underline">
                                 <a href="#marks">
                                     <div class="icon icon-lg" title="#marks">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                                        <polygon points="88,39.5 103.758,71.431 138.997,76.551 
-                                        113.498,101.404 119.517,136.5 88,119.931 56.482,136.5 62.501,101.404 37.003,76.551 72.241,71.431    "/>
+                                        <rect x="53.705" y="53.705" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="68.589" height="68.589"/>
                                         </svg>
                                     </div>
-                                    <h2 class="name">marks</h2>
+                                    <h2 class="name">picks</h2>
+                                    <p class="explanation">links tweeted by {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
                                 </a>
                             </div>
                             <ul class="list-unstyled">{% for link in marks[:3] %}
                                 <li><div class="top"><a href="{{ link.url }}">
                                     <span class="title">
                                         {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
-                                    </span> &mdash; 
+                                    </span> 
                                     <span class="site">{{ link.site }}</span>
                                 </a></div></li>{% endfor %}
                             </ul>

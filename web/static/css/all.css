@@ -248,7 +248,7 @@ body {
 
 .profile .card {
   max-width: 360px;
-  margin-top: 20px;
+  margin-top: 0;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -256,10 +256,13 @@ body {
     display: inline-block;
   }
   .profile .user {
-    margin-top: 10px;
+    margin-top: 5px;
   }
   .profile .bird {
     margin-right: 5px;
+  }
+  .profile .lead {
+    margin-top: 10px;
   }
 
 .user a:hover {
@@ -273,7 +276,7 @@ body {
 .tab {
   position: relative;
   float: left;
-  margin-top: 50px;
+  margin-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -296,11 +299,18 @@ body {
   .tab .more {
     margin-top: 30px;
   }
+  .tab .explanation {
+    font-size: 16px;
+    font-weight: 300;
+  }
 
 .top {
   margin-top: 20px;
   font-size: 16px;
 }
+  .top .title {
+    font-weight: 600;
+  }
   .top .mug {
     clear: left;
     float: left;
@@ -309,6 +319,9 @@ body {
   .top .details {
     line-height: 30px;
     padding-bottom: 2px;
+  }
+  .top .name {
+    font-weight: 600;
   }
 
 .screen_name {

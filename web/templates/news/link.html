@@ -1,7 +1,7 @@
 
 <div class="link">
     <h3 class="title">
-        <a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(75, end="...") }}{% endif %}</a>
+        <a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|striptags|truncate(75, end="...") }}{% endif %}</a>
     </h3>
     <p class="site">
         <span>{{ link.site }}</span>
@@ -14,11 +14,6 @@
             {{ link.description|striptags|truncate(150, end="...") }}
         </p>{% endif %}
     </div>
-    <!-- <p class="site debug">{% if status is defined %}
-        <a href="{{ status.url }}">url</a>
-        <a href="https://twitter.com/svvendotcom/status/{{ status.status_id }}">tweet</a>{% endif %}{% if link.relevance is defined %}
-        <span>{{ link.relevance }}</span>{% endif %}
-    </p> -->
     <div class="clearfix"></div>
     <div class="readers">{% for fellow in link_fellows %}
         <a href="/@{{ fellow.screen_name }}/">

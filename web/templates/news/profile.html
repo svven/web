@@ -80,8 +80,8 @@
                     <li>
                         <div class="tab">
                             <div class="center-block text-center underline">
-                                <a href="#marks">
-                                    <div class="icon icon-lg" title="#marks">
+                                <a href="#picks">
+                                    <div class="icon icon-lg" title="#picks">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                                         <rect x="53.705" y="53.705" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="68.589" height="68.589"/>
                                         </svg>
@@ -90,7 +90,7 @@
                                     <p class="explanation">links tweeted by {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
                                 </a>
                             </div>
-                            <ul class="list-unstyled">{% for link in marks[:3] %}
+                            <ul class="list-unstyled">{% for link in picks[:3] %}
                                 <li><div class="top"><a href="{{ link.url }}">
                                     <span class="title">
                                         {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
@@ -99,9 +99,9 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if marks|length > 3 %}<a href="#marks">
+                                {% if picks|length > 3 %}<a href="#picks">
                                     <div class="more anchor">&rarr; More</div>
-                                </a>{% elif not marks %}
+                                </a>{% elif not picks %}
                                 <div class="na">Not available.</div>
                                 {% endif %}
                             </div>

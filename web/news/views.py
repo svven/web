@@ -26,12 +26,12 @@ def reader(screen_name):
     if not reader:
         abort(404)
 
-    # marks = reader.marks.\
+    # picks = reader.picks.\
     #     join(Status, Link).options(
-    #         contains_eager(Mark.twitter_status),
-    #         contains_eager(Mark.link)).\
-    #     order_by(Mark.moment.desc()).limit(30)
-    marks = reader.marks
+    #         contains_eager(Pick.twitter_status),
+    #         contains_eager(Pick.link)).\
+    #     order_by(Pick.moment.desc()).limit(30)
+    picks = reader.picks
     
     # reader.aggregate() # temp
     reader.set_fellows()
@@ -48,4 +48,4 @@ def reader(screen_name):
         current_user.screen_name == reader.screen_name
 
     return render_template('news/reader.html', ego=ego, 
-        reader=reader, edition=edition, fellows=fellows, marks=marks)
+        reader=reader, edition=edition, fellows=fellows, picks=picks)

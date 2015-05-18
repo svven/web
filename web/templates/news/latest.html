@@ -17,7 +17,7 @@
         <div style="position: absolute; padding-top: 70px; padding-bottom: 70px;">
             <div class="row">
                 <ul class="list-unstyled">
-                {% if marks is defined %}{% for mark in marks %}{% set link = mark.link %}{% set link_fellows = [mark.reader] %}{% set status = mark.twitter_status %}
+                {% if picks is defined %}{% for pick in picks %}{% set link = pick.link %}{% set link_fellows = [pick.reader] %}{% set status = pick.twitter_status %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}{% endif %}

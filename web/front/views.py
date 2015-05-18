@@ -25,11 +25,11 @@ def latest():
     # readers = Reader.query.join(TwitterUser).\
         # options(contains_eager(Reader.twitter_user)).\
         # order_by(TwitterUser.screen_name).all() # temporary
-    marks = Mark.query.\
+    picks = Pick.query.\
         join(Status, Link, Reader, TwitterUser).options(
-            contains_eager(Mark.twitter_status),
-            contains_eager(Mark.link),
-            contains_eager(Mark.reader, Reader.twitter_user)).\
+            contains_eager(Pick.twitter_status),
+            contains_eager(Pick.link),
+            contains_eager(Pick.reader, Reader.twitter_user)).\
         order_by(Status.created_at.desc()).limit(30)
     return render_template('news/latest.html', 
-        marks=marks)
+        picks=picks)

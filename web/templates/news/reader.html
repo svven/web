@@ -32,7 +32,7 @@
                     <circle cx="88" cy="88" r="48.5"/>
                     </svg>
                     </div></a></li>
-                <li><a href="#marks"><div class="icon icon-sm" title="#marks">
+                <li><a href="#picks"><div class="icon icon-sm" title="#picks">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
                     <rect x="49.816" y="49.816" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="76.368" height="76.368"/>
                     </svg>
@@ -75,17 +75,17 @@
             {% endif %}
         </div>
 
-        <div id="marks" class="section">
-            {% if marks %}<h2 class="hidden name">#marks</h2>
+        <div id="picks" class="section">
+            {% if picks %}<h2 class="hidden name">#picks</h2>
             <div class="row">
-                <ol class="list-unstyled">{% for link in marks %}
+                <ol class="list-unstyled">{% for link in picks %}
                     {% set link_fellows = [reader] %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No marks, sorry.</div>
+            <div class="row na center-block text-center">No picks, sorry.</div>
             {% endif %}
         </div>
         {% include "news/profile.html" %}

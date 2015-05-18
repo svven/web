@@ -1,0 +1,112 @@
+
+        <div id="profile" class="profile section">
+            <div class="row">
+                <div class="card center-block text-center">
+                    <h1 class="name">{{ reader.name }}</h1>
+                    <div class="user">
+                        <a href="https://twitter.com/{{ reader.screen_name }}">
+                            <div class="bird icon-tn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 288"><path d="M280.695 59.21c-10.059 4.461-20.868 7.477-32.215 8.832c11.581-6.941 20.475-17.934 24.662-31.031 c-10.837 6.428-22.841 11.096-35.617 13.611c-10.231-10.901-24.809-17.713-40.94-17.713c-30.978 0-56.091 25.113-56.091 56.1 c0 4.4 0.5 8.7 1.5 12.782C95.331 99.4 54 77.1 26.3 43.176c-4.828 8.284-7.594 17.919-7.594 28.2 c0 19.5 9.9 36.6 25 46.686c-9.194-0.291-17.843-2.814-25.405-7.016c-0.004 0.234-0.005 0.469-0.005 0.7 c0 27.2 19.3 49.8 45 54.999c-4.707 1.281-9.662 1.967-14.777 1.967c-3.614 0-7.128-0.352-10.553-1.006 c7.138 22.3 27.9 38.5 52.4 38.953c-19.196 15.043-43.381 24.01-69.659 24.01c-4.527 0-8.992-0.266-13.38-0.783 c24.822 15.9 54.3 25.2 86 25.199c103.169 0 159.585-85.467 159.585-159.586c0-2.432-0.055-4.851-0.162-7.256 C263.666 80.3 273.2 70.5 280.7 59.21z" /></svg>
+                            </div>
+                            <span class="screen_name">@{{ reader.screen_name }}</span>
+                        </a>
+                    </div>
+                    <div class="lead">{% if ego == True %}your profile{% elif reader.user %}registered on {{ reader.auth_user.registered_at.strftime('%-d %b %Y') }}{% elif reader.featured == True %}featured profile{% else %}not registered yet{% endif %}</div>
+                </div>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="tab">
+                            <div class="center-block text-center underline">
+                                <a href="#edition">
+                                    <div class="icon icon-lg" title="#edition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                                        <rect x="39.5" y="39.5" width="97" height="97"/>
+                                        </svg>
+                                    </div>
+                                    <h2 class="name">edition</h2>
+                                    <p class="explanation">latest top links from {% if ego == True %}your{% else %}@{{ reader.screen_name }}'{% if reader.screen_name[-1] != 's' %}s{% endif %} {% endif %} fellows</p>
+                                </a>
+                            </div>
+                            <ul class="list-unstyled">{% for link in edition[:3] %}
+                                <li><div class="top"><a href="{{ link.url }}">
+                                    <span class="title">
+                                        {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
+                                    </span> 
+                                    <span class="site">{{ link.site }}</span>
+                                </a></div></li>{% endfor %}
+                            </ul>
+                            <div class="center-block text-center">
+                                {% if edition|length > 3 %}<a href="#edition">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% elif not edition %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tab">
+                            <div class="center-block text-center underline">
+                                <a href="#fellows">
+                                    <div class="icon icon-lg" title="#fellows">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                                        <circle cx="88" cy="88" r="48.5"/>
+                                        </svg>
+                                    </div>
+                                    <h2 class="name">fellows</h2>
+                                    <p class="explanation">top profiles that picked what {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %} picked recently</p>
+                                </a>
+                            </div>
+                            <ul class="list-unstyled">{% for fellow in fellows[:3] %}
+                                <li><div class="top"><a href="/@{{ fellow.screen_name }}/">
+                                    <div class="mug mug-sm">
+                                        <img class="pic" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
+                                    </div>
+                                    <div class="details">
+                                        <span class="name">{{ fellow.name }}</span> 
+                                        <span class="screen_name">@{{ fellow.screen_name }}</span>
+                                    </div>
+                                </a></div></li>{% endfor %}
+                            </ul>
+                            <div class="center-block text-center">
+                                {% if fellows|length > 3 %}<a href="#fellows">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% elif not fellows %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tab">
+                            <div class="center-block text-center underline">
+                                <a href="#marks">
+                                    <div class="icon icon-lg" title="#marks">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                                        <rect x="53.705" y="53.705" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="68.589" height="68.589"/>
+                                        </svg>
+                                    </div>
+                                    <h2 class="name">picks</h2>
+                                    <p class="explanation">links tweeted by {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
+                                </a>
+                            </div>
+                            <ul class="list-unstyled">{% for link in marks[:3] %}
+                                <li><div class="top"><a href="{{ link.url }}">
+                                    <span class="title">
+                                        {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
+                                    </span> 
+                                    <span class="site">{{ link.site }}</span>
+                                </a></div></li>{% endfor %}
+                            </ul>
+                            <div class="center-block text-center">
+                                {% if marks|length > 3 %}<a href="#marks">
+                                    <div class="more anchor">&rarr; More</div>
+                                </a>{% elif not marks %}
+                                <div class="na">Not available.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>

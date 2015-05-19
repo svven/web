@@ -261,9 +261,6 @@ body {
   .profile .bird {
     margin-right: 5px;
   }
-  .profile .lead {
-    margin-top: 10px;
-  }
 
 .user a:hover {
   text-decoration: none;
@@ -276,7 +273,7 @@ body {
 .tab {
   position: relative;
   float: left;
-  margin-top: 20px;
+  margin-top: 30px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -296,12 +293,22 @@ body {
   .tab > .clearfix {
     margin: 0 15px;
   }
-  .tab .more {
-    margin-top: 30px;
+  .tab .list {
+    /*padding-top: 5px;*/
   }
+  .tab .more {
+    margin-top: 20px;
+  }
+  
+.explanation {
+  font-weight: 300;
+}
   .tab .explanation {
     font-size: 16px;
-    font-weight: 300;
+  }
+  .card .explanation {
+    font-size: 21px;
+    margin-top: 10px;
   }
 
 .top {
@@ -352,7 +359,7 @@ body {
   margin-top: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  
+
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;

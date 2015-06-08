@@ -48,7 +48,7 @@
         </div>
 
         <div id="edition" class="section">
-            {% if edition %}<h2 class="hidden name">#edition</h2>
+            {% if edition %}<h2 class="hidden name">edition</h2>
             <div class="row">
                 <ol class="list-unstyled">{% for link in edition %}
                 {% set link_fellows = link.fellows %}
@@ -57,12 +57,12 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No edition, sorry.</div>
+            <div class="row na center-block text-center">No edition, sorry</div>
             {% endif %}
         </div>
 
         <div id="fellows" class="section">
-            {% if fellows %}<h2 class="hidden name">#fellows</h2>
+            {% if fellows %}<h2 class="hidden name">fellows</h2>
             <div class="row">
                 <ol class="list-unstyled">
                     {% for fellow in fellows %}
@@ -71,12 +71,12 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No fellows, sorry.</div>
+            <div class="row na center-block text-center">No fellows, sorry</div>
             {% endif %}
         </div>
 
         <div id="picks" class="section">
-            {% if picks %}<h2 class="hidden name">#picks</h2>
+            {% if picks %}<h2 class="hidden name">picks</h2>
             <div class="row">
                 <ol class="list-unstyled">{% for link in picks %}
                     {% set link_fellows = [reader] %}
@@ -85,7 +85,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No picks, sorry.</div>
+            <div class="row na center-block text-center">No picks, sorry</div>
             {% endif %}
         </div>
         {% include "news/profile.html" %}

@@ -21,7 +21,7 @@ body {
   }
 
 .underline {
-  padding-bottom: 15px;
+  padding-bottom: 10px;
   border-bottom: solid 1px #eee;
 }
 
@@ -118,6 +118,136 @@ body {
   }
 
 /*
+ * Front
+ * --------------------------------------------------
+*/
+#front {
+}
+.pane {
+  position: relative;
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+  .pane .brand {
+    display: inline-block;
+  }
+  .brand .logo {
+    width: 38px;
+    height: 38px;
+    fill: #5b5256;
+  }
+  .brand .logo:hover {
+    fill: #222222;
+  }
+
+  .pane .underline {
+    margin-top: 30px;
+    border-color: #5b5256;
+    width: 33.3333%
+  }
+
+  .pane .features {
+    margin-top: 100px;
+  }
+
+.carousel {
+}
+  .carousel .device {
+    margin-top: 50px;
+    margin-left: -5px;
+  }
+  .carousel-caption {
+    color: #5b5256;
+    text-shadow: none;
+    top: -50px;
+    bottom: auto;
+    height: 50px;
+    padding: 0;
+  }
+    .carousel-caption > * {
+      margin: 0;
+    }
+  .carousel-control {
+    text-shadow: none;
+    background-image: none !important;
+  }
+    .carousel-control:hover, .carousel-control:focus {
+    }
+  .carousel-indicators {
+    bottom: -30px;
+  }
+    .carousel-indicators li {
+      margin: 0 5px;
+      border: none;
+      background-color: #cccccc;
+    }
+    .carousel-indicators li:hover, .carousel-indicators li:focus {
+      background-color: #999999;
+    }
+    .carousel-indicators li.active {
+      margin: 0 5px;
+      width: 10px;
+      height: 10px;
+      background-color: #666666;
+    }
+  .carousel-prev, .carousel-next {
+      position: absolute;
+      background-repeat: no-repeat;
+      top: 50%;
+      width: 30px;
+      height: 30px;
+  }
+    .carousel-prev {
+      left: 30px;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23666666'%2F%3E%3C%2Fsvg%3E");
+    }
+    .carousel-next {
+      right: 30px;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23666666'%2F%3E%3C%2Fsvg%3E");
+    }
+
+@media (max-width: 670px) {
+    .pane .brand {
+    }
+    .pane .explanation {
+    }
+}
+
+@media (min-width: 671px) and (max-width: 980px) {
+    .pane .brand {
+    }
+    .pane .explanation {
+    }
+}
+
+@media (min-width: 981px) {
+  .pane {
+    margin-top: 30px;
+  }
+    .pane-first {
+      width: 33.3333%;
+    }
+    .pane-second {
+      width: 66.6666%
+    }
+
+    .pane .brand {
+      width: 200px;
+      margin-top: 60px;
+    }
+    .pane .explanation {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    .pane .carousel {
+      margin-top: 70px;
+    }
+}
+
+
+/*
  * Header
  * --------------------------------------------------
 */
@@ -143,16 +273,6 @@ body {
   top: -70px !important; /* #header height */
 }
 
-.brand {
-}
-  .brand .logo {
-    width: 38px;
-    height: 38px;
-    fill: #5b5256;
-  }
-  .brand .logo:hover {
-    fill: #222222;
-  }
 .mugshot {
   width: 38px;
 }
@@ -171,7 +291,7 @@ body {
     margin-top: 0;
     margin-left: 10px;
   }
-.active {
+  .menu li.active {
   border-bottom: solid 3px #5b5256 !important; /*#222222*/
 }
 
@@ -195,6 +315,7 @@ body {
   }
 
   .tab, .link, .fellow {
+    width: 100%; /*1 col*/
   }
 }
 
@@ -252,7 +373,8 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
-  .profile .name {
+  .profile h1, 
+  .profile h2 {
     display: inline-block;
   }
   .profile .user {
@@ -299,6 +421,10 @@ body {
   .tab .more {
     margin-top: 20px;
   }
+  .tab .underline {
+    border-color: #5b5256; /*#222222*/
+    width: 33.3333%
+  }
   
 .explanation {
   font-weight: 300;
@@ -314,6 +440,9 @@ body {
 .top {
   margin-top: 20px;
   font-size: 16px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
   .top .title {
     font-weight: 600;
@@ -331,11 +460,16 @@ body {
     font-weight: 600;
   }
 
+.name {
+  font-family: Helvetica,Arial,sans-serif;
+}
 .screen_name {
+  font-family: Helvetica,Arial,sans-serif;
   color: #999999;
 }
   .user .screen_name {
     font-size: 20px;
+    font-family: "Helvetica Neue";
   }
 
 /*
@@ -439,9 +573,9 @@ body {
 }
 
 .readers {
-  margin-top: 5px;  
 }
-.readers a {
+.readers .pic {
+  margin-top: 10px;
   margin-right: 10px;
 }
 

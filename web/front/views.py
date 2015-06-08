@@ -13,12 +13,12 @@ front = Blueprint('front', __name__)
 
 @front.route('/')
 def page():
-    if current_user.is_authenticated():
-        # return redirect(url_for('home.page'))
-        return home.page() # @login_required
-    else:
-        # return latest()
-        return render_template('front/page.html')
+    # if current_user.is_authenticated():
+    #     # return redirect(url_for('home.page'))
+    #     return home.page() # @login_required
+    # else:
+    #     # return latest()
+    return render_template('front/page.html')
 
 @front.route('/latest')
 def latest():

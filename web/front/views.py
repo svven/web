@@ -13,23 +13,8 @@ front = Blueprint('front', __name__)
 
 @front.route('/')
 def page():
-    # if current_user.is_authenticated():
-    #     # return redirect(url_for('home.page'))
-    #     return home.page() # @login_required
-    # else:
-    #     # return latest()
-    return render_template('front/page.html')
-
-@front.route('/latest')
-def latest():
-    # readers = Reader.query.join(TwitterUser).\
-        # options(contains_eager(Reader.twitter_user)).\
-        # order_by(TwitterUser.screen_name).all() # temporary
-    picks = Pick.query.\
-        join(Status, Link, Reader, TwitterUser).options(
-            contains_eager(Pick.twitter_status),
-            contains_eager(Pick.link),
-            contains_eager(Pick.reader, Reader.twitter_user)).\
-        order_by(Status.created_at.desc()).limit(30)
-    return render_template('news/latest.html', 
-        picks=picks)
+    if current_user.is_authenticated():
+        # return redirect(url_for('home.page'))
+        return home.page() # @login_required
+    else:
+        return render_template('front/page.html')

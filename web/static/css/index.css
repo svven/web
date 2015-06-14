@@ -104,8 +104,8 @@ body {
   height: 38px;
 }
 .icon-lg {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
 }
 
 .bird {
@@ -129,41 +129,92 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
-
   .pane .brand {
     display: inline-block;
+    width: 200px;
   }
-  .brand .logo {
-    width: 38px;
-    height: 38px;
-    fill: #5b5256;
-  }
-  .brand .logo:hover {
-    fill: #222222;
-  }
-
+    .brand .logo {
+      width: 38px;
+      height: 38px;
+      fill: #5b5256;
+    }
+    .brand .logo:hover {
+      fill: #222222;
+    }
   .pane .underline {
-    margin-top: 30px;
     border-color: #5b5256;
-    width: 33.3333%
+    width: 33.3333%;
+    margin-top: 20px;
   }
-
-  .pane .features {
-    margin-top: 100px;
+  .pane .explanation {
+    font-size: 18px;
+    margin-top: 20px;
   }
-
+  .pane .story {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 16px;
+  }
+  .pane-first .story {
+    max-width: 400px;
+    margin-top: 30px;
+  }
+  .pane .signup {
+    margin-top: 40px;
+  }
+    .signup .btn {
+      background-color: #55acee;
+      background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.05));
+      color: #fff;
+      border: 1px solid #3b94d9;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .signup .btn:hover {
+      background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.15));
+    }
+    .signup .btn .bird {
+      fill: #fff;
+    }
 
 @media (max-width: 670px) {
-    .pane .brand {
+  .pane {
+    margin-top: 10px;
+  }
+    .pane-first {
+      width: 100%;
     }
-    .pane .explanation {
+    .pane-second {
+      width: 100%
+    }
+    .pane .brand, .pane .screenshot {
+      margin-top: 20px;
     }
 }
 
 @media (min-width: 671px) and (max-width: 980px) {
+  .pane {
+    margin-top: 20px;
+  }
+    .pane-first {
+      width: 100%;
+    }
+    .pane-second {
+      width: 100%
+    }
     .pane .brand {
+      margin-top: 40px;
+      width: 300px;
+    }
+    .pane .screenshot {
+      margin-top: 0;
     }
     .pane .explanation {
+      font-size: 24px;
+    }
+    .pane .story {
+      font-size: 18px;
+    }
+    .pane-first .story {
+      max-width: 600px;
     }
 }
 
@@ -177,14 +228,8 @@ body {
     .pane-second {
       width: 66.6666%
     }
-
-    .pane .brand {
-      width: 200px;
+    .pane .brand, .pane .screenshot {
       margin-top: 60px;
-    }
-    .pane .explanation {
-      font-size: 20px;
-      margin-top: 20px;
     }
 }
 
@@ -316,7 +361,8 @@ body {
   padding-right: 20px;
 }
   .profile h1, 
-  .profile h2 {
+  .profile h2,
+  .profile h3 {
     display: inline-block;
   }
   .profile .user {
@@ -375,7 +421,7 @@ body {
     font-size: 16px;
   }
   .card .explanation {
-    font-size: 21px;
+    font-size: 20px;
     margin-top: 10px;
   }
 

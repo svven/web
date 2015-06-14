@@ -37,11 +37,15 @@ def oauth_callback(provider_name):
     oauth = OAuth.get_provider(provider_name)
     user_credentials = oauth.callback()
     if user_credentials is None:
-        return 'Not authorized.'
+        return 'Not authorized, sorry'
     user = User.authenticate(provider_name, *user_credentials)
     login_user(user) # , remember=True
     login_tracking(user)
     return redirect(url_for('home.page'))
+
+@auth.route('/signup')
+def signup():
+    return login()
 
 @auth.route('/login')
 def login():
@@ -51,7 +55,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return 'Logged out.'
+    return 'Logged out, cheers'
 
 def login_tracking(user):
     "Update login tracking data."

@@ -185,7 +185,7 @@ body {
     .pane-second {
       width: 100%
     }
-    .pane .brand, .pane .screenshot {
+    .pane .brand, .pane .devices {
       margin-top: 20px;
     }
 }
@@ -204,7 +204,7 @@ body {
       margin-top: 40px;
       width: 300px;
     }
-    .pane .screenshot {
+    .pane .devices {
       margin-top: 0;
       max-width: 600px;
     }
@@ -227,7 +227,7 @@ body {
     .pane-second {
       width: 66.6666%
     }
-    .pane .brand, .pane .screenshot {
+    .pane .brand, .pane .devices {
       margin-top: 60px;
     }
 }

@@ -40,9 +40,10 @@ def reader(screen_name):
     fellows = reader.fellows
     edition = reader.edition
     
-    fellows_dict = {str(f.id): f for f in fellows}
+    fellows_dict = {f.id: f for f in fellows}
     for link in edition:
         link.fellows = [fellows_dict[fid] for fid in link.fellows_ids]
+        link.fellows.sort(key=attrgetter('fellowship'), reverse=True)
 
     ego = current_user.is_authenticated() and \
         current_user.screen_name == reader.screen_name

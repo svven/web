@@ -28,7 +28,7 @@
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
-                            <ul class="list list-unstyled">{% for link in edition[:3] %}
+                            <ul class="list list-unstyled">{% for link in reader.edition[:3] %}
                                 <li><div class="top"><a href="{{ link.url }}">
                                     <span class="title">
                                         {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
@@ -37,7 +37,7 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if edition|length > 3 %}<a href="#edition">
+                                {% if reader.edition|length > 3 %}<a href="#edition">
                                     <div class="more anchor">More</div>
                                 </a>{% elif not edition %}
                                 <div class="na">None</div>
@@ -59,7 +59,7 @@
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
-                            <ul class="list list-unstyled">{% for fellow in fellows[:3] %}
+                            <ul class="list list-unstyled">{% for fellow in reader.fellows[:3] %}
                                 <li><div class="top"><a href="/@{{ fellow.screen_name }}/">
                                     <div class="mug mug-sm">
                                         <img class="pic" src="{{ fellow.profile_image_url}}" title="@{{ fellow.screen_name }}" />
@@ -71,7 +71,7 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if fellows|length > 3 %}<a href="#fellows">
+                                {% if reader.fellows|length > 3 %}<a href="#fellows">
                                     <div class="more anchor">More</div>
                                 </a>{% elif not fellows %}
                                 <div class="na">None</div>
@@ -93,7 +93,7 @@
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
-                            <ul class="list list-unstyled">{% for link in picks[:3] %}
+                            <ul class="list list-unstyled">{% for link in reader.picks[:3] %}
                                 <li><div class="top"><a href="{{ link.url }}">
                                     <span class="title">
                                         {% if link.title is none %}{{ link.site }}{% else %}{{ link.title|truncate(55, end="...") }}{% endif %}
@@ -102,7 +102,7 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if picks|length > 3 %}<a href="#picks">
+                                {% if reader.picks|length > 3 %}<a href="#picks">
                                     <div class="more anchor">More</div>
                                 </a>{% elif not picks %}
                                 <div class="na">None</div>

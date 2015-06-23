@@ -25,26 +25,15 @@ def reader(screen_name):
         filter(TwitterUser.screen_name.ilike(screen_name)).first()
     if not reader:
         abort(404)
-
-    # picks = reader.picks.\
-    #     join(Status, Link).options(
-    #         contains_eager(Pick.twitter_status),
-    #         contains_eager(Pick.link)).\
-    #     order_by(Pick.moment.desc()).limit(30)
-    picks = reader.picks
     
     # reader.aggregate() # temp
     reader.set_fellows()
-    reader.set_edition(moment_min=munixtime(timeago(days=3)))
+    reader.set_edition() # moment_min=munixtime(timeago(days=3)))
     
+    picks = reader.picks
     fellows = reader.fellows
     edition = reader.edition
     
-    fellows_dict = {f.id: f for f in fellows}
-    for link in edition:
-        link.fellows = [fellows_dict[fid] for fid in link.fellows_ids]
-        link.fellows.sort(key=attrgetter('fellowship'), reverse=True)
-
     ego = current_user.is_authenticated() and \
         current_user.screen_name == reader.screen_name
 

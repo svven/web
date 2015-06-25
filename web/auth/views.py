@@ -35,21 +35,12 @@ def oauth_callback(provider_name):
     if not current_user.is_anonymous():
         return redirect(url_for('home.page'))
     oauth = OAuth.get_provider(provider_name)
-    user_credentials = oauth.callback()
-
-    # private beta check
-    if not User.exists(provider_name, *user_credentials):
-        message = Markup(
-            '''Hey sorry you're not on the list.<br />
-            <a class="alert-link" href="mailto:ducu@svven.com">Drop us a line</a> 
-            if you want private beta access.''')
-        flash(message, 'warning')
+    try:
+        user_credentials = oauth.callback()
+    except Exception, e:
+        flash('Oops, could not authenticate, sorry.', 'danger')
         return redirect(url_for('front.page'))
-
-    user, created = User.authenticate(provider_name, *user_credentials)
-    login_user(user) # , remember=True
-    login_tracking(user)
-    return redirect(url_for('home.page'))
+    return authenticate(provider_name, user_credentials)
 
 @auth.route('/signup')
 def signup():
@@ -65,6 +56,31 @@ def logout():
     logout_user()
     flash('Logged out, cheers.', 'success')
     return redirect(url_for('front.page'))
+
+def authenticate(provider_name, user_credentials):
+    # private beta check - to be removed when going public
+    if not User.exists(provider_name, *user_credentials):
+        message = Markup(
+            '''Hey sorry you're not on the list.<br />
+            <a class="alert-link" href="mailto:ducu@svven.com">Drop us a line</a> 
+            if you want private beta access.''')
+        flash(message, 'warning')
+        return redirect(url_for('front.page'))
+
+    user, created = User.authenticate(provider_name, *user_credentials)
+
+    # sign up welcome message
+    if created or not user.last_login_at: # first time
+        message = Markup(
+            '''Welcome, thanks for joining!<br />
+            Your profile will be ready in few moments. Meanwhile you can browse the 
+            <a class="alert-link" href="#">featured profiles</a>.''')
+        flash(message, 'success')
+
+    login_user(user) # , remember=True
+    login_tracking(user)
+    return redirect(url_for('home.page'))
+
 
 def login_tracking(user):
     "Update login tracking data."

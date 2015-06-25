@@ -29,6 +29,15 @@ body {
   display: none !important;
 }
 
+.flash {
+  width: 98%;
+  max-width: 360px;
+}
+.alert {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 /*
  * Container Fluid
  * --------------------------------------------------

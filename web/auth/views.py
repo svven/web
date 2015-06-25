@@ -2,7 +2,7 @@
 Auth blueprint.
 """
 from datetime import datetime
-from flask import Blueprint, render_template, \
+from flask import Markup, Blueprint, render_template, \
     current_app, request, flash, url_for, redirect, session, abort
 from flask.ext.login import LoginManager, \
     login_user, login_required, logout_user, current_user
@@ -36,9 +36,17 @@ def oauth_callback(provider_name):
         return redirect(url_for('home.page'))
     oauth = OAuth.get_provider(provider_name)
     user_credentials = oauth.callback()
-    if user_credentials is None:
-        return 'Not authorized, sorry'
-    user = User.authenticate(provider_name, *user_credentials)
+
+    # private beta check
+    if not User.exists(provider_name, *user_credentials):
+        message = Markup(
+            '''Hey sorry you're not on the list.<br />
+            <a class="alert-link" href="mailto:ducu@svven.com">Drop us a line</a> 
+            if you want private beta access.''')
+        flash(message, 'warning')
+        return redirect(url_for('front.page'))
+
+    user, created = User.authenticate(provider_name, *user_credentials)
     login_user(user) # , remember=True
     login_tracking(user)
     return redirect(url_for('home.page'))
@@ -55,7 +63,8 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return 'Logged out, cheers'
+    flash('Logged out, cheers.', 'success')
+    return redirect(url_for('front.page'))
 
 def login_tracking(user):
     "Update login tracking data."

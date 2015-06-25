@@ -1,7 +1,7 @@
 """
 News blueprint.
 """
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, flash
 from flask.ext.login import login_required, current_user
 from sqlalchemy.orm import joinedload, contains_eager
 
@@ -30,9 +30,10 @@ def reader(screen_name):
     reader.set_fellows()
     reader.set_edition() # moment_min=munixtime(timeago(days=3)))
 
-    reader.load()    
-    
+    reader.load()
+
     ego = current_user.is_authenticated() and \
         current_user.screen_name == reader.screen_name
 
+    # flash('This is a profile page.', 'info')
     return render_template('news/reader.html', ego=ego, reader=reader)

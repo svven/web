@@ -20,6 +20,12 @@ class User(AuthUser, UserMixin):
         return bool(User.query.filter_by(screen_name=screen_name).count())
 
     @classmethod
+    def create(cls, screen_name):
+        "Create auth user by screen_name."
+        user = User(screen_name=screen_name)
+        return User.register_auth_user(user)
+
+    @classmethod
     def authenticate(cls, provider_name, user, key, secret):
         "Authenticate based on provider user credentials."
         assert provider_name == 'twitter' # yet
@@ -35,7 +41,7 @@ class User(AuthUser, UserMixin):
         screen_name, user_data = (user.screen_name, user)
         user = User.query.filter_by(screen_name=screen_name).first()
         if not user: # new
-            user = User(user_data) # auth_user
+            user = User(user=user_data) # auth_user
             created = True
             db.session.add(user)
         else: # exists

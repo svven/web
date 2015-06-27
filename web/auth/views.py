@@ -21,6 +21,7 @@ def load_user(id):
 @auth.record_once
 def on_load(state):
     login_manager.login_view = 'auth.login'
+    login_manager.login_message = None
     login_manager.init_app(state.app)
 
 @auth.route('/authorize/<provider_name>')

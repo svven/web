@@ -31,9 +31,8 @@ def create_app(config_updates=None):
     register_blueprints(app, package_name, package_path)
 
     if not app.debug:
-        for e in [403, 404, 500]:
+        for e in [404, 500]:
             app.errorhandler(e)(handle_error)
-
     return app
 
 def handle_error(e):

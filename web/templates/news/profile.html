@@ -48,7 +48,7 @@
                             <div class="center-block text-center">
                                 {% if reader.edition|length > 3 %}<a href="#edition">
                                     <div class="more anchor">More</div>
-                                </a>{% elif not edition %}
+                                </a>{% elif not reader.edition %}
                                 <div class="na">None</div>
                                 {% endif %}
                             </div>
@@ -82,7 +82,7 @@
                             <div class="center-block text-center">
                                 {% if reader.fellows|length > 3 %}<a href="#fellows">
                                     <div class="more anchor">More</div>
-                                </a>{% elif not fellows %}
+                                </a>{% elif not reader.fellows %}
                                 <div class="na">None</div>
                                 {% endif %}
                             </div>
@@ -113,7 +113,7 @@
                             <div class="center-block text-center">
                                 {% if reader.picks|length > 3 %}<a href="#picks">
                                     <div class="more anchor">More</div>
-                                </a>{% elif not picks %}
+                                </a>{% elif not reader.picks %}
                                 <div class="na">None</div>
                                 {% endif %}
                             </div>

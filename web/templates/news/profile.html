@@ -20,7 +20,7 @@
                             <span class="screen_name">@{{ reader.screen_name }}</span>
                         </a>
                     </div>
-                    <p class="explanation">{% if ego == True %}your profile{% elif reader.user %}registered on {{ reader.auth_user.registered_at.strftime('%-d %b %Y') }}{% elif reader.featured == True %}featured profile{% else %}not registered yet{% endif %}</p>
+                    <p class="explanation">{% if ego == True %}your profile{% elif reader.user %}registered on {{ reader.auth_user.registered_at.strftime('%-d %b %Y') }}{% elif reader.featured %}featured profile{% else %}not registered yet{% endif %}</p>
                 </div>
                 <ul class="list-unstyled">
                     <li>

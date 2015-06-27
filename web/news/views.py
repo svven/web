@@ -28,10 +28,18 @@ def reader(screen_name):
     
     # reader.aggregate() # temp
     reader.set_fellows()
-    reader.set_edition() # moment_min=munixtime(timeago(days=3)))
+    reader.set_edition(moment_min=munixtime(timeago(hours=30)))
 
     reader.load()
 
     ego = current_user.is_authenticated() and \
         current_user.screen_name == reader.screen_name
     return render_template('news/reader.html', ego=ego, reader=reader)
+
+@news.route('/featured')
+@login_required
+def featured():
+    readers = MixedReader.query.\
+        filter(Reader.featured != None).\
+        order_by(Reader.featured.desc()).limit(30)
+    return render_template('news/featured.html', readers=readers)

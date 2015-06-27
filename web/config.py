@@ -17,13 +17,13 @@ def from_object(updates):
         value = get_value(updates, prefix_key) or get_value(updates, key)
         if value: setattr(config, key, value)
 
-DEBUG = True
+DEBUG = False
 # SERVER_NAME = 'dev.svven.com'
 SECRET_KEY = '\xc6d\xd4\xbeg\x18V?\xe0\x81\xe5D\x95_\xca02B\x83\t\x07\xb1\x84\x91'
 
 ## SQLAlchemy
 ## http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
-SQLALCHEMY_ECHO = sqlalchemy_echo = True
+SQLALCHEMY_ECHO = sqlalchemy_echo = False
 
 DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
 SQLALCHEMY_DATABASE_URI = sqlalchemy_url = 'postgresql://svven@%s/svven' % DATABASE_HOST

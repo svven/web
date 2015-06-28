@@ -75,7 +75,8 @@ def authenticate(provider_name, user_credentials):
         message = Markup(
             '''Welcome, thanks for joining!<br />
             Your profile will be ready in few moments. Meanwhile you can browse the 
-            <a class="alert-link" href="#">featured profiles</a>.''')
+            <a class="alert-link" href="''' + url_for('news.featured') + \
+            '''">featured profiles</a>.''')
         flash(message, 'success')
 
     login_user(user) # , remember=True

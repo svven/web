@@ -68,8 +68,8 @@ class User(AuthUser, UserMixin):
             else: # update access token
                 user.token.key = key
                 user.token.secret = secret
-            if not user.timeline:
-                user.timeline = Timeline(user_id=user_id)
+            if not user.timelines:
+                user.timelines.append(Timeline(user_id=user_id))
         db.session.commit()
         return user, created # twitter_user
 

@@ -23,9 +23,11 @@ def reader(screen_name):
         outerjoin(TwitterUser).options(
             contains_eager(MixedReader.twitter_user)).\
         filter(TwitterUser.screen_name.ilike(screen_name)).first()
+    if not reader:
+        abort(404)
     ego = current_user.is_authenticated() and \
         current_user.screen_name == reader.screen_name
-    if not reader or (reader.ignored and not ego):
+    if reader.ignored and not ego:
         abort(404)
     # reader.aggregate() # temp
     reader.set_fellows()

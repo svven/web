@@ -26,9 +26,8 @@ def invite(screen_name):
     with app.app_context():
         from web.auth.models import User
         user, created = User.create(screen_name)
-        print 'User %s %s.' % (screen_name, created and \
-            'was created' or 'already exists')
-
+        app.logger.info('%s invite for %s.', 
+            created and 'Created' or 'Redundant', screen_name)
 
 if __name__ == '__main__':
     manager.main()

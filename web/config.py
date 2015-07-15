@@ -1,7 +1,7 @@
 """
 Config settings for web app.
 """
-import os
+import os, socket
 
 def from_object(updates):
     "Update same name (or prefixed) settings."
@@ -18,7 +18,7 @@ def from_object(updates):
         if value: setattr(config, key, value)
 
 DEBUG = False
-# SERVER_NAME = 'dev.svven.com'
+# SERVER_NAME = 'svven.com'
 SECRET_KEY = '\xc6d\xd4\xbeg\x18V?\xe0\x81\xe5D\x95_\xca02B\x83\t\x07\xb1\x84\x91'
 
 ## SQLAlchemy
@@ -48,3 +48,41 @@ OAUTH_CREDENTIALS = {
 
 # ## DebugToolbar
 # DEBUG_TB_HOSTS = ('127.0.0.1', )
+
+## Papertrail
+HOSTNAME = socket.gethostname()
+PAPERTRAIL_HOST = 'logs3.papertrailapp.com'
+PAPERTRAIL_PORT = '33078'
+
+## Logging
+LOGGING = '''
+version: 1
+disable_existing_loggers: true
+root:
+    level: INFO
+    propagate: true
+loggers:
+    web:
+        handlers: [console, papertrail]
+        level: DEBUG
+handlers:
+    console:
+        level: DEBUG
+        class: logging.StreamHandler
+        formatter: console
+    papertrail:
+        level: INFO
+        class: logging.handlers.SysLogHandler
+        address: [{papertrail_host}, {papertrail_port}]
+        formatter: papertrail
+formatters:
+    console:
+        format: '%(asctime)s %(message)s'
+        datefmt: '%H:%M:%S'
+    papertrail:
+        format: '%(name)s {hostname}.%(process)d %(levelname)s: %(message)s'
+        datefmt: '%H:%M:%S'
+'''
+LOGGING = LOGGING.format(hostname=HOSTNAME,
+    papertrail_host=PAPERTRAIL_HOST, papertrail_port=PAPERTRAIL_PORT)
+LOGGER_NAME = 'web'

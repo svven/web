@@ -38,7 +38,10 @@ def oauth_callback(provider_name):
     oauth = OAuth.get_provider(provider_name)
     try:
         user_credentials = oauth.callback()
+        if user_credentials is None:
+            raise
     except Exception, e:
+        current_app.logger.exception(e)
         flash('Oops, could not authenticate, sorry.', 'danger')
         return redirect(url_for('front.page'))
     return authenticate(provider_name, user_credentials)
@@ -59,6 +62,7 @@ def logout():
     return redirect(url_for('front.page'))
 
 def authenticate(provider_name, user_credentials):
+    user, key, secret = user_credentials
     # private beta check - to be removed when going public
     if not User.exists(provider_name, *user_credentials):
         message = Markup(
@@ -66,6 +70,8 @@ def authenticate(provider_name, user_credentials):
             <a class="alert-link" href="mailto:ducu@svven.com">Drop us a line</a> 
             if you want private beta access.''')
         flash(message, 'warning')
+        current_app.logger.warning(
+            'Blocked signup: %s (%s, %s)', user.screen_name, key, secret)
         return redirect(url_for('front.page'))
 
     user, created = User.authenticate(provider_name, *user_credentials)
@@ -78,6 +84,8 @@ def authenticate(provider_name, user_credentials):
             <a class="alert-link" href="''' + url_for('news.featured') + \
             '''">featured profiles</a>.''')
         flash(message, 'success')
+        current_app.logger.info(
+            'Accepted signup: %s', user.screen_name)
 
     login_user(user) # , remember=True
     login_tracking(user)

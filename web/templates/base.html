@@ -18,6 +18,5 @@
 {{super()}}
 	<script src="{{url_for('static', filename='js/header.js')}}"></script>
 	<script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
-{{google.uanalytics(id=config['GOOGLE_ANALYTICS_ID'],
-                    domain=config['GOOGLE_ANALYTICS_DOMAIN'])}}
+{{google.uanalytics('UA-60733932-1')}}
 {% endblock %}

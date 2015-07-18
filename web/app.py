@@ -8,7 +8,7 @@ import os.path as path
 import pkgutil, importlib
 import logging, logging.config, yaml
 
-from flask import Flask, Blueprint, render_template, current_app
+from flask import Flask, Blueprint, render_template
 # from flask_debugtoolbar import DebugToolbarExtension
 
 __all__ = ['create_app'] # from app import *
@@ -39,6 +39,7 @@ def create_app(config_updates=None):
     return app
 
 def handle_error(e):
+    from flask import current_app
     current_app.logger.exception(e)
     code = hasattr(e, 'code') and e.code or 500
     return render_template('errors/%s.html' % code), code

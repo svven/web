@@ -26,7 +26,7 @@ def invite(screen_name):
     with app.app_context():
         from web.auth.models import User
         user, created = User.create(screen_name)
-        app.logger.info('%s invite for %s.', 
+        app.logger.info('%s invite: %s', 
             created and 'Created' or 'Redundant', screen_name)
 
 if __name__ == '__main__':

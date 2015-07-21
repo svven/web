@@ -41,7 +41,7 @@ def create_app(config_updates=None):
 def handle_error(e):
     from flask import current_app
     current_app.logger.exception(e)
-    code = hasattr(e, 'code') and e.code or 500
+    code = getattr(e, 'code', 500)
     return render_template('errors/%s.html' % code), code
 
 def register_blueprints(app, package_name, package_path):

@@ -98,6 +98,8 @@ def login_tracking(user):
         remote_addr = request.headers.getlist("X-Forwarded-For")[0].rpartition(' ')[-1]
     else:
         remote_addr = request.remote_addr or 'untrackable'
+    if not user.last_login_at: # first time
+        user.registered_at = datetime.utcnow()
     user.last_login_at = datetime.utcnow()
     user.last_login_ip = remote_addr
     user.login_count = user.login_count and user.login_count + 1 or 1

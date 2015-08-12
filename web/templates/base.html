@@ -12,6 +12,8 @@
 {{super()}}
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png')}}">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='logo.png')}}">
+    <link rel="apple-touch-startup-image" href="{{url_for('static', filename='logo.png')}}">
 {% endblock %}
 
 {% block scripts %}

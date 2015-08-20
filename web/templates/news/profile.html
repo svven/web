@@ -26,14 +26,14 @@
                     <li>
                         <div class="tab">
                             <div class="center-block text-center">
-                                <a href="#edition">
-                                    <div class="icon icon-lg" title="edition">
+                                <a href="#news">
+                                    <div class="icon icon-lg" title="news">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                                        <rect x="39.5" y="39.5" width="97" height="97"/>
+                                        <path d="M39.5,136.5v-55h42v-42h55v97H39.5z M75,75"/>
                                         </svg>
                                     </div>
-                                    <h3>edition</h3>
-                                    <p class="explanation">top news from {% if ego == True %}your{% else %}@{{ reader.screen_name }}'{% if reader.screen_name[-1] != 's' %}s{% endif %} {% endif %} fellows</p>
+                                    <h3>news</h3>
+                                    <p class="explanation">top links from {% if ego == True %}your{% else %}@{{ reader.screen_name }}'{% if reader.screen_name[-1] != 's' %}s{% endif %} {% endif %} fellows</p>
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
@@ -46,7 +46,7 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if reader.edition|length > 3 %}<a href="#edition">
+                                {% if reader.edition|length > 3 %}<a href="#news">
                                     <div class="more anchor">More</div>
                                 </a>{% elif not reader.edition %}
                                 <div class="na">None</div>
@@ -64,7 +64,7 @@
                                         </svg>
                                     </div>
                                     <h3>fellows</h3>
-                                    <p class="explanation">top profiles who tweeted what {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %} tweeted recently</p>
+                                    <p class="explanation">top profiles who tweeted same links as {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
@@ -91,14 +91,14 @@
                     <li>
                         <div class="tab">
                             <div class="center-block text-center">
-                                <a href="#picks">
-                                    <div class="icon icon-lg" title="picks">
+                                <a href="#tweets">
+                                    <div class="icon icon-lg" title="tweets">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                                        <rect x="53.705" y="53.705" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="68.589" height="68.589"/>
+                                        <path d="M39.5,136.5v-97h55v42h42v55H39.5z M101,75"/>
                                         </svg>
                                     </div>
-                                    <h3>picks</h3>
-                                    <p class="explanation">news tweeted by {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
+                                    <h3>tweets</h3>
+                                    <p class="explanation">latest links from {% if ego == True %}you{% else %}@{{ reader.screen_name }}{% endif %}</p>
                                 </a>
                             </div>
                             <div class="center-block underline"></div>
@@ -111,7 +111,7 @@
                                 </a></div></li>{% endfor %}
                             </ul>
                             <div class="center-block text-center">
-                                {% if reader.picks|length > 3 %}<a href="#picks">
+                                {% if reader.picks|length > 3 %}<a href="#tweets">
                                     <div class="more anchor">More</div>
                                 </a>{% elif not reader.picks %}
                                 <div class="na">None</div>

@@ -30,6 +30,11 @@ body {
 }
 
 .flash {
+  /*position: fixed;
+  z-index: 1;
+  top: 70px;
+  left: 0;
+  right: 0;*/
   width: 95%;
   max-width: 400px;
 }
@@ -113,8 +118,8 @@ body {
   height: 38px;
 }
 .icon-lg {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
 }
 
 .bird {
@@ -393,6 +398,10 @@ body {
   .profile .bird {
     margin-right: 5px;
   }
+.card h1 {
+  font-size: 32px;
+  /*margin-top: 0;*/
+}
 
 .user a:hover {
   text-decoration: none;
@@ -418,6 +427,10 @@ body {
   }
   .tab a:hover .icon {
     stroke: #222222;
+  }
+  .tab h3 {
+    font-size: 24px;
+    margin-top: 15px;
   }
   .tab .icon {
     margin-left: -15px;
@@ -483,17 +496,17 @@ body {
   }
 
 /*
- * Picks
+ * Tweets
  * --------------------------------------------------
 */
-#picks {
+#tweets {
 }
 
 /*
- * Edition
+ * News
  * --------------------------------------------------
 */
-#edition {
+#news {
 }
 
 .link {

@@ -22,9 +22,9 @@
                     </div></a>
             </div>
             <ul class="context menu list-unstyled pull-right enable-lg">
-                <li><a href="#edition"><div class="icon icon-sm" title="edition">
+                <li><a href="#news"><div class="icon icon-sm" title="news">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <rect x="39.5" y="39.5" width="97" height="97"/>
+                    <path d="M39.5,136.5v-55h42v-42h55v97H39.5z M75,75"/>
                     </svg>
                     </div></a></li>
                 <li><a href="#fellows"><div class="icon icon-sm" title="fellows">
@@ -32,9 +32,9 @@
                     <circle cx="88" cy="88" r="48.5"/>
                     </svg>
                     </div></a></li>
-                <li><a href="#picks"><div class="icon icon-sm" title="picks">
+                <li><a href="#tweets"><div class="icon icon-sm" title="tweets">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <rect x="49.816" y="49.816" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.4508 88)" width="76.368" height="76.368"/>
+                    <path d="M39.5,136.5v-97h55v42h42v55H39.5z M101,75"/>
                     </svg>
                     </div></a></li>
             </ul>
@@ -47,8 +47,8 @@
             </div>
         </div>
 
-        <div id="edition" class="section">
-            {% if reader.edition %}<h2 class="hidden name">edition</h2>
+        <div id="news" class="section">
+            {% if reader.edition %}<h2 class="hidden name">news</h2>
             <div class="row">
                 <ol class="list-unstyled">{% for link in reader.edition %}
                 {% set link_fellows = link.fellows %}
@@ -57,7 +57,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No edition, sorry</div>
+            <div class="row na center-block text-center">No news, sorry</div>
             {% endif %}
         </div>
 
@@ -75,8 +75,8 @@
             {% endif %}
         </div>
 
-        <div id="picks" class="section">
-            {% if reader.picks %}<h2 class="hidden name">picks</h2>
+        <div id="tweets" class="section">
+            {% if reader.picks %}<h2 class="hidden name">tweets</h2>
             <div class="row">
                 <ol class="list-unstyled">{% for link in reader.picks %}
                     {% set link_fellows = link.fellows %}
@@ -85,7 +85,7 @@
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No picks, sorry</div>
+            <div class="row na center-block text-center">No tweets, sorry</div>
             {% endif %}
         </div>
         {% include "news/profile.html" %}

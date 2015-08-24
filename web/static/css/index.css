@@ -305,7 +305,7 @@ body {
     margin-top: 0;
     margin-left: 10px;
   }
-  .menu li.active {
+  .context li.active {
   border-bottom: solid 3px #5b5256 !important; /*#222222*/
 }
 
@@ -598,6 +598,13 @@ body {
 .readers {
   margin-left: -5px;
   margin-right: -5px;
+}
+.readers .popover {
+  margin-top: 25px;
+}
+.readers .status:hover, 
+.readers .status:focus {
+  text-decoration: none;
 }
 .readers .pic {
   margin-top: 10px;

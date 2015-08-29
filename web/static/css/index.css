@@ -403,7 +403,8 @@ body {
   /*margin-top: 0;*/
 }
 
-.user a:hover {
+.user a:hover,
+.user a:focus {
   text-decoration: none;
 }
 
@@ -602,8 +603,8 @@ body {
 .readers .popover {
   margin-top: 25px;
 }
-.readers .status:hover, 
-.readers .status:focus {
+.readers a:hover, 
+.readers a:focus {
   text-decoration: none;
 }
 .readers .pic {

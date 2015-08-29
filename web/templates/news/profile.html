@@ -13,7 +13,7 @@
                 <div class="card center-block text-center">
                     <h1>{{ reader.name }}</h1>
                     <div class="user">
-                        <a href="https://twitter.com/{{ reader.screen_name }}">
+                        <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweeter-id="{{ reader.twitter_user_id }}">
                             <div class="bird icon-tn">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 288"><path d="M280.695 59.21c-10.059 4.461-20.868 7.477-32.215 8.832c11.581-6.941 20.475-17.934 24.662-31.031 c-10.837 6.428-22.841 11.096-35.617 13.611c-10.231-10.901-24.809-17.713-40.94-17.713c-30.978 0-56.091 25.113-56.091 56.1 c0 4.4 0.5 8.7 1.5 12.782C95.331 99.4 54 77.1 26.3 43.176c-4.828 8.284-7.594 17.919-7.594 28.2 c0 19.5 9.9 36.6 25 46.686c-9.194-0.291-17.843-2.814-25.405-7.016c-0.004 0.234-0.005 0.469-0.005 0.7 c0 27.2 19.3 49.8 45 54.999c-4.707 1.281-9.662 1.967-14.777 1.967c-3.614 0-7.128-0.352-10.553-1.006 c7.138 22.3 27.9 38.5 52.4 38.953c-19.196 15.043-43.381 24.01-69.659 24.01c-4.527 0-8.992-0.266-13.38-0.783 c24.822 15.9 54.3 25.2 86 25.199c103.169 0 159.585-85.467 159.585-159.586c0-2.432-0.055-4.851-0.162-7.256 C263.666 80.3 273.2 70.5 280.7 59.21z" /></svg>
                             </div>

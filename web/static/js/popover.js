@@ -19,24 +19,30 @@ $(function() {
 });
 
 // Create Tweets
-$(".status").popover({
-  content: function() {
-    var anchor = $(this)[0];
-    var tweetId = String($(this).data("tweet-id"));
-    var target = document.createElement("div");
-    target.style.width = "245px";
-    twttr.widgets.createTweet(tweetId, target, {
-        width: "250",
-        cards: "hidden", 
-        conversation: "none"
-      })
-    .then(function(el) {
-      var doc = el.contentDocument;
-      doc.querySelector(".EmbeddedTweet").style.border = "0";
-      doc.querySelector(".EmbeddedTweet-tweet").style.padding = "0";
-    });
-    return target;
-  }
+$(".tweet").each(function() {
+    var $elem = $(this);
+    $elem.popover({
+    container: $elem,
+    content: function() {
+      var anchor = $(this)[0];
+      var tweetId = String($(this).data("tweet-id"));
+      var target = document.createElement("div");
+      target.style.width = "245px";
+      target.style.visibility = "hidden";
+      twttr.widgets.createTweet(tweetId, target, {
+          width: "250",
+          cards: "hidden", 
+          conversation: "none"
+        })
+      .then(function(el) {
+        var doc = el.contentDocument;
+        doc.querySelector(".EmbeddedTweet").style.border = "0";
+        doc.querySelector(".EmbeddedTweet-tweet").style.padding = "0";
+        target.style.visibility = "visible";
+      });
+      return target;
+    }
+  });
 });
 
 // Dismiss popver on outside click

@@ -16,7 +16,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="readers">{% for fellow in link_fellows %}
-        <a class="status" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="click" data-tweet-id="{{ link.statuses[fellow.twitter_user_id] }}">
+        <a class="tweet" href="/@{{ fellow.screen_name }}/" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweet-id="{{ link.statuses[fellow.twitter_user_id] }}">
             <span class="mug-sm">
                 <img class="pic" src="{{ fellow.profile_image_url}}" />
             </span>

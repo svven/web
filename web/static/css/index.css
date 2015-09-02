@@ -125,7 +125,7 @@ body {
 .bird {
   display: inline-block;
   vertical-align: top;
-  fill: #55acee; /*#8899a6;*/
+  fill: #8899a6; /*#55acee*/
 }
   .bird:hover {
     /*fill: #66757f;*/
@@ -611,6 +611,9 @@ body {
   margin-top: 10px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.tweet .popover {
+  visibility: hidden;
 }
 
 /*

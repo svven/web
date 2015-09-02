@@ -1,18 +1,18 @@
 // Handle popover context menu
 $('#menu').popover({
     content: function() {
-        var context = $('.context').clone();
-        context.removeClass('menu pull-right enable-lg');
-        return context;
+        var $context = $('.context').clone();
+        $context.removeClass('menu pull-right enable-lg');
+        return $context;
     }
 });
 
 $(function() {
   $(window).hashchange(function() {
     var item = location.hash;
-    var context = $('.context');
-    $(context).children().removeClass('active');
-    $(context).find('li:has(>a[href="' + item +'"])').addClass('active');      
+    var $context = $('.context');
+    $context.children().removeClass('active');
+    $context.find('li:has(>a[href="' + item +'"])').addClass('active');      
     $('#menu').popover('hide');
   });
   $(window).hashchange();
@@ -20,28 +20,30 @@ $(function() {
 
 // Create Tweets
 $(".tweet").each(function() {
-    var $elem = $(this);
-    $elem.popover({
-    container: $elem,
+  var $tweet = $(this);
+  $tweet.popover({
+    container: $tweet,
     content: function() {
-      var anchor = $(this)[0];
       var tweetId = String($(this).data("tweet-id"));
-      var target = document.createElement("div");
-      target.style.width = "245px";
-      target.style.visibility = "hidden";
-      twttr.widgets.createTweet(tweetId, target, {
-          width: "250",
-          cards: "hidden", 
-          conversation: "none"
+      var $target = $("<div>");
+      $target.css("width", "245px");
+      twttr.widgets.createTweet(tweetId, $target[0], {
+          width: "250", cards: "hidden", conversation: "none"
         })
-      .then(function(el) {
-        var doc = el.contentDocument;
-        doc.querySelector(".EmbeddedTweet").style.border = "0";
-        doc.querySelector(".EmbeddedTweet-tweet").style.padding = "0";
-        target.style.visibility = "visible";
-      });
-      return target;
+        .then(function(content) {
+          if (typeof content !== 'undefined') {
+            var $content = $(content);
+            var $doc = $(content.contentDocument);
+            $doc.find(".EmbeddedTweet").css("border", "0");
+            $doc.find(".EmbeddedTweet-tweet").css("padding", "0");
+            $content.parents(".popover").css("visibility", "visible");
+          }
+        });
+      return $target;
     }
+  });
+  $tweet.on('hide.bs.popover', function () {
+    $tweet.find(".popover").css("visibility", "hidden");
   });
 });
 

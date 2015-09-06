@@ -1,7 +1,7 @@
 
 <div class="link">
     <h3 class="title">
-        <a href="{{ link.url }}">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|striptags|truncate(75, end="...") }}{% endif %}</a>
+        <a href="{{ link.url }}" target="_blank">{% if link.title is none %}{{ link.site }}{% else %}{{ link.title|striptags|truncate(75, end="...") }}{% endif %}</a>
     </h3>
     <p class="site">
         <span>{{ link.site }}</span>

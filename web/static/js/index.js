@@ -118,10 +118,6 @@ $('body').on('click', function(e) {
  * Images
  * --------------------------------------------------
 */
-$('img').one('error', function() { 
-  this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-});
-
 /*
  * Replace all SVG images with inline SVG
  */

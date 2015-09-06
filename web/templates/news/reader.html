@@ -5,39 +5,28 @@
     <div class="container-fluid">
         <div id="header">
             <div class="brand pull-left">
-                <a href="/"><div class="logo" title="Svven">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
-                        L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
-                    </svg></div>
+                <a href="/">
+                    <div class="logo" title="Svven">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                        <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
+                            L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
+                        </svg></div>
                 </a>
             </div>
-            <div class="burger pull-right enable-sm enable-md">
-                <a id="menu" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true"><div class="icon icon-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <line x1="39.5" y1="123.5" x2="136.5" y2="123.5"/>
-                    <line x1="39.5" y1="88" x2="136.5" y2="88"/>
-                    <line x1="39.5" y1="52.5" x2="136.5" y2="52.5"/>
-                    </svg>
-                    </div></a>
+            <div class="burger pull-right">
+                <a id="burger" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-content="
+                    <ul class='menu list-unstyled'>
+                        <!-- <li><a href='/settings'>Settings</a></li> -->
+                        <li><a href='/logout'>Logout</a></li>
+                    </ul>">
+                    <div class="icon icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+                        <line x1="39.5" y1="123.5" x2="136.5" y2="123.5"/>
+                        <line x1="39.5" y1="88" x2="136.5" y2="88"/>
+                        <line x1="39.5" y1="52.5" x2="136.5" y2="52.5"/>
+                        </svg>
+                        </div></a>
             </div>
-            <ul class="context menu list-unstyled pull-right enable-lg">
-                <li><a href="#news"><div class="icon icon-sm" title="news">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <path d="M39.5,136.5v-55h42v-42h55v97H39.5z M75,75"/>
-                    </svg>
-                    </div></a></li>
-                <li><a href="#fellows"><div class="icon icon-sm" title="fellows">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <circle cx="88" cy="88" r="48.5"/>
-                    </svg>
-                    </div></a></li>
-                <li><a href="#tweets"><div class="icon icon-sm" title="tweets">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-                    <path d="M39.5,136.5v-97h55v42h42v55H39.5z M101,75"/>
-                    </svg>
-                    </div></a></li>
-            </ul>
             <div class="mugshot pull-center">
                 <a href="/@{{ reader.screen_name }}/">
                     <div class="mug-md">
@@ -46,18 +35,52 @@
                 </a>
             </div>
         </div>
-
-        <div id="news" class="section">
-            {% if reader.edition %}<h2 class="hidden name">news</h2>
+        
+        <div id="profile">
             <div class="row">
-                <ol class="list-unstyled">{% for link in reader.edition %}
-                {% set link_fellows = link.fellows %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                <div class="flash center-block text-center">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <span>{{ message }}</span>
+                    </div>{% endfor %}
+                </div>
+                {% endwith %}
+                <div class="card center-block text-center">
+                    <h1>{{ reader.name }}</h1>
+                    <div class="user">
+                        <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweeter-id="{{ reader.twitter_user_id }}">
+                            <div class="bird icon-tn">
+                                <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
+                            </div>
+                            <span class="screen_name">@{{ reader.screen_name }}</span>
+                        </a>{% if ego == True %}
+						<span class="label label-default">YOU</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="nav">
+            <ul class="menu list-unstyled list-centered">
+                <li><a href="#news"> News </a></li>
+                <li><a href="#fellows">Fellows</a></li>
+                <li><a href="#tweets">Tweets</a></li>
+            </ul>
+        </div>
+
+        
+        <div id="tweets" class="section">
+            {% if reader.picks %}<h2 class="hidden name">tweets</h2>
+            <div class="row">
+                <ol class="list-unstyled">{% for link in reader.picks %}{% set link_fellows = link.fellows %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No news, sorry</div>
+            <div class="row na center-block text-center">No tweets, sorry</div>
             {% endif %}
         </div>
 
@@ -75,29 +98,28 @@
             {% endif %}
         </div>
 
-        <div id="tweets" class="section">
-            {% if reader.picks %}<h2 class="hidden name">tweets</h2>
+        <div id="news" class="section">
+            {% if reader.edition %}<h2 class="hidden name">news</h2>
             <div class="row">
-                <ol class="list-unstyled">{% for link in reader.picks %}
-                    {% set link_fellows = link.fellows %}
+                <ol class="list-unstyled">{% for link in reader.edition %}{% set link_fellows = link.fellows %}
                     <li>{% include "news/link.html" %}
                         <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
                     </li>{% endfor %}
                 </ol>
             </div>{% else %}
-            <div class="row na center-block text-center">No tweets, sorry</div>
+            <div class="row na center-block text-center">No news, sorry</div>
             {% endif %}
         </div>
-        {% include "news/profile.html" %}
+
     </div>
 {% endblock %}
 
 {% block scripts %}
 {{super()}}
-    <script src="{{url_for('static', filename='js/popover.js')}}"></script>
-    <script type="text/javascript">
-        $('img').one('error', function() { 
-            this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-        });
-    </script>
+{{google.uanalytics('UA-60733932-1')}}
+    <script src="//platform.twitter.com/widgets.js"></script>
+    <script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
+
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
 {% endblock %}

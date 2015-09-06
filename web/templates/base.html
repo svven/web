@@ -18,8 +18,5 @@
 
 {% block scripts %}
 {{super()}}
-	<script src="//platform.twitter.com/widgets.js"></script>
-	<script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
-	<script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
 {{google.uanalytics('UA-60733932-1')}}
 {% endblock %}

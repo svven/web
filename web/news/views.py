@@ -38,7 +38,8 @@ def reader(screen_name):
 @news.route('/featured')
 @login_required
 def featured():
+    reader = current_user.reader
     readers = MixedReader.query.\
         filter(Reader.featured != None).\
         order_by(Reader.featured.desc()).limit(30)
-    return render_template('news/featured.html', readers=readers)
+    return render_template('news/featured.html', reader=reader, readers=readers)

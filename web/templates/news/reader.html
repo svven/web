@@ -2,98 +2,98 @@
 {% block title %}Svven - {{ reader.name }}{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        {% include "news/header.html" %}
+  <div class="container-fluid">
+    {% include "news/header.html" %}
 
-        <div id="profile">
-            <div class="row">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                <div class="flash center-block text-center">
-                    {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <span>{{ message }}</span>
-                    </div>{% endfor %}
-                </div>
-                {% endwith %}
-                <div class="card center-block text-center">
-                    <h1>{{ reader.name }}</h1>
-                    <div class="user">
-                        <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweeter-id="{{ reader.twitter_user_id }}">
-                            <div class="bird icon-tn">
-                                <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
-                            </div>
-                            <span class="screen_name">@{{ reader.screen_name }}</span>
-                        </a>{% if ego == True %}
+    <div id="profile">
+      <div class="row">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        <div class="flash center-block text-center">
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span>{{ message }}</span>
+          </div>{% endfor %}
+        </div>
+        {% endwith %}
+        <div class="card center-block text-center">
+          <h1>{{ reader.name }}</h1>
+          <div class="user">
+            <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweeter-id="{{ reader.twitter_user_id }}">
+              <div class="bird icon-tn">
+                <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
+              </div>
+              <span class="screen_name">@{{ reader.screen_name }}</span>
+            </a>{% if ego == True %}
 						<span class="label label-default">YOU</span>{% endif %}
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-
-        <div id="nav">
-            <ul class="menu list-unstyled list-centered">
-                <li><a href="#news">News</a></li>
-                <li><a href="#fellows">Fellows</a></li>
-                <li><a href="#tweets">Tweets</a></li>
-            </ul>
-        </div>
-
-        
-        <div id="tweets" class="section">
-            {% if reader.picks %}<h2 class="hidden name">tweets</h2>
-            <div class="row">
-                <ol class="list-unstyled">{% for link in reader.picks %}{% set link_fellows = link.fellows %}
-                    <li>{% include "news/link.html" %}
-                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}
-                </ol>
-            </div>{% else %}
-            <div class="row na center-block text-center">No tweets, sorry</div>
-            {% endif %}
-        </div>
-
-        <div id="fellows" class="section">
-            {% if reader.fellows %}<h2 class="hidden name">fellows</h2>
-            <div class="row">
-                <ol class="list-unstyled">
-                    {% for fellow in reader.fellows %}
-                    <li>{% include "news/fellow.html" %}
-                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}
-                </ol>
-            </div>{% else %}
-            <div class="row na center-block text-center">No fellows, sorry</div>
-            {% endif %}
-        </div>
-
-        <div id="news" class="section">
-            {% if reader.edition %}<h2 class="hidden name">news</h2>
-            <div class="row">
-                <ol class="list-unstyled">{% for link in reader.edition %}{% set link_fellows = link.fellows %}
-                    <li>{% include "news/link.html" %}
-                        <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
-                    </li>{% endfor %}
-                </ol>
-            </div>{% else %}
-            <div class="row na center-block text-center">No news, sorry</div>
-            {% endif %}
-        </div>
-
+      </div>
     </div>
+
+    <div id="nav">
+      <ul class="menu list-unstyled list-centered">
+        <li><a href="#news">News</a></li>
+        <li><a href="#fellows">Fellows</a></li>
+        <li><a href="#tweets">Tweets</a></li>
+      </ul>
+    </div>
+
+    
+    <div id="tweets" class="section">
+      {% if reader.picks %}<h2 class="hidden name">tweets</h2>
+      <div class="row">
+        <ol class="list-unstyled">{% for link in reader.picks %}{% set link_fellows = link.fellows %}
+          <li>{% include "news/link.html" %}
+            <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+          </li>{% endfor %}
+        </ol>
+      </div>{% else %}
+      <div class="row na center-block text-center">No tweets, sorry</div>
+      {% endif %}
+    </div>
+
+    <div id="fellows" class="section">
+      {% if reader.fellows %}<h2 class="hidden name">fellows</h2>
+      <div class="row">
+        <ol class="list-unstyled">
+          {% for fellow in reader.fellows %}
+          <li>{% include "news/fellow.html" %}
+            <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+          </li>{% endfor %}
+        </ol>
+      </div>{% else %}
+      <div class="row na center-block text-center">No fellows, sorry</div>
+      {% endif %}
+    </div>
+
+    <div id="news" class="section">
+      {% if reader.edition %}<h2 class="hidden name">news</h2>
+      <div class="row">
+        <ol class="list-unstyled">{% for link in reader.edition %}{% set link_fellows = link.fellows %}
+          <li>{% include "news/link.html" %}
+            <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
+          </li>{% endfor %}
+        </ol>
+      </div>{% else %}
+      <div class="row na center-block text-center">No news, sorry</div>
+      {% endif %}
+    </div>
+
+  </div>
 {% endblock %}
 
 {% block scripts %}
 {{super()}}
 {{google.uanalytics('UA-60733932-1')}}
-    <script src="//platform.twitter.com/widgets.js"></script>
-    <script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
-    <script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
+  <script src="//platform.twitter.com/widgets.js"></script>
+  <script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
 
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
-    <script type="text/javascript">
-      $('img').one('error', function() { 
-        this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-      });
-    </script>
+  <script src="{{url_for('static', filename='js/index.js')}}"></script>
+  <script type="text/javascript">
+    $('img').one('error', function() { 
+    this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+    });
+  </script>
 {% endblock %}

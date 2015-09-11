@@ -3,26 +3,26 @@
 
 {% block head %}
 {{super()}}
-    <style>
-        .logo { display: inline-block; width: 38px; height: 38px; vertical-align: top; }
-        .error { display: block; text-align: center; max-width: 400px; margin: 20px auto; }
-    </style>
+  <style>
+    .logo { display: inline-block; width: 38px; height: 38px; vertical-align: top; }
+    .error { display: block; text-align: center; max-width: 400px; margin: 20px auto; }
+  </style>
 {% endblock %}
 
 {% block content %}
 <div class="error">
-    <h1>
-        <span class="logo" title="Svven">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
-            <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
-                L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
-            </svg>
-        </span>
-        <span>500</span>
-    </h1>
-    <hr />
-    <p>This is a server error, sorry.</p>
-    <p>You can <a href="javascript:history.back()">go back to previous page</a>.
-    If you want to help us fix it, please <a href="mailto:ducu@svven.com">let us know</a> what happened, cheers.</p>
+  <h1>
+    <span class="logo" title="Svven">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
+      <path d="M28.812,73.36L58.521,43.65L88.23,73.359l29.709-29.709l29.709,29.709L88.23,132.778
+        L28.812,73.36z M117.939,25.287L88.23,54.996L58.521,25.287L10.449,73.36l77.781,77.782l77.782-77.782L117.939,25.287z" />
+      </svg>
+    </span>
+    <span>500</span>
+  </h1>
+  <hr />
+  <p>This is a server error, sorry.</p>
+  <p>You can <a href="javascript:history.back()">go back to previous page</a>.
+  If you want to help us fix it, please <a href="mailto:ducu@svven.com">let us know</a> what happened, cheers.</p>
 </div>
 {% endblock %}

@@ -42,7 +42,7 @@ def oauth_callback(provider_name):
             raise
     except Exception, e:
         current_app.logger.exception(e)
-        flash('Oops, could not authenticate, sorry.', 'danger')
+        flash('Oops, could not authenticate you, sorry.', 'danger')
         return redirect(url_for('front.page'))
     return authenticate(provider_name, user_credentials)
 

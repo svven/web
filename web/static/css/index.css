@@ -28,7 +28,7 @@ svg {
   padding-right: 20px;
 }
   .pane-first > * {
-    width: 300px;
+    width: 320px;
   }
   .pane .brand {
     position: relative;
@@ -82,7 +82,7 @@ svg {
         width: 100%
       }
       .pane .brand {
-        margin-top: 40px;
+        margin-top: 50px;
       }
       .pane .devices {
         width: 100%;
@@ -120,12 +120,11 @@ svg {
         width: 66.6666%;
       }
       .pane .brand {
-        margin-top: 150px;
+        margin-top: 100px;
       }
       .pane .devices {
         width: 150%;
         padding-bottom: 96%; /* 150% * 360/560 */
-        margin-top: 50px;
       }
   }
 
@@ -153,15 +152,14 @@ svg {
 .flash {
   position: fixed;
   z-index: 1;
-  top: 50px;
   left: 0;
   right: 0;
   width: 95%;
   max-width: 400px;
 }
   .alert {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
   }
 
 /*
@@ -639,7 +637,7 @@ svg {
 
 .footer {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 30px;
 }
   .footer a {

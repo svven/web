@@ -28,7 +28,7 @@ svg {
   padding-right: 20px;
 }
   .pane-first > * {
-    width: 320px;
+    max-width: 320px;
   }
   .pane .brand {
     position: relative;
@@ -152,6 +152,7 @@ svg {
 .flash {
   position: fixed;
   z-index: 1;
+  top: 0;
   left: 0;
   right: 0;
   width: 95%;

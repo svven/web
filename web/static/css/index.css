@@ -114,10 +114,10 @@ svg {
     .pane {
     }
       .pane-first {
-        width: 33.3333%;
+        width: 40%;
       }
       .pane-second {
-        width: 66.6666%;
+        width: 60%;
       }
       .pane .brand {
         margin-top: 100px;

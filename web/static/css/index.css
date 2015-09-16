@@ -120,11 +120,11 @@ svg {
         width: 60%;
       }
       .pane .brand {
-        margin-top: 100px;
+        margin-top: 150px;
       }
       .pane .devices {
-        width: 150%;
-        padding-bottom: 96%; /* 150% * 360/560 */
+        width: 200%;
+        padding-bottom: 128%; /* 200% * 360/560 */
       }
   }
 
@@ -159,8 +159,8 @@ svg {
   max-width: 400px;
 }
   .alert {
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
 /*

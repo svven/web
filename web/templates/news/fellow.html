@@ -6,7 +6,15 @@
     </div>
     <div class="details">
       <p class="name">{{ fellow.name }}</p>
-      <p class="screen_name">@{{ fellow.screen_name }}</p>
+      <div class="user">
+        <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ fellow.screen_name }}">
+          <div class="bird icon-tn">
+            <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
+          </div>
+          <span class="screen_name">@{{ fellow.screen_name }}</span>
+          <!-- <span class="label label-default">FOLLOWING</span> -->
+        </a>
+      </div>
     </div>
   </a>
 </div>

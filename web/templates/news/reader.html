@@ -19,13 +19,13 @@
         <div class="card center-block text-center">
           <h1>{{ reader.name }}</h1>
           <div class="user">
-            <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-trigger="hover" data-tweeter-id="{{ reader.twitter_user_id }}">
-              <div class="bird icon-tn">
+            <a class="tweeter" href="https://twitter.com/intent/user/?screen_name={{ reader.screen_name }}">
+              <div class="bird icon-sm">
                 <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
               </div>
-              <span class="screen_name">@{{ reader.screen_name }}</span>
-            </a>{% if ego == True %}
-						<span class="label label-default">YOU</span>{% endif %}
+              <span class="screen_name">@{{ reader.screen_name }}</span>{% if ego == True %}
+              <span class="label label-default">YOU</span>{% endif %}
+            </a>
           </div>
         </div>
       </div>

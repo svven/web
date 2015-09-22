@@ -32,44 +32,6 @@ $(document).ready(function(){
 });
 
 /*
- * Header
- * --------------------------------------------------
-*/
-// // Hide Header on on scroll down
-// // https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
-// var didScroll;
-// var lastScrollTop = 0;
-// var delta = 5;
-// var headerHeight = $('#header').outerHeight();
-
-// $(window).scroll(function(event){
-//     didScroll = true;
-// });
-
-// setInterval(function() {
-//     if (didScroll) {
-//         hasScrolled();
-//         didScroll = false;
-//     }
-// }, 250);
-
-// function hasScrolled() {
-//     var st = $(this).scrollTop();
-//     if(Math.abs(lastScrollTop - st) <= delta)
-//         return;
-//     if (st > lastScrollTop && st > headerHeight){
-//         // Scroll Down
-//         $('#header').removeClass('noheader').addClass('noheader');
-//     } else {
-//         // Scroll Up
-//         if(st + $(window).height() < $(document).height()) {
-//             $('#header').removeClass('noheader');
-//         }
-//     }
-//     lastScrollTop = st;
-// }
-
-/*
  * Twitter
  * --------------------------------------------------
 */
@@ -118,31 +80,30 @@ $('body').on('click', function(e) {
  * Images
  * --------------------------------------------------
 */
-/*
- * Replace all SVG images with inline SVG
- */
+// Replace all SVG images with inline SVG
+var svgCache = {};
+function loadSVG(url, callback, cache) {
+  if (!cache[url]) {
+    cache[url] = $.get(url).promise();
+  }
+  cache[url].done(callback);
+}
+
 $('img.svg').each(function() {
   var $img = $(this);
   var imgID = $img.attr('id');
   var imgClass = $img.attr('class');
   var imgURL = $img.attr('src');
-
-  $.get(imgURL, function(data) {
-    // Get the SVG tag, ignore the rest
-    var $svg = $(data).find('svg');
-    // Add replaced image's ID to the new SVG
+  loadSVG(imgURL, function(data) {
+    var $svg = $(data).find('svg').clone();
     if(typeof imgID !== 'undefined') {
       $svg = $svg.attr('id', imgID);
     }
-    // Add replaced image's classes to the new SVG
     if(typeof imgClass !== 'undefined') {
       $svg = $svg.attr('class', imgClass+' replaced-svg');
     }
-    // Remove any invalid XML tags as per http://validator.w3.org
     $svg = $svg.removeAttr('xmlns:a');
-    // Also remove style if any
     $svg.children().removeAttr('style');
-    // Replace image with new SVG
     $img.replaceWith($svg);
-  }, 'xml');
+  }, svgCache);
 });

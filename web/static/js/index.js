@@ -39,8 +39,8 @@ $(document).ready(function(){
 $('.tweet').each(function() {
   var $tweet = $(this);
   $tweet.popover({
-    container: $tweet,
-    content: function() {
+    html: true, animation: false, trigger: 'hover', placement: 'bottom',
+    container: $tweet, content: function() {
       var tweetId = String($(this).data('tweet-id'));
       var $target = $('<div>');
       $target.css('width', '245px');
@@ -107,3 +107,35 @@ $('img.svg').each(function() {
     $img.replaceWith($svg);
   }, svgCache);
 });
+
+/*
+ * Visibility
+ * --------------------------------------------------
+*/
+// More tweets
+var show = 3;
+
+$('.tweets').each(function() {
+  var $tweets = $(this);
+  var tweets = $tweets.find('.tweet');
+  tweets.each(function(index) {
+    if (index >= show) {
+      var $tweet = $(this);
+      $tweet.addClass('hidden');
+    }
+  });
+  var more = tweets.length - show;
+  if (more > 0) {
+    var $more = $(
+      '<a class="more" href="#">' + more + ' more</a>');
+    $more.click(function(e){ showMore(e.target); return false; });
+    $tweets.append($more);
+  }
+});
+
+function showMore(a) {
+  var $more = $(a);
+  $more.prevAll('.tweet').removeClass('hidden');
+  $more.remove();
+}
+

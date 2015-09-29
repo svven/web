@@ -5,8 +5,8 @@ from flask import Markup, Blueprint, render_template, abort, flash
 from flask.ext.login import login_required, current_user
 from sqlalchemy.orm import joinedload, contains_eager
 
-from database.models import *
-from aggregator.mixes import *
+from models import WebReader
+from database.models import TwitterUser
 from aggregator.utils import munixtime
 
 news = Blueprint('news', __name__)
@@ -19,9 +19,9 @@ timeago = lambda **kvargs:\
 @news.route('/@<screen_name>/')
 @login_required
 def reader(screen_name):
-    reader = MixedReader.query.\
+    reader = WebReader.query.\
         outerjoin(TwitterUser).options(
-            contains_eager(MixedReader.twitter_user)).\
+            contains_eager(WebReader.twitter_user)).\
         filter(TwitterUser.screen_name.ilike(screen_name)).first()
     if not reader:
         abort(404)
@@ -39,7 +39,7 @@ def reader(screen_name):
 @login_required
 def featured():
     reader = current_user.reader
-    readers = MixedReader.query.\
-        filter(Reader.featured != None).\
-        order_by(Reader.featured.desc()).limit(30)
+    readers = WebReader.query.\
+        filter(WebReader.featured != None).\
+        order_by(WebReader.featured.desc()).limit(30)
     return render_template('news/featured.html', reader=reader, readers=readers)

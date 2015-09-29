@@ -24,8 +24,8 @@ def run():
 def invite(screen_name):
     "Allow specified user to sign up."
     with app.app_context():
-        from web.auth.models import User
-        user, created = User.create(screen_name)
+        from web.auth.models import WebUser
+        user, created = WebUser.create(screen_name)
         app.logger.info('%s invite: %s', 
             created and 'Created' or 'Redundant', screen_name)
 

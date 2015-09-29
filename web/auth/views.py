@@ -9,14 +9,14 @@ from flask.ext.login import LoginManager, \
 
 from .. import db
 from oauth import OAuth
-from models import User
+from models import WebUser
 
 auth = Blueprint('auth', __name__)
 login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return WebUser.query.get(int(id))
 
 @auth.record_once
 def on_load(state):
@@ -64,7 +64,7 @@ def logout():
 def authenticate(provider_name, user_credentials):
     user, key, secret = user_credentials
     # private beta check - to be removed when going public
-    if not User.exists(provider_name, *user_credentials):
+    if not WebUser.exists(provider_name, *user_credentials):
         message = Markup(
             '''Hey sorry you're not on the list.<br />
             <a class="alert-link" href="mailto:ducu@svven.com">Drop us a line</a> 
@@ -74,7 +74,7 @@ def authenticate(provider_name, user_credentials):
             'Blocked signup: %s (%s, %s)', user.screen_name, key, secret)
         return redirect(url_for('front.page'))
 
-    user, created = User.authenticate(provider_name, *user_credentials)
+    user, created = WebUser.authenticate(provider_name, *user_credentials)
 
     # sign up welcome message
     if created or not user.last_login_at: # first time

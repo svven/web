@@ -4,44 +4,42 @@ Auth models.
 from flask.ext.login import UserMixin
 
 from .. import db
-from database.auth.models import User as AuthUser
-from database.twitter.models import User as TwitterUser, Token, Timeline
+from ..news.models import WebReader
+from database.models import AuthUser, TwitterUser, Token, Timeline
 
-from aggregator.mixes import MixedReader
-
-class User(AuthUser, UserMixin):
-    "Svven User."
+class WebUser(AuthUser, UserMixin):
+    "Web User."
 
     @classmethod
     def exists(cls, provider_name, user, key, secret):
         "Verify if user exists by specified provider."
         assert provider_name == 'twitter' # yet
         screen_name = user.screen_name
-        return bool(User.query.filter_by(screen_name=screen_name).count())
+        return bool(WebUser.query.filter_by(screen_name=screen_name).count())
 
     @classmethod
     def create(cls, screen_name):
         "Create auth user by screen_name."
-        user = User(screen_name=screen_name)
-        return User.register_auth_user(user)
+        user = WebUser(screen_name=screen_name)
+        return WebUser.register_auth_user(user)
 
     @classmethod
     def authenticate(cls, provider_name, user, key, secret):
         "Authenticate based on provider user credentials."
         assert provider_name == 'twitter' # yet
-        auth_user, created = User.register_auth_user(user)
-        twitter_user, _ = User.register_twitter_user(user, key, secret)
-        news_reader, _ = User.register_news_reader(auth_user, twitter_user)
+        auth_user, created = WebUser.register_auth_user(user)
+        twitter_user, _ = WebUser.register_twitter_user(user, key, secret)
+        news_reader, _ = WebUser.register_news_reader(auth_user, twitter_user)
         return auth_user, created
 
     @classmethod
     def register_auth_user(cls, user):
-        "Get or create specified Svven Auth User."
+        "Get or create specified Auth User."
         created = False
         screen_name, user_data = (user.screen_name, user)
-        user = User.query.filter_by(screen_name=screen_name).first()
+        user = WebUser.query.filter_by(screen_name=screen_name).first()
         if not user: # new
-            user = User(user=user_data) # auth_user
+            user = WebUser(user=user_data) # auth_user
             created = True
             db.session.add(user)
         else: # exists
@@ -77,10 +75,10 @@ class User(AuthUser, UserMixin):
     def register_news_reader(cls, auth_user, twitter_user):
         "Get or create Mixed News Reader (i.e. from aggregator)."
         created = False
-        reader = MixedReader.query.filter_by(
+        reader = WebReader.query.filter_by(
             twitter_user_id=twitter_user.user_id).first() # reader
         if not reader: # new
-            reader = MixedReader(twitter_user_id=twitter_user.user_id)
+            reader = WebReader(twitter_user_id=twitter_user.user_id)
             created = True
             db.session.add(reader)
         else: # exists
@@ -95,7 +93,7 @@ class User(AuthUser, UserMixin):
 
     @property
     def reader(self):
-        # return MixedReader.query.filter_by(auth_user_id=self.id).one()
-        base_reader = super(User, self).reader
-        base_reader.__class__ = MixedReader
+        # return WebReader.query.filter_by(auth_user_id=self.id).one()
+        base_reader = super(WebUser, self).reader
+        base_reader.__class__ = WebReader
         return base_reader # cached

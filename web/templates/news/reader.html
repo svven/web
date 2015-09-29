@@ -1,6 +1,10 @@
 ﻿{% extends "base.html" %}
 {% block title %}Svven - {{ reader.name }}{% endblock %}
 
+{% block styles %}
+{{super()}}
+{% endblock %}
+
 {% block content %}
   <div class="container-fluid">
     {% include "news/header.html" %}
@@ -43,7 +47,7 @@
     <div id="tweets" class="section">
       {% if reader.picks %}<h2 class="hidden name">tweets</h2>
       <div class="row">
-        <ol class="list-unstyled">{% for link in reader.picks %}{% set link_fellows = link.fellows %}
+        <ol class="list-unstyled">{% for link in reader.picks %}
           <li>{% include "news/link.html" %}
             <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
           </li>{% endfor %}
@@ -70,7 +74,7 @@
     <div id="news" class="section">
       {% if reader.edition %}<h2 class="hidden name">news</h2>
       <div class="row">
-        <ol class="list-unstyled">{% for link in reader.edition %}{% set link_fellows = link.fellows %}
+        <ol class="list-unstyled">{% for link in reader.edition %}
           <li>{% include "news/link.html" %}
             <div class="clearfix enable-sm {% if loop.index is divisibleby 2 %}enable-md{% endif %} {% if loop.index is divisibleby 3 %}enable-lg{% endif %}"></div>
           </li>{% endfor %}
@@ -86,13 +90,13 @@
 {% block scripts %}
 {{super()}}
 {{google.uanalytics('UA-60733932-1')}}
-  <script src="//platform.twitter.com/widgets.js"></script>
   <script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/twitter.widgets.js')}}"></script>
 
   <script src="{{url_for('static', filename='js/index.js')}}"></script>
   <script type="text/javascript">
-    $('img').one('error', function() { 
+    $('img').one('error', function() {
     this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
     });
   </script>

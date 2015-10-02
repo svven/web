@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container-fluid">
     {% include "news/header.html" %}
-
+    {% from "news/friendship.html" import friendship with context %}
     <div id="nav">
       <ul class="menu list-unstyled list-centered">
         <li><a href="/featured">Featured</a></li>

@@ -8,7 +8,7 @@
 {% block content %}
   <div class="container-fluid">
     {% include "news/header.html" %}
-    {% from "news/friendship.html" import friendship %}
+    {% from "news/friendship.html" import friendship with context %}
     <div id="profile">
       <div class="row">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -27,9 +27,8 @@
               <div class="bird icon-sm">
                 <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
               </div>
-              <span class="screen_name">@{{ reader.screen_name }}</span>{% if ego == True %}
-              <span class="label label-default">YOU</span>{% else %}
-              {{ friendship(reader) }}{% endif %}
+              <span class="screen_name">@{{ reader.screen_name }}</span>
+              {{ friendship(reader) }}
             </a>
           </div>
         </div>

@@ -3,6 +3,7 @@ News models.
 """
 from operator import attrgetter
 
+from flask import current_app
 from flask.ext.login import current_user
 
 from database.models import Status
@@ -79,7 +80,7 @@ class WebReader(MixedReader):
         self._edition = None
 
     def load(self):
-        "Load details from database."
+        "Load details from database (and Twitter!)."
         self.init()
 
         # Fellows
@@ -95,6 +96,23 @@ class WebReader(MixedReader):
         self._fellows = readers
         fellows = self._fellows
         fellows_dict = {f.id: f for f in fellows}
+        
+        # Friendships
+        # TODO: Move this elsewhere and cache it
+        if current_user.twitter_user:
+            twitter = current_user.twitter
+            user_id = current_user.twitter_user.user_id
+            twitter_fellows_dict = {f.twitter_user_id: f \
+                for f in [self] + fellows if f.twitter_user_id}
+            user_ids = twitter_fellows_dict.keys()
+            try:
+                friendships = twitter.lookup_friendships(user_id=user_id, user_ids=user_ids)
+                for friendship in friendships:
+                    twitter_fellows_dict[friendship.id].friendship = friendship
+            except Exception, e:
+                current_app.logger.warning("Fail loading friendships (%s, %s)", \
+                    current_user.screen_name, self.screen_name)
+                current_app.logger.exception(e)
 
         # Picks
         picks = {int(link_id): link_moment for \

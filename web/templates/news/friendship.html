@@ -1,0 +1,6 @@
+{% macro friendship(reader) -%}{% if reader.friendship %}
+{% set label = reader.friendship.is_following and 
+  (reader.friendship.is_followed_by and 'friend' or 'following') or
+  (reader.friendship.is_followed_by and 'follows you') or '' %}{% if label %}
+          <span class="label label-default">{{ label|upper }}</span>{% endif %}
+{% endif %}{%- endmacro %}

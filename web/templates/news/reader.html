@@ -8,7 +8,7 @@
 {% block content %}
   <div class="container-fluid">
     {% include "news/header.html" %}
-
+    {% from "news/friendship.html" import friendship %}
     <div id="profile">
       <div class="row">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -28,7 +28,8 @@
                 <img class="svg" src="{{url_for('static', filename='img/bird.svg')}}" />
               </div>
               <span class="screen_name">@{{ reader.screen_name }}</span>{% if ego == True %}
-              <span class="label label-default">YOU</span>{% endif %}
+              <span class="label label-default">YOU</span>{% else %}
+              {{ friendship(reader) }}{% endif %}
             </a>
           </div>
         </div>

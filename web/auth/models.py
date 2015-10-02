@@ -3,9 +3,13 @@ Auth models.
 """
 from flask.ext.login import UserMixin
 
-from .. import db
+from .. import config, db
 from ..news.models import WebReader
 from database.models import AuthUser, TwitterUser, Token, Timeline
+
+from tweepy import Twitter
+CONSUMER_KEY, CONSUMER_SECRET = (
+    config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
 
 class WebUser(AuthUser, UserMixin):
     "Web User."
@@ -97,3 +101,14 @@ class WebUser(AuthUser, UserMixin):
         base_reader = super(WebUser, self).reader
         base_reader.__class__ = WebReader
         return base_reader # cached
+    
+    # Twitter properties
+    @property
+    def twitter_user(self):
+        return self.reader.twitter_user
+    
+    @property
+    def twitter(self):
+        token = self.twitter_user.token
+        access_token = { token.user_id: (token.key, token.secret) }
+        return Twitter(CONSUMER_KEY, CONSUMER_SECRET, access_token)

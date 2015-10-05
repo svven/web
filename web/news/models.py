@@ -39,10 +39,11 @@ class WebLink(MixedLink):
         
         related = u'svvendotcom'
         via = u'@%s' % related
-        mentions = [u'@%s' % f.screen_name for \
-            f in self.fellows if f.screen_name != current_user.screen_name][:3]
-        if mentions:
-            via += u' & %s' % u' '.join(mentions)
+        ## Leave out mentions for now
+        # mentions = [u'@%s' % f.screen_name for \
+            # f in self.fellows if f.screen_name != current_user.screen_name][:3]
+        # if mentions:
+            # via += u' & %s' % u' '.join(mentions)
 
         title_length = TWEET_MAX_LENGTH - \
             len(TWEET.format(title='', via=via, url='')) - TWEET_SHORT_URL_LENGTH - 1

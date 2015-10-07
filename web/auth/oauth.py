@@ -46,7 +46,7 @@ class TwitterAuth(OAuth):
             consumer_key=self.consumer_key,
             consumer_secret=self.consumer_secret,
             request_token_url='https://api.twitter.com/oauth/request_token',
-            authorize_url='https://api.twitter.com/oauth/authorize',
+            authorize_url='https://api.twitter.com/oauth/authenticate', # instead of /authorize
             access_token_url='https://api.twitter.com/oauth/access_token',
             base_url='https://api.twitter.com/1.1/'
         )

@@ -152,16 +152,20 @@ svg {
 .flash {
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: 3px;
   left: 0;
   right: 0;
   width: 95%;
   max-width: 400px;
 }
   .alert {
-    margin-top: 0;
-    margin-bottom: 0;
+    padding: 10px;
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
+    .alert .close {
+      right: 0;
+    }
 
 /*
  * Header

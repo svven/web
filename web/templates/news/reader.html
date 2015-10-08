@@ -5,7 +5,7 @@
 {{super()}}
 {% endblock %}
 
-{% block content %}
+{% block content -%}
   <div class="container-fluid">
     {% include "news/header.html" %}
     {% from "news/friendship.html" import friendship with context %}
@@ -85,13 +85,12 @@
     </div>
 
   </div>
-{% endblock %}
+{%- endblock %}
 
-{% block scripts %}
-{{super()}}
+{% block custom_scripts %}
   <script src="{{url_for('static', filename='js/jquery.sticky.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.tap.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery.ba-hashchange.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/jquery.ui.touch-punch.min.js')}}"></script>
   <script src="{{url_for('static', filename='js/twitter.widgets.js')}}"></script>
 
   <script src="{{url_for('static', filename='js/index.js')}}"></script>

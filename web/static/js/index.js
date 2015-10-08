@@ -65,7 +65,9 @@ $('.tweet').each(function() {
 });
 
 // Dismiss tweets popovers
-$('body').on('click', function(e) {
+var $body = $('body'), 
+    tap = (Tap != undefined) ? new Tap($body[0]) : null;
+$body.on('tap', function(e) {
   $('[data-toggle="popover"]').each(function () {
     //the 'is' for buttons that trigger popups
     //the 'has' for icons within a button that triggers a popup

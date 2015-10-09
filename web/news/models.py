@@ -118,17 +118,20 @@ class WebReader(MixedReader):
         # Picks
         picks = {int(link_id): link_moment for \
             link_id, link_moment in self.get_picks(withscores=True)}
-        links = WebLink.query.filter(WebLink.id.in_(picks.keys())).all()
-        for link in links:
-            link.moment = picks[link.id]
-        links.sort(key=attrgetter('moment'), reverse=True)
-        for link in links:
-            pickers_ids = set(int(picker_id) for picker_id in link.get_pickers())
-            link_fellows = [fellows_dict[fid] for \
-                fid in pickers_ids.intersection(fellows_dict)]
-            link_fellows.sort(key=attrgetter('fellowship'), reverse=True)
-            link.fellows = [self] + link_fellows
-            link.statuses = {}
+        if picks:
+            links = WebLink.query.filter(WebLink.id.in_(picks.keys())).all()
+            for link in links:
+                link.moment = picks[link.id]
+            links.sort(key=attrgetter('moment'), reverse=True)
+            for link in links:
+                pickers_ids = set(int(picker_id) for picker_id in link.get_pickers())
+                link_fellows = [fellows_dict[fid] for \
+                    fid in pickers_ids.intersection(fellows_dict)]
+                link_fellows.sort(key=attrgetter('fellowship'), reverse=True)
+                link.fellows = [self] + link_fellows
+                link.statuses = {}
+        else:
+            links = []
         self._picks = links
         picks_dict = {l.id: l for l in links}
 
@@ -155,13 +158,14 @@ class WebReader(MixedReader):
         # Statuses
         link_ids = picks_dict.keys() + edition_dict.keys()
         user_ids = [self.twitter_user_id] + [f.twitter_user_id for f in fellows]
-        statuses = Status.query.with_entities(
-            Status.link_id, Status.user_id, Status.status_id).filter(
-            Status.link_id.in_(link_ids), Status.user_id.in_(user_ids)).all()
-        for status in statuses:
-            link_id, user_id, status_id = (status[0], status[1], status[2])
-            link = picks_dict.get(link_id, edition_dict.get(link_id, None))
-            link.statuses[user_id] = status_id
+        if link_ids and user_ids:
+            statuses = Status.query.with_entities(
+                Status.link_id, Status.user_id, Status.status_id).filter(
+                Status.link_id.in_(link_ids), Status.user_id.in_(user_ids)).all()
+            for status in statuses:
+                link_id, user_id, status_id = (status[0], status[1], status[2])
+                link = picks_dict.get(link_id, edition_dict.get(link_id, None))
+                link.statuses[user_id] = status_id
 
     ## Loaded properties
     @property

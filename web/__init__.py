@@ -1,8 +1,12 @@
 """
 Web initialization.
 """
+import requests
+requests.packages.urllib3.disable_warnings()
+
 import config, database, aggregator
 
+from flask_assets import Environment
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,8 +19,11 @@ def init(config_updates=None):
     if config_updates:
         config.from_object(config_updates)
 
-    global bootstrap, db #, assets, cache
+    global assets, bootstrap, db #, cache
 
+    ## Assets
+    assets = Environment()
+    
     ## Bootstrap
     bootstrap = Bootstrap()
 

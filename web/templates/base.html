@@ -20,6 +20,13 @@
 {% block scripts -%}
 {{super()}}
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
+{%- assets filters="jsmin", output="jquery_extras.min.js",
+  "js/jquery.sticky.js", "js/jquery.tap.js", "js/jquery.ba-hashchange.min.js" %}
+    <script src="{{ ASSET_URL }}"></script>
+{%- endassets %}
+{%- assets filters="jsmin", output="index.min.js", "js/index.js" %}
+    <script src="{{ ASSET_URL }}"></script>
+{% endassets -%}
 {% block custom_scripts %}
 {% endblock %}
     {{google.uanalytics('UA-60733932-1')}}

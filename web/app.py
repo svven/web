@@ -4,7 +4,7 @@ Web app factory.
 import config
 from . import init
 
-import os.path as path
+import os, os.path as path
 import pkgutil, importlib
 import logging, logging.config, yaml
 
@@ -17,12 +17,13 @@ def create_app(config_updates=None):
     "Create and configure the Flask app."
     
     init(config_updates) # delayed init
-    from . import bootstrap, db
+    from . import assets, bootstrap, db
 
     package_name = __name__.split('.')[0]
     app = Flask(package_name)
     app.config.from_object(config)
-
+    
+    assets.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
     

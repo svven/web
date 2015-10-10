@@ -341,7 +341,7 @@ svg {
       display: block !important;
     }
 
-    .tab, .link, .fellow {
+    .link, .fellow {
       width: 100%; /*1 col*/
     }
   }
@@ -351,9 +351,6 @@ svg {
       display: block !important;
     }
 
-    .tab {
-      width: 100%; /*1 col*/
-    }
     .link, .fellow {
       width: 50%; /*2 cols*/
     }
@@ -364,7 +361,7 @@ svg {
       display: block !important;
     }
 
-    .tab, .link, .fellow {
+    .link, .fellow {
       width: 33.3333%; /*3 cols*/
     }
   }

@@ -78,12 +78,7 @@ def authenticate(provider_name, user_credentials):
 
     # sign up welcome message
     if created or not user.last_login_at: # first time
-        message = Markup(
-            '''Welcome, thanks for joining!<br />
-            Your profile will be ready in few moments. Meanwhile you can browse the 
-            <a class="alert-link" href="''' + url_for('news.featured') + \
-            '''">featured profiles</a>.''')
-        flash(message, 'success')
+        flash('Welcome, thanks for joining!', 'success')
         current_app.logger.info(
             'Accepted signup: %s', user.screen_name)
 

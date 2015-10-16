@@ -3,6 +3,9 @@
 
 {% block styles %}
 {{super()}}
+{%- assets filters="cssmin", output="bootstrap_extras.min.css", "css/bootstrap.tour.css" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+{%- endassets %}
 {% endblock %}
 
 {% block content -%}
@@ -87,10 +90,14 @@
   </div>
 {%- endblock %}
 
-{% block custom_scripts %}
+{% block custom_scripts -%}
+{%- assets filters="jsmin", output="bootstrap_extras.min.js", "js/bootstrap.tour.js" %}
+    <script src="{{ ASSET_URL }}"></script>
+{%- endassets %}
+
   <script type="text/javascript">
     $('img').one('error', function() {
     this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
     });
   </script>
-{% endblock %}
+{%- endblock %}

@@ -2,3 +2,6 @@
 .vagrant
 env
 *.pyc
+web/static/*.css
+web/static/*.js
+web/static/.webassets-cache

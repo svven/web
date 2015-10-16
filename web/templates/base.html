@@ -11,7 +11,9 @@
 {% block styles -%}
 {{super()}}
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{%- assets filters="cssmin", output="index.min.css", "css/index.css" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+{%- endassets %}
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png')}}">
     <link rel="apple-touch-icon" href="{{url_for('static', filename='logo.png')}}">
     <link rel="apple-touch-startup-image" href="{{url_for('static', filename='logo.png')}}">
@@ -21,7 +23,7 @@
 {{super()}}
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
 {%- assets filters="jsmin", output="jquery_extras.min.js",
-  "js/jquery.sticky.js", "js/jquery.tap.js", "js/jquery.ba-hashchange.min.js" %}
+  "js/jquery.sticky.js", "js/jquery.tap.js", "js/jquery.ba-hashchange.js" %}
     <script src="{{ ASSET_URL }}"></script>
 {%- endassets %}
 {%- assets filters="jsmin", output="index.min.js", "js/index.js" %}

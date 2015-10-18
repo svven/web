@@ -40,15 +40,30 @@
 
     <div id="nav">
       <ul class="menu list-unstyled list-centered">
-        <li><a href="#news">News</a></li>
-        <li><a href="#fellows">Fellows</a></li>
-        <li><a href="#tweets">Tweets</a></li>
+        <li id="item-news"><a href="#news">News</a></li>
+        <li id="item-fellows"><a href="#fellows">Fellows</a></li>
+        <li id="item-tweets"><a href="#tweets">Tweets</a></li>
       </ul>
     </div>
 
+    <div class="hidden step" style="display:none">
+      <div class="popover tour" role="tooltip">
+        <div class="arrow"></div>
+        <h3 class="popover-title"></h3>
+        <div class="popover-content"></div>
+        <div class="popover-navigation">
+          <div class="btn-group">
+            <button class="btn btn-default" data-role="prev">Previous</button>
+            <button class="btn btn-default" data-role="next">Next</button>
+            <button class="btn btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>
+          </div>
+          <button class="btn btn-default" data-role="end">End tour</button>
+        </div>
+      </div>
+    </div>
     
     <div id="tweets" class="section">
-      {% if reader.picks %}<h2 class="hidden name">tweets</h2>
+      {% if reader.picks %}<h2 class="hidden name">Tweets</h2>
       <div class="row">
         <ol class="list-unstyled">{% for link in reader.picks %}
           <li>{% include "news/link.html" %}
@@ -56,12 +71,15 @@
           </li>{% endfor %}
         </ol>
       </div>{% else %}
-      <div class="row na center-block text-center">No tweets, sorry</div>
+      <div class="row na center-block text-center">
+        No tweets yet.{% if ego %}
+        <br />Latest links you tweeted will be displayed here.{% endif %}
+      </div>
       {% endif %}
     </div>
 
     <div id="fellows" class="section">
-      {% if reader.fellows %}<h2 class="hidden name">fellows</h2>
+      {% if reader.fellows %}<h2 class="hidden name">Fellows</h2>
       <div class="row">
         <ol class="list-unstyled">
           {% for fellow in reader.fellows %}
@@ -70,12 +88,15 @@
           </li>{% endfor %}
         </ol>
       </div>{% else %}
-      <div class="row na center-block text-center">No fellows, sorry</div>
+      <div class="row na center-block text-center">
+        No fellows yet.{% if ego %}
+        <br />People who tweet same links as you will be displayed here.{% endif %}
+      </div>
       {% endif %}
     </div>
 
     <div id="news" class="section">
-      {% if reader.edition %}<h2 class="hidden name">news</h2>
+      {% if reader.edition %}<h2 class="hidden name">News</h2>
       <div class="row">
         <ol class="list-unstyled">{% for link in reader.edition %}
           <li>{% include "news/link.html" %}
@@ -83,7 +104,10 @@
           </li>{% endfor %}
         </ol>
       </div>{% else %}
-      <div class="row na center-block text-center">No news, sorry</div>
+      <div class="row na center-block text-center">
+        No news yet.{% if ego %}
+        <br />Top news tweeted by your fellows will be displayed here.{% endif %}
+      </div>
       {% endif %}
     </div>
 
@@ -94,10 +118,13 @@
 {%- assets filters="jsmin", output="bootstrap_extras.min.js", "js/bootstrap.tour.js" %}
     <script src="{{ ASSET_URL }}"></script>
 {%- endassets %}
-
+{%- assets filters="jsmin", output="tours.min.js", "js/tours.js" %}
+    <script src="{{ ASSET_URL }}"></script>
+{%- endassets %}
+{% set tour = session.pop('tour', None) %}{% if tour %}
   <script type="text/javascript">
-    $('img').one('error', function() {
-    this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-    });
-  </script>
+    var tour = tours['{{ tour }}']; if (tour) { 
+      tour.init(); tour.start(true);
+    }
+  </script>{% endif %}
 {%- endblock %}

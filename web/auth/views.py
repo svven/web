@@ -63,6 +63,7 @@ def logout():
 
 def authenticate(provider_name, user_credentials):
     user, key, secret = user_credentials
+    
     # private beta check - to be removed when going public
     if not WebUser.exists(provider_name, *user_credentials):
         message = Markup(
@@ -73,18 +74,20 @@ def authenticate(provider_name, user_credentials):
         current_app.logger.warning(
             'Blocked signup: %s (%s, %s)', user.screen_name, key, secret)
         return redirect(url_for('front.page'))
-
+    
     user, created = WebUser.authenticate(provider_name, *user_credentials)
-
-    # sign up welcome message
-    if created or not user.last_login_at: # first time
+    first_time = created or not user.last_login_at
+    
+    login_user(user) # , remember=True
+    login_tracking(user)
+    
+    if first_time:
         flash('Welcome, thanks for joining!', 'success')
         current_app.logger.info(
             'Accepted signup: %s', user.screen_name)
-
-    login_user(user) # , remember=True
-    login_tracking(user)
-    return redirect(url_for('home.page'))
+        return redirect(url_for('home.welcome'))
+    else:
+        return redirect(url_for('home.page'))
 
 
 def login_tracking(user):

@@ -33,7 +33,7 @@ def reader(screen_name):
     reader.set_fellows()
     reader.set_edition(moment_min=munixtime(timeago(hours=30)))
     reader.load()
-    return render_template('news/reader.html', ego=ego, reader=reader)
+    return render_template('news/reader.html', reader=reader, ego=ego)
 
 # @news.route('/featured')
 # @login_required

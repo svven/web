@@ -13,7 +13,7 @@ $(document).ready(function(){
 
   $('#nav .menu').on('click', 'li', function(e) {
     var loc = $(this).find("a").attr('href');
-    window.location = loc;
+    document.location.href = loc;
   });
 
   // Underline selected
@@ -145,6 +145,10 @@ $('img.svg').each(function() {
     $svg.children().removeAttr('style');
     $img.replaceWith($svg);
   }, svgCache);
+});
+// Replace broken images with 1 blank pixel
+$('img').one('error', function() {
+  this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 });
 
 /*

@@ -1,11 +1,13 @@
 ﻿{% extends "base.html" %}
 {% block title %}Svven - {{ reader.name }}{% endblock %}
-
+{% set tour = session.pop('tour', None) %}
 {% block styles %}
 {{super()}}
+{% if tour %}
 {%- assets filters="cssmin", output="bootstrap_extras.min.css", "css/bootstrap.tour.css" %}
     <link rel="stylesheet" href="{{ ASSET_URL }}">
 {%- endassets %}
+{% endif %}
 {% endblock %}
 
 {% block content -%}
@@ -118,16 +120,17 @@
 {%- endblock %}
 
 {% block custom_scripts -%}
+{% if tour %}
 {%- assets filters="jsmin", output="bootstrap_extras.min.js", "js/bootstrap.tour.js" %}
     <script src="{{ ASSET_URL }}"></script>
 {%- endassets %}
 {%- assets filters="jsmin", output="tours.min.js", "js/tours.js" %}
     <script src="{{ ASSET_URL }}"></script>
 {%- endassets %}
-{% set tour = session.pop('tour', None) %}{% if tour %}
-  <script type="text/javascript">
-    var tour = tours['{{ tour }}']; if (tour) { 
-      tour.init(); tour.start(true);
-    }
-  </script>{% endif %}
+    <script type="text/javascript">
+      var tour = tours['{{ tour }}']; if (tour) { 
+        tour.init(); tour.start(true);
+      }
+    </script>
+{% endif %}
 {%- endblock %}

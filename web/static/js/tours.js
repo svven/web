@@ -6,15 +6,22 @@ window.tours = {};
 */
 tours.welcome = new Tour({
   storage: false,
-  template: function(step, i) {
-    return $('.step').html();
+  template: function(i, step) {
+    var $step = $('.step').clone();
+    if (i >= 1 && i <= 3) {
+      var $current = $step.find('.current');
+      $current.text(i.toString() + ' of 3');
+    }
+    return $step.html();
   },
   onShow: function(tour, i) {
-    step = tour.getStep(i);
-    tour._showPopover(step, i);
+    if (i >= 1 && i <= 3) {
+      step = tour.getStep(i);
+      tour._showPopover(step, i);
+    }
   },
   steps: [
-    {
+    { // 0
       orphan: true,
       // path: '',
       title: 'Tour guide',
@@ -25,7 +32,7 @@ tours.welcome = new Tour({
       // backdrop: true,
       animation: false
     },
-    {
+    { // 1
       path: '#tweets', 
       element: '#item-tweets', container: '#nav',
       title: 'Links you tweeted',
@@ -35,17 +42,17 @@ tours.welcome = new Tour({
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },
-    {
+    { // 2
       path: '#fellows', 
       element: '#item-fellows', container: '#nav',
       title: 'People like you',
       content: ' \
       <p>...These people are your fellows.</p> \
-      <p>Svven finds and ranks them based on the links you tweeted in common.</p>',
+      <p>Svven finds and ranks them based on the same links you tweeted.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },
-    {
+    { // 3
       path: '#news', 
       element: '#item-news', container: '#nav',
       title: 'Links from fellows',
@@ -55,7 +62,7 @@ tours.welcome = new Tour({
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },
-    {
+    { // 4
       orphan: true,
       // path: '',
       title: 'That\'s it',
@@ -65,7 +72,7 @@ tours.welcome = new Tour({
       <p>Run this tour anytime from the menu.</p> \
       <p>Get in touch by <a href="mailto:ducu@svven.com" target="_blank">Email</a> or \
       <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for more, \
-      or if you want to help on Svven. Cheers.</p>',
+      or if you want to help on Svven.</p>',
       // backdrop: true,
       animation: false
     }

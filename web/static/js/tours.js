@@ -12,6 +12,11 @@ tours.welcome = new Tour({
       var $current = $step.find('.current');
       $current.text(i.toString() + ' of 3');
     }
+    else if (i === 4) {
+      var $next = $step.find('[data-role="next"]');
+      $next.attr('data-role', 'end');
+      $next.text('Done');
+    }
     return $step.html();
   },
   onShow: function(tour, i) {
@@ -71,8 +76,7 @@ tours.welcome = new Tour({
       so Svven will give you the best of Twitter.</p> \
       <p>Run this tour anytime from the menu.</p> \
       <p>Get in touch by <a href="mailto:ducu@svven.com" target="_blank">Email</a> or \
-      <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for more, \
-      or if you want to help on Svven.</p>',
+      <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for more info, cheers.</p>',
       // backdrop: true,
       animation: false
     }

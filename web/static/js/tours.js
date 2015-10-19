@@ -61,7 +61,11 @@ tours.welcome = new Tour({
       title: 'That\'s it',
       content: ' \
       <p>Keep tweeting what matters to you, \
-      so Svven will give you the best of Twitter.</p>',
+      so Svven will give you the best of Twitter.</p> \
+      <p>Run this tour anytime from the menu.</p> \
+      <p>Get in touch by <a href="mailto:ducu@svven.com" target="_blank">Email</a> or \
+      <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for more, \
+      or if you want to help on Svven. Cheers.</p>',
       // backdrop: true,
       animation: false
     }

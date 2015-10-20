@@ -49,6 +49,9 @@ OAUTH_CREDENTIALS = {
 # ## DebugToolbar
 # DEBUG_TB_HOSTS = ('127.0.0.1', )
 
+## Google Analytics
+GOOGLE_ANALYTICS_ID = 'UA-60733932-1'
+
 ## Papertrail
 HOSTNAME = socket.gethostname()
 PAPERTRAIL_HOST = 'logs3.papertrailapp.com'

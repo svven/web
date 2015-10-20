@@ -1,5 +1,4 @@
 {% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/fixes.html" as fixes %}
 {% import "bootstrap/google.html" as google %}
 
@@ -31,5 +30,5 @@
 {% endassets -%}
 {% block custom_scripts %}
 {% endblock %}
-    {{google.uanalytics('UA-60733932-1')}}
+    {{google.uanalytics(config['GOOGLE_ANALYTICS_ID'])}}
 {%- endblock %}

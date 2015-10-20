@@ -483,26 +483,6 @@ svg {
   }
 
 /*
- * Tour
- * --------------------------------------------------
-*/
-.tour {
-}
-  .tour .popover-title {
-    font-size: 20px;
-    background-color: #ffffff;
-  }
-  .tour .close {
-    padding: 9px 14px;
-  }
-  .tour .popover-content {
-    padding: 9px 14px 0 14px;
-  }
-  .tour .current {
-    line-height: 34px;
-  }
-  
-/*
  * Section
  * --------------------------------------------------
 */

@@ -71,3 +71,40 @@
 .popover[class*="tour-"].orphan .arrow {
   display: none;
 }
+
+/*
+ * Customization
+ * --------------------------------------------------
+ *   <div class="popover tour" role="tooltip" style="width:276px">
+ *    <div class="arrow"></div>
+ *    <button class="close" data-role="end" aria-label="Close">
+ *      <span aria-hidden="true">&times;</span>
+ *    </button>
+ *    <h3 class="popover-title"></h3>
+ *    <div class="popover-content"></div>
+ *    <div class="popover-navigation">
+ *      <div class="current pull-left"></div>
+ *      <div class="btn-group pull-right">
+ *        <button class="btn btn-default" data-role="prev">Back</button>
+ *        <button class="btn btn-primary" data-role="next">Next</button>
+ *      </div>
+ *      <div class="clearfix"></div>
+ *    </div>
+ *  </div>
+*/
+.tour {
+}
+  .tour .popover-title {
+    font-size: 20px;
+    background-color: #ffffff;
+  }
+  .tour .close {
+    padding: 9px 14px;
+  }
+  .tour .popover-content {
+    padding: 9px 14px 0 14px;
+  }
+  .tour .current {
+    line-height: 34px;
+  }
+  

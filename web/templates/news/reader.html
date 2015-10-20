@@ -4,9 +4,9 @@
 {% block styles %}
 {{super()}}
 {% if tour %}
-{%- assets filters="cssmin", output="bootstrap_extras.min.css", "css/bootstrap.tour.css" %}
+  {%- assets filters="cssmin", output="bootstrap_extras.min.css", "css/bootstrap.tour.css" %}
     <link rel="stylesheet" href="{{ ASSET_URL }}">
-{%- endassets %}
+  {%- endassets %}
 {% endif %}
 {% endblock %}
 
@@ -121,16 +121,33 @@
 
 {% block custom_scripts -%}
 {% if tour %}
-{%- assets filters="jsmin", output="bootstrap_extras.min.js", "js/bootstrap.tour.js" %}
+  {%- assets filters="jsmin", output="bootstrap_extras.min.js", "js/bootstrap.tour.js" %}
     <script src="{{ ASSET_URL }}"></script>
-{%- endassets %}
-{%- assets filters="jsmin", output="tours.min.js", "js/tours.js" %}
+  {%- endassets %}
+  {%- assets filters="jsmin", output="tours.min.js", "js/tours.js" %}
     <script src="{{ ASSET_URL }}"></script>
-{%- endassets %}
+  {%- endassets %}
     <script type="text/javascript">
       var tour = tours['{{ tour }}']; if (tour) { 
         tour.init(); tour.start(true);
       }
     </script>
 {% endif %}
+
+    <script>
+      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dkwfnOOqzNTtI3IdmTtUw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+      UserVoice.push(['set', {
+        accent_color: '#3b94d9', 
+        trigger_color: 'white', 
+        trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+      }]);
+      UserVoice.push(['identify', {
+        id: {{ current_user.id }},
+        email: '{{ current_user.email or current_user.screen_name + '@svven.com' }}',
+        name: '{{ current_user.name }}',
+        created_at: {{ current_user.registered_at_ux }}
+      }]);
+      UserVoice.push(['addTrigger', {trigger_position: 'bottom-right' }]);
+      UserVoice.push(['autoprompt', {}]);
+    </script>
 {%- endblock %}

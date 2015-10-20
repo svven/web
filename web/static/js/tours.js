@@ -52,7 +52,7 @@ tours.welcome = new Tour({
       element: '#item-fellows', container: '#nav',
       title: 'People like you',
       content: ' \
-      <p>...These people are your fellows.</p> \
+      <p>...these people are your fellows.</p> \
       <p>Svven finds and ranks them based on the same links you tweeted.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
@@ -63,20 +63,21 @@ tours.welcome = new Tour({
       title: 'Links from fellows',
       content: ' \
       <p>Your fellows also tweeted other links.</p> \
-      <p>Svven aggregates and orders these links according to fellows\' ranks.</p>',
+      <p>Svven aggregates and orders these links according to their ranks.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },
     { // 4
       orphan: true,
       // path: '',
-      title: 'That\'s it',
+      title: 'That\'s it!',
       content: ' \
       <p>Keep tweeting what matters to you, \
       so Svven will give you the best of Twitter.</p> \
       <p>Run this tour anytime from the menu.</p> \
       <p>Get in touch by <a href="mailto:ducu@svven.com" target="_blank">Email</a> or \
-      <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for more info, cheers.</p>',
+      <a href="https://twitter.com/svvendotcom" target="_blank">Twitter</a> for details, \
+      we\'re always happy to chat.</p>',
       // backdrop: true,
       animation: false
     }

@@ -58,7 +58,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Logged out, cheers.', 'success')
+    flash('Logged out, bye for now.', 'success')
     return redirect(url_for('front.page'))
 
 def authenticate(provider_name, user_credentials):

@@ -7,6 +7,8 @@ from .. import config, db
 from ..news.models import WebReader
 from database.models import AuthUser, TwitterUser, Token, Timeline
 
+from aggregator.utils import munixtime
+
 from tweepy import Twitter
 CONSUMER_KEY, CONSUMER_SECRET = (
     config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
@@ -101,6 +103,10 @@ class WebUser(AuthUser, UserMixin):
         base_reader = super(WebUser, self).reader
         base_reader.__class__ = WebReader
         return base_reader # cached
+    
+    @property
+    def registered_at_ux(self):
+        return munixtime(self.registered_at)
     
     # Twitter properties
     @property

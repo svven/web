@@ -73,7 +73,6 @@ def authenticate(provider_name, user_credentials):
         current_app.logger.warning(
             'Blocked signup: %s (%s, %s)', user.screen_name, key, secret)
         return redirect(url_for('front.page'))
-    
     user, created = WebUser.authenticate(provider_name, *user_credentials)
     first_time = created or not user.last_login_at
     
@@ -87,12 +86,12 @@ def authenticate(provider_name, user_credentials):
     else:
         return redirect(url_for('home.page'))
 
-
 def login_tracking(user):
     "Update login tracking data."
     if 'X-Forwarded-For' in request.headers:
+        # See http://esd.io/blog/flask-apps-heroku-real-ip-spoofing.html
         addresses = request.headers.getlist("X-Forwarded-For")
-        remote_addr = str(addresses)
+        remote_addr = addresses and addresses[0] or 'untrackable'
     else:
         remote_addr = request.remote_addr or 'untrackable'
     if not user.last_login_at: # first time

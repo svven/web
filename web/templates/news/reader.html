@@ -77,8 +77,8 @@
         </ol>
       </div>{% else %}
       <div class="row na center-block text-center">
-        No tweets yet.{% if ego %}
-        <br />Latest links you tweeted will be displayed here.{% endif %}
+        <p class="message">No tweets yet.</p>{% if reader.is_current_user %}
+        <p>Latest links you tweeted will be displayed here.<p>{% endif %}
       </div>
       {% endif %}
     </div>
@@ -94,8 +94,8 @@
         </ol>
       </div>{% else %}
       <div class="row na center-block text-center">
-        No fellows yet.{% if ego %}
-        <br />People who tweet same links as you will be displayed here.{% endif %}
+        <p class="message">No fellows yet.</p>{% if reader.is_current_user %}
+        <p>People who tweet same links as you will be displayed here.</p>{% endif %}
       </div>
       {% endif %}
     </div>
@@ -110,12 +110,12 @@
         </ol>
       </div>{% else %}
       <div class="row na center-block text-center">
-        No news yet.{% if ego %}
-        <br />Top news tweeted by your fellows will be displayed here.{% endif %}
+        <p class="message">No news yet.</p>{% if reader.is_current_user %}
+        <p>Top news tweeted by your fellows will be displayed here.</p>{% endif %}
       </div>
       {% endif %}
     </div>
-
+    
   </div>
 {%- endblock %}
 
@@ -133,21 +133,5 @@
       }
     </script>
 {% endif %}
-
-    <script>
-      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dkwfnOOqzNTtI3IdmTtUw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
-      UserVoice.push(['set', {
-        accent_color: '#3b94d9', 
-        trigger_color: 'white', 
-        trigger_background_color: 'rgba(46, 49, 51, 0.6)'
-      }]);
-      UserVoice.push(['identify', {
-        id: {{ current_user.id }},
-        email: '{{ current_user.email or current_user.screen_name + '@svven.com' }}',
-        name: '{{ current_user.name }}',
-        created_at: {{ current_user.registered_at_ux }}
-      }]);
-      UserVoice.push(['addTrigger', {trigger_position: 'bottom-right' }]);
-      UserVoice.push(['autoprompt', {}]);
-    </script>
+{% include "common/uservoice.html" %}
 {%- endblock %}

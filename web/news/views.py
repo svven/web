@@ -7,33 +7,30 @@ from sqlalchemy.orm import joinedload, contains_eager
 
 from models import WebReader
 from database.models import TwitterUser
-from aggregator.utils import munixtime
 
 news = Blueprint('news', __name__)
 
-import datetime
-timeago = lambda **kvargs:\
-    datetime.datetime.utcnow() - datetime.timedelta(**kvargs)
-
+def get_reader(screen_name):
+    return WebReader.query.\
+        outerjoin(TwitterUser).options(
+            contains_eager(WebReader.twitter_user)).\
+        filter(TwitterUser.screen_name.ilike(screen_name)).first()
+    
+def render_reader(reader):
+    if not reader:
+        abort(404)
+    if reader.ignored and not reader.is_current_user:
+        abort(404)
+    reader.reload()
+    return render_template('news/reader.html', reader=reader)
+    
+    
 @news.route('/<screen_name>/')
 @news.route('/@<screen_name>/')
 @login_required
 def reader(screen_name):
-    reader = WebReader.query.\
-        outerjoin(TwitterUser).options(
-            contains_eager(WebReader.twitter_user)).\
-        filter(TwitterUser.screen_name.ilike(screen_name)).first()
-    if not reader:
-        abort(404)
-    ego = current_user.is_authenticated() and \
-        current_user.screen_name == reader.screen_name
-    if reader.ignored and not ego:
-        abort(404)
-    # reader.aggregate() # temp
-    reader.set_fellows()
-    reader.set_edition(moment_min=munixtime(timeago(hours=30)))
-    reader.load()
-    return render_template('news/reader.html', reader=reader, ego=ego)
+    reader = get_reader(screen_name)
+    return render_reader(reader)
 
 # @news.route('/featured')
 # @login_required

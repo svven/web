@@ -15,8 +15,8 @@ def page():
     # return "Hey %s." % current_user.screen_name
     return news.reader(current_user.screen_name)
     
-@home.route('/welcome')
+@home.route('/tour/<tour_name>/')
 @login_required
-def welcome():
-    session['tour'] = 'welcome'
+def tour(tour_name):
+    session['tour'] = tour_name
     return redirect(url_for('home.page'))

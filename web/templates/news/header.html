@@ -12,8 +12,8 @@
       <div class="burger pull-right">
         <a id="burger" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-content="
           <ul class='menu list-unstyled'>
-            <li><a href='/welcome'>Tour</a></li>
-            <li><a href='/logout'>Logout</a></li>
+            <li><a href='{{url_for('home.tour', tour_name='welcome')}}'>Tour</a></li>
+            <li><a href='{{url_for('auth.logout')}}'>Logout</a></li>
           </ul>">
           <div class="icon icon-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">

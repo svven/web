@@ -9,6 +9,8 @@ from flask.ext.login import current_user
 from database.models import Status
 from aggregator.mixes import MixedLink, MixedReader
 
+from aggregator.utils import timeago, munixtime
+
 from jinja2.utils import unicode_urlencode as urlencode
 from jinja2.filters import do_striptags as striptags, do_truncate as truncate
 
@@ -79,6 +81,10 @@ class WebReader(MixedReader):
         self._picks = None
         self._fellows = None
         self._edition = None
+        
+    def is_current_user(self):
+        return current_user.is_authenticated() and \
+            self.screen_name == current_user.screen_name
 
     def load(self):
         "Load details from database (and Twitter!)."
@@ -166,6 +172,14 @@ class WebReader(MixedReader):
                 link_id, user_id, status_id = (status[0], status[1], status[2])
                 link = picks_dict.get(link_id, edition_dict.get(link_id, None))
                 link.statuses[user_id] = status_id
+
+    def reload(self):
+        "Should add various arguments here."
+        self.set_fellows() # moment_min=None, moment_max=None, 
+        # picks_count=config.PICKS_COUNT
+        self.set_edition(moment_min=munixtime(timeago(hours=30))) # moment_min=None, 
+        # moment_max=None, fellows_count=config.FELLOWS_COUNT, picks_count=config.PICKS_COUNT
+        self.load()
 
     ## Loaded properties
     @property

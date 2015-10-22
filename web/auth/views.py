@@ -58,7 +58,6 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Logged out, bye for now.', 'success')
     return redirect(url_for('front.page'))
 
 def authenticate(provider_name, user_credentials):
@@ -82,10 +81,9 @@ def authenticate(provider_name, user_credentials):
     login_tracking(user)
     
     if first_time:
-        flash('Welcome, thanks for joining!', 'success')
         current_app.logger.info(
             'Accepted signup: %s', user.screen_name)
-        return redirect(url_for('home.welcome'))
+        return redirect(url_for('home.tour', tour_name='welcome'))
     else:
         return redirect(url_for('home.page'))
 
@@ -93,7 +91,8 @@ def authenticate(provider_name, user_credentials):
 def login_tracking(user):
     "Update login tracking data."
     if 'X-Forwarded-For' in request.headers:
-        remote_addr = request.headers.getlist("X-Forwarded-For")[0].rpartition(' ')[-1]
+        addresses = request.headers.getlist("X-Forwarded-For")
+        remote_addr = str(addresses)
     else:
         remote_addr = request.remote_addr or 'untrackable'
     if not user.last_login_at: # first time

@@ -35,6 +35,11 @@ AGGREGATOR_REDIS_DB = 1
 
 AGGREGATOR_BASE_UXTIME = 1420070400 # datetime(2015, 1, 1, 0, 0) # 1
 
+## RQ (Redis Queue)
+RQ_REDIS_HOST = os.environ.get('RQ_REDIS_HOST', 'localhost')
+RQ_REDIS_PORT = 6379
+RQ_REDIS_DB = 0
+
 ## Twitter # @SvvenDotCom
 TWITTER_CONSUMER_KEY = 'Jrp1bcXiSahhWAqn3VJb4fzsg'
 TWITTER_CONSUMER_SECRET = '36xO8Y8YT7Y0hRHDwoULuTU2xyru6cPkCSrRxLoJAzZ3hmxhfS'
@@ -67,7 +72,10 @@ root:
 loggers:
     web:
         handlers: [console, papertrail]
-        level: DEBUG
+        level: INFO
+    poller:
+        handlers: [console, papertrail]
+        level: INFO
 handlers:
     console:
         level: DEBUG

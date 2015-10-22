@@ -1,8 +1,8 @@
 """
 Front blueprint.
 """
-from flask import Blueprint, render_template, \
-    redirect, url_for
+from flask import Blueprint, \
+    render_template, url_for, redirect
 from flask.ext.login import login_required, current_user
 
 from .. import home

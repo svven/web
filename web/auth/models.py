@@ -4,7 +4,6 @@ Auth models.
 from flask.ext.login import UserMixin
 
 from .. import config, db
-from ..news.models import WebReader
 from database.models import AuthUser, TwitterUser, Token, Timeline
 
 from aggregator.utils import munixtime
@@ -15,7 +14,10 @@ CONSUMER_KEY, CONSUMER_SECRET = (
 
 class WebUser(AuthUser, UserMixin):
     "Web User."
-
+    def __init__(self, **kwargs):
+        "Base init."
+        super(WebUser, self).__init__(**kwargs)
+    
     @classmethod
     def exists(cls, provider_name, user, key, secret):
         "Verify if user exists by specified provider."
@@ -80,6 +82,8 @@ class WebUser(AuthUser, UserMixin):
     @classmethod
     def register_news_reader(cls, auth_user, twitter_user):
         "Get or create Mixed News Reader (i.e. from aggregator)."
+        from ..models import WebReader
+        
         created = False
         reader = WebReader.query.filter_by(
             twitter_user_id=twitter_user.user_id).first() # reader
@@ -96,25 +100,29 @@ class WebUser(AuthUser, UserMixin):
 
     def __repr__(self):
         return '<User (%s): %s>' % (self.id, self.screen_name)
-
-    @property
-    def reader(self):
-        # return WebReader.query.filter_by(auth_user_id=self.id).one()
-        base_reader = super(WebUser, self).reader
-        base_reader.__class__ = WebReader
-        return base_reader # cached
     
     @property
     def registered_at_ux(self):
         return munixtime(self.registered_at)
+
+    @property
+    def reader(self):
+        from ..models import WebReader
+        
+        # return WebReader.query.filter_by(auth_user_id=self.id).one()
+        if not getattr(self, '_reader', None):
+            self._reader = super(WebUser, self).reader
+            self._reader.__class__ = WebReader
+        return self._reader # cached
     
-    # Twitter properties
     @property
     def twitter_user(self):
         return self.reader.twitter_user
     
     @property
     def twitter(self):
-        token = self.twitter_user.token
-        access_token = { token.user_id: (token.key, token.secret) }
-        return Twitter(CONSUMER_KEY, CONSUMER_SECRET, access_token)
+        if not getattr(self, '_twitter', None):
+            token = self.twitter_user.token
+            access_token = { token.user_id: (token.key, token.secret) }
+            self._twitter = Twitter(CONSUMER_KEY, CONSUMER_SECRET, access_token)
+        return self._twitter

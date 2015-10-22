@@ -3,10 +3,12 @@ News models.
 """
 from operator import attrgetter
 
+from sqlalchemy.orm import joinedload, contains_eager
+
 from flask import current_app
 from flask.ext.login import current_user
 
-from database.models import Status
+from database.models import TwitterUser, Status
 from aggregator.mixes import MixedLink, MixedReader
 
 from aggregator.utils import timeago, munixtime
@@ -69,7 +71,7 @@ class WebLink(MixedLink):
     #     self._pickers = readers
     #     return self._pickers
 
-    
+
 class WebReader(MixedReader):
     "Web Reader."
     def __init__(self, **kwargs):
@@ -81,11 +83,25 @@ class WebReader(MixedReader):
         self._picks = None
         self._fellows = None
         self._edition = None
-        
+    
+    @property
     def is_current_user(self):
         return current_user.is_authenticated() and \
             self.screen_name == current_user.screen_name
-
+    
+    @property
+    def user(self):
+        has_user = super(WebReader, self).user
+        if has_user:
+            from ..models import WebUser
+            
+            if not getattr(self, '_user', None):
+                self._user = self.auth_user
+                self._user.__class__ = WebUser
+            return self._user # cached
+        else:
+            return None
+    
     def load(self):
         "Load details from database (and Twitter!)."
         self.init()
@@ -181,6 +197,25 @@ class WebReader(MixedReader):
         # moment_max=None, fellows_count=config.FELLOWS_COUNT, picks_count=config.PICKS_COUNT
         self.load()
 
+    def refresh(self, session):
+        "Process twitter user timeline and statuses."
+        assert self.is_current_user
+        from poller.twitter.job import TimelineJob
+
+        statuses = []
+        try: # process user timeline
+            job = TimelineJob(
+                users=[self.twitter_user], twitter=self.user.twitter)
+            job.do(session)
+            statuses = [s for s in job.statuses if not s.link_id]
+        except Exception, e:
+            session.rollback()
+            current_app.logger.warning("Fail processing timeline (%s)", self.screen_name)
+            current_app.logger.exception(e)
+        
+        # summarize new statuses
+        print statuses
+    
     ## Loaded properties
     @property
     def picks(self):
@@ -196,3 +231,10 @@ class WebReader(MixedReader):
     def edition(self):
         "Sorted edition links."
         return self._edition
+
+
+def get_reader(screen_name):
+    return WebReader.query.\
+        outerjoin(TwitterUser).options(
+            contains_eager(WebReader.twitter_user)).\
+        filter(TwitterUser.screen_name.ilike(screen_name)).first()

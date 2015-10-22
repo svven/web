@@ -1,1 +1,1 @@
-from views import news, reader
+from views import news

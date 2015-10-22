@@ -31,12 +31,3 @@ def render_reader(reader):
 def reader(screen_name):
     reader = get_reader(screen_name)
     return render_reader(reader)
-
-# @news.route('/featured')
-# @login_required
-# def featured():
-    # reader = current_user.reader
-    # readers = WebReader.query.\
-        # filter(WebReader.featured != None).\
-        # order_by(WebReader.featured.desc()).limit(30)
-    # return render_template('news/featured.html', reader=reader, readers=readers)

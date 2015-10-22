@@ -52,7 +52,7 @@ tours.welcome = new Tour({
       element: '#item-fellows', container: '#nav',
       title: 'People like you',
       content: ' \
-      <p>...these people are your fellows.</p> \
+      <p>... these people are your fellows.</p> \
       <p>Svven finds and ranks them based on the same links you tweeted.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'

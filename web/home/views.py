@@ -13,7 +13,7 @@ home = Blueprint('home', __name__)
 @home.route('/')
 @login_required
 def page():
-    current_user.reader.refresh(db.session)
+    # current_user.reader.refresh(db.session)
     return render_reader(current_user.reader)
 
 @home.route('/tour/<tour_name>/')

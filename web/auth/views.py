@@ -3,7 +3,7 @@ Auth blueprint.
 """
 from datetime import datetime
 from flask import Blueprint, Markup, \
-    current_app, request, flash, url_for, redirect
+    current_app, request, flash, url_for, redirect, session
 from flask.ext.login import LoginManager, \
     login_user, login_required, logout_user, current_user
 
@@ -80,6 +80,7 @@ def authenticate(provider_name, user_credentials):
     login_tracking(user)
     
     if first_time:
+        session['refresh'] = True
         current_app.logger.info(
             'Accepted signup: %s', user.screen_name)
         return redirect(url_for('home.tour', tour_name='welcome'))

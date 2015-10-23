@@ -4,7 +4,7 @@ Web initialization.
 import requests
 requests.packages.urllib3.disable_warnings()
 
-import config, database, aggregator, poller
+import config, database, aggregator, poller, summarizer
 
 from flask_assets import Environment
 from flask_bootstrap import Bootstrap
@@ -23,7 +23,7 @@ def init(config_updates=None):
 
     ## Assets
     assets = Environment()
-    
+
     ## Bootstrap
     bootstrap = Bootstrap()
 
@@ -42,3 +42,6 @@ def init(config_updates=None):
     
     ## Poller
     poller.init(config) # delayed init
+
+    ## Summarizer
+    summarizer.init(config) # delayed init

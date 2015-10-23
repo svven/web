@@ -16,3 +16,6 @@ git+ssh://git@bitbucket.org/svven/database.git@master#egg=svven-database # -e ..
 git+ssh://git@bitbucket.org/svven/aggregator.git@master#egg=svven-aggregator # -e ../aggregator
 git+https://github.com/svven/tweepy.git@master#egg=tweepy # -e ../tweepy
 git+ssh://git@bitbucket.org/svven/poller.git@master#egg=svven-poller # -e ../poller
+git+https://github.com/svven/extraction.git@master#egg=extraction # -e ../extraction
+git+https://github.com/svven/summary.git@master#egg=summary-extraction # -e ../summary # summary-extraction==0.2
+git+ssh://git@bitbucket.org/svven/summarizer.git@master#egg=svven-summarizer # -e ../summarizer

@@ -51,6 +51,31 @@ OAUTH_CREDENTIALS = {
     }
 }
 
+## Summary
+SUMMARY_USER_AGENT = 'Svven-Summarizer'
+SUMMARY_ADBLOCK_EASYLIST_URL = 'easylist.txt' # offline
+  # 'https://easylist-downloads.adblockplus.org/easylist.txt' #
+SUMMARY_ADBLOCK_EXTRALIST_URL = 'extralist.txt' # offline
+  # 'https://dl.dropboxusercontent.com/u/134594/svven/extralist.txt' #
+SUMMARY_USEFUL_QUERY_KEYS = [
+    'v', 's', 'id', 'story_fbid', 'set', 'q', 'cid', 'tbm', 'fbid', 'u', 'p', 
+    'next', 'article_id', 'articleid', 'a', 'gid', 'mid', 'itemid', 'newsid', 
+    'storyid', 'list', 'piano_t', 'piano_d', 'page', 'diff', 'editors', 
+    'storyId', 'l', 'm', 'video', 'kanal', 'pid', 'sid', 'item', 'f', 't', 
+    'forum_id', 'path', 'url',
+]
+# SUMMARY_PHANTOMJS_BIN = '/usr/local/bin/phantomjs'
+# SUMMARY_PHANTOMJS_SITES = [
+    # 'readwrite.com', 'html5-ninja.com', 'rally.org', 'blogs.ft.com', 
+    # 'i100.independent.co.uk',  'www.behance.net', 'www.psmag.com', 'po.st',
+# ]
+SUMMARY_NONCANONIC_SITES = [
+    'docquery.fec.gov', 'c2.com', 'www.lukew.com', 'cyberdust.com', 
+    'forums.station.sony.com', 'www.ecommercebytes.com', 
+    'www.residentadvisor.net', 'hire.jobvite.com', 'everydaycarry.com',
+    'www.google.com',
+]
+
 # ## DebugToolbar
 # DEBUG_TB_HOSTS = ('127.0.0.1', )
 
@@ -75,7 +100,13 @@ loggers:
         level: INFO
     poller:
         handlers: [console, papertrail]
-        level: INFO
+        level: WARNING
+    summary:
+        handlers: [console]
+        level: WARNING
+    summarizer:
+        handlers: [console, papertrail]
+        level: WARNING
 handlers:
     console:
         level: DEBUG

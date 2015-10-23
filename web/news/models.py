@@ -8,7 +8,7 @@ from sqlalchemy.orm import joinedload, contains_eager
 from flask import current_app
 from flask.ext.login import current_user
 
-from database.models import TwitterUser, Status
+from database.models import TwitterUser, Status, State
 from aggregator.mixes import MixedLink, MixedReader
 
 from aggregator.utils import timeago, munixtime
@@ -133,9 +133,8 @@ class WebReader(MixedReader):
                 for friendship in friendships:
                     twitter_fellows_dict[friendship.id].friendship = friendship
             except Exception, e:
-                current_app.logger.warning("Fail loading friendships (%s, %s)", \
-                    current_user.screen_name, self.screen_name)
-                current_app.logger.exception(e)
+                current_app.logger.warning("Failed friendship lookup (%s, %s): %s",
+                    unicode(current_user.twitter_user).encode('utf8'), self.screen_name, repr(e))
 
         # Picks
         picks = {int(link_id): link_moment for \
@@ -199,8 +198,9 @@ class WebReader(MixedReader):
 
     def refresh(self, session):
         "Process twitter user timeline and statuses."
-        assert self.is_current_user
+        assert self.is_current_user # only refresh self
         from poller.twitter.job import TimelineJob
+        from summarizer.twitter.job import StatusJob
 
         statuses = []
         try: # process user timeline
@@ -210,11 +210,30 @@ class WebReader(MixedReader):
             statuses = [s for s in job.statuses if not s.link_id]
         except Exception, e:
             session.rollback()
-            current_app.logger.warning("Fail processing timeline (%s)", self.screen_name)
-            current_app.logger.exception(e)
+            current_app.logger.error("Failed timeline job (%s): %s", 
+                unicode(self.twitter_user).encode('utf8'), repr(e))
         
-        # summarize new statuses
-        print statuses
+        for status in statuses[:35]: # summarize
+            failed = False # yet
+            try:
+                job = StatusJob(status)
+                job.do(session)
+                failed = job.failed # may be True
+            except Exception, e:
+                session.rollback()
+                failed = True # obviously
+                current_app.logger.error("Failed status job (%s): %s", 
+                    unicode(status).encode('utf8'), repr(e))
+            finally:
+                try:
+                    status = session.merge(status) # no need
+                    status.state = failed and State.FAIL or State.DONE
+                    session.commit()
+                except Exception, e:
+                    session.rollback()
+                    current_app.logger.exception(e)
+        current_app.logger.info('Refreshed (%s)', 
+            unicode(self.twitter_user).encode('utf8'))
     
     ## Loaded properties
     @property

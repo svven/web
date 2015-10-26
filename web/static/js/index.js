@@ -11,9 +11,17 @@ $(document).ready(function(){
     topSpacing: 50 /*#header height*/
   });
 
+  var $sections = $('.section');
   $('#nav .menu').on('click', 'li', function(e) {
-    var loc = $(this).find("a").attr('href');
-    document.location.href = loc;
+    var section = $(this).find("a").attr('href');
+    document.location.href = section;
+    $sections.each(function() {
+      var $section = $(this);
+      if ($section[0] == $(section)[0])
+        $section.removeClass('hidden');
+      else
+        $section.addClass('hidden');
+    });
   });
 
   // Underline selected

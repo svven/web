@@ -29,7 +29,7 @@ tours.welcome = new Tour({
     { // 0
       orphan: true,
       // path: '',
-      title: 'Tour guide',
+      title: 'Tour',
       content: ' \
       <p>Svven is a social news discovery tool.</p> \
       <p>It finds interesting people and content from Twitter based on what you tweet. \
@@ -43,7 +43,7 @@ tours.welcome = new Tour({
       title: 'Links you tweeted',
       content: ' \
       <p>Svven gets the links from your tweets.</p> \
-      <p>It also shows other people who tweeted same links as you did lately...</p>',
+      <p>It also shows other people who tweeted same links as you did lately.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },

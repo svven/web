@@ -43,7 +43,7 @@ tours.welcome = new Tour({
       title: 'Links you tweeted',
       content: ' \
       <p>Svven gets the links from your tweets.</p> \
-      <p>It also shows other people who tweeted same links as you did lately.</p>',
+      <p>It also shows other people who tweeted the same links as you did.</p>',
       // backdrop: true, backdropContainer: '#nav',
       animation: false, placement: 'bottom'
     },
@@ -70,7 +70,7 @@ tours.welcome = new Tour({
     { // 4
       orphan: true,
       // path: '',
-      title: 'That\'s it!',
+      title: 'That\'s it',
       content: ' \
       <p>Keep tweeting what matters to you, \
       so Svven will give you the best of Twitter.</p> \

@@ -96,16 +96,16 @@ root:
     propagate: true
 loggers:
     web:
-        handlers: [console, papertrail]
+        handlers: [papertrail]
         level: INFO
     poller:
-        handlers: [console, papertrail]
+        handlers: [console]
         level: WARNING
     summary:
         handlers: [console]
         level: WARNING
     summarizer:
-        handlers: [console, papertrail]
+        handlers: [console]
         level: WARNING
 handlers:
     console:
@@ -119,7 +119,7 @@ handlers:
         formatter: papertrail
 formatters:
     console:
-        format: '%(asctime)s %(message)s'
+        format: '%(name)s {hostname}.%(process)d %(levelname)s: %(message)s'
         datefmt: '%H:%M:%S'
     papertrail:
         format: '%(name)s {hostname}.%(process)d %(levelname)s: %(message)s'

@@ -1,6 +1,7 @@
 """
 News models.
 """
+import datetime
 from operator import attrgetter
 
 from sqlalchemy.orm import joinedload, contains_eager
@@ -201,6 +202,7 @@ class WebReader(MixedReader):
         assert self.is_current_user # only refresh self
         from poller.twitter.job import TimelineJob
         from summarizer.twitter.job import StatusJob
+        started_at = datetime.datetime.utcnow()
 
         statuses = []
         try: # process user timeline
@@ -232,8 +234,9 @@ class WebReader(MixedReader):
                 except Exception, e:
                     session.rollback()
                     current_app.logger.exception(e)
-        current_app.logger.info('Refreshed (%s)', 
-            unicode(self.twitter_user).encode('utf8'))
+        ended_at = datetime.datetime.utcnow()
+        current_app.logger.info('Refreshed (%s) in %ds.', 
+            unicode(self.twitter_user).encode('utf8'), (ended_at-started_at).total_seconds())
     
     ## Loaded properties
     @property

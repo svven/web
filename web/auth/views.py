@@ -42,7 +42,7 @@ def unauthorized():
     next = get_redirect_target()
     message = Markup(
         '''Please <a class="alert-link" href="%s">login</a> to view that page.''' % url_for('auth.login'))
-    flash(message, 'info')
+    flash(message, 'warning')
     return redirect(next or url_for('front.page'))
 
 @auth.record_once

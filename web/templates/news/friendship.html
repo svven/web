@@ -1,6 +1,6 @@
 {% macro friendship(reader) -%}
 {%- set label = '' -%}
-{%- if current_user.screen_name == reader.screen_name -%}
+{%- if not current_user.is_anonymous() and current_user.screen_name == reader.screen_name -%}
   {%- set label = 'you' -%}
 {%- elif reader.friendship -%}
   {%- set label = reader.friendship.is_following and 

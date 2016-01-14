@@ -2,7 +2,7 @@
 News blueprint.
 """
 from flask import Blueprint, \
-    render_template, abort
+    render_template, abort, current_app
 from flask.ext.login import login_required, current_user
 
 from models import get_reader
@@ -19,7 +19,11 @@ def render_reader(reader):
     
 @news.route('/<screen_name>/')
 @news.route('/@<screen_name>/')
-@login_required
 def reader(screen_name):
     reader = get_reader(screen_name)
-    return render_reader(reader)
+    if current_user.is_authenticated():
+        return render_reader(reader)
+    else: # is anonymous
+        if reader and not reader.is_user:
+            return current_app.login_manager.unauthorized()
+        return render_reader(reader)

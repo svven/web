@@ -11,12 +11,39 @@ from .. import db
 from oauth import OAuth
 from models import WebUser
 
+def get_redirect_target():
+    """
+    Securely redirect back 
+    http://flask.pocoo.org/snippets/62/
+    """
+    from urlparse import urlparse, urljoin
+    
+    def is_safe_url(target):
+        ref_url = urlparse(request.host_url)
+        test_url = urlparse(urljoin(request.host_url, target))
+        return test_url.scheme in ('http', 'https') and \
+               ref_url.netloc == test_url.netloc
+
+    for target in request.values.get('next'), request.referrer:
+        if not target:
+            continue
+        if is_safe_url(target):
+            return target
+
 auth = Blueprint('auth', __name__)
 login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(id):
     return WebUser.query.get(int(id))
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    next = get_redirect_target()
+    message = Markup(
+        '''Please <a class="alert-link" href="%s">login</a> to view that page.''' % url_for('auth.login'))
+    flash(message, 'info')
+    return redirect(next or url_for('front.page'))
 
 @auth.record_once
 def on_load(state):
@@ -52,7 +79,7 @@ def signup():
 
 @auth.route('/login')
 def login():
-    return redirect(url_for('.oauth_authorize', provider_name='twitter'))
+    return redirect(url_for('auth.oauth_authorize', provider_name='twitter'))
 
 @auth.route('/logout')
 @login_required

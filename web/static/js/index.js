@@ -2,10 +2,16 @@
  * Menu
  * --------------------------------------------------
 */
-// Handle popover context menu
-$('#burger').popover();
-
 $(document).ready(function(){
+  // Handle popover context menu
+  $('#burger').popover({
+    html: true, animation: false, placement: 'bottom',
+    content: function() {
+      var $menu = $('#burger + #menu').clone();
+      return $menu.html();
+    }
+  });
+
   // Sticky nav
   $('#nav').sticky({
     topSpacing: 50 /*#header height*/

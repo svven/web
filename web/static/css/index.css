@@ -506,6 +506,8 @@ svg {
     margin-top: 30px;
   }
   .na {
+    padding-left: 20px;
+    padding-right: 20px;
   }
     .na .message {
       font-size: 16px;

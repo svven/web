@@ -84,16 +84,15 @@ class WebReader(MixedReader):
         self._picks = None
         self._fellows = None
         self._edition = None
-    
+
     @property
     def is_current_user(self):
         return current_user.is_authenticated() and \
             self.screen_name == current_user.screen_name
-    
+
     @property
     def user(self):
-        has_user = super(WebReader, self).user
-        if has_user:
+        if self.is_user:
             from ..models import WebUser
             
             if not getattr(self, '_user', None):
@@ -102,7 +101,7 @@ class WebReader(MixedReader):
             return self._user # cached
         else:
             return None
-    
+
     def load(self):
         "Load details from database (and Twitter!)."
         self.init()
@@ -123,7 +122,7 @@ class WebReader(MixedReader):
         
         # Friendships
         # TODO: Move this elsewhere and cache it
-        if current_user.twitter_user:
+        if not current_user.is_anonymous() and current_user.twitter_user:
             twitter = current_user.twitter
             user_id = current_user.twitter_user.user_id
             twitter_fellows_dict = {f.twitter_user_id: f \

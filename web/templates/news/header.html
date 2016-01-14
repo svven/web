@@ -10,18 +10,22 @@
         </a>
       </div>
       <div class="burger pull-right">
-        <a id="burger" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover" data-placement="bottom" data-animation="false" data-html="true" data-content="
-          <ul class='menu list-unstyled'>
-            <li><a href='{{url_for('home.tour', tour_name='welcome')}}'>Tour</a></li>
-            <li><a href='{{url_for('auth.logout')}}'>Logout</a></li>
-          </ul>">
+        <a id="burger" href="javascript:void(0)" rel="popover" role="button" data-toggle="popover">
           <div class="icon icon-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
             <line x1="39.5" y1="123.5" x2="136.5" y2="123.5"/>
             <line x1="39.5" y1="88" x2="136.5" y2="88"/>
             <line x1="39.5" y1="52.5" x2="136.5" y2="52.5"/>
             </svg>
-            </div></a>
+          </div>
+        </a>
+        <div id="menu" class="hidden">
+          <ul class='menu list-unstyled'>{% if not current_user.is_authenticated() %}
+            <li><a href="{{url_for('auth.login')}}">Login</a></li>{% else %}
+            <li><a href="{{url_for('home.tour', tour_name='welcome')}}">Tour</a></li>
+            <li><a href="{{url_for('auth.logout')}}">Logout</a></li>{% endif %}
+          </ul>
+        </div>
       </div>
       <div class="mugshot pull-center">
         <a href="/@{{ reader.screen_name }}/">

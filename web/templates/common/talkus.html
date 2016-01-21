@@ -1,0 +1,12 @@
+<script>
+  (function(t,a,l,k,u,s,_){if(!t[u]){t[u]=function(){(t[u].q=t[u].q||[]).push(arguments)},t[u].l=1*new Date();s=a.createElement(l),_=a.getElementsByTagName(l)[0];s.async=1;s.src=k;_.parentNode.insertBefore(s,_)}})(window,document,'script','//www.talkus.io/plugin.js','talkus');
+  talkus('primaryColor', '#5B5256', '#40393c');
+  talkus('create', 'NP6ZAbMRtRWP5TkMw');
+  {% if not current_user.is_anonymous() %}
+  talkus('identify', {
+    id: {{ current_user.id }},
+    email: '{{ current_user.email or current_user.screen_name + '@svven.com' }}',
+    name: '{{ current_user.name }}',
+    created_at: {{ current_user.registered_at_ux }}
+  });{% endif %}
+</script>

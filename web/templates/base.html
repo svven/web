@@ -31,4 +31,6 @@
 {% block custom_scripts %}
 {% endblock %}
     {{google.uanalytics(config['GOOGLE_ANALYTICS_ID'])}}
+{% include "common/talkus.html" %}
+{#% include "common/uservoice.html" %#}
 {%- endblock %}

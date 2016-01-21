@@ -191,9 +191,9 @@ class WebReader(MixedReader):
     def reload(self):
         "Should add various arguments here."
         self.set_fellows() # moment_min=None, moment_max=None, 
-        # picks_count=config.PICKS_COUNT
-        self.set_edition(moment_min=munixtime(timeago(hours=30))) # moment_min=None, 
-        # moment_max=None, fellows_count=config.FELLOWS_COUNT, picks_count=config.PICKS_COUNT
+        # picks_count=config.PICKS_COUNT, fellows_limit=config.FELLOWS_LIMIT
+        self.set_edition(moment_min=munixtime(timeago(hours=30))) # moment_max=None, 
+        # fellows_count=config.FELLOWS_COUNT, news_limit=config.NEWS_LIMIT
         self.load()
 
     def refresh(self, session):

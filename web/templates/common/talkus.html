@@ -6,9 +6,9 @@
   talkus('identify', {
     id: {{ current_user.id }},
     name: '{{ current_user.name }}',
-    svven: '<http://svven.com/{{ current_user.screen_name }}|{{ current_user.screen_name }}>',
-    twitter: '<https://twitter.com/{{ current_user.screen_name }}|{{ current_user.screen_name }}>',
+    svven: '<http://svven.com/{{ current_user.screen_name }}|@{{ current_user.screen_name }}>',
+    twitter: '<https://twitter.com/{{ current_user.screen_name }}|@{{ current_user.screen_name }}>',
     {% if current_user.email %}email: '{{ current_user.email }}',{% endif %}
-    created_at: {{ current_user.registered_at_ux }}
+    created_at: {{ current_user.registered_at }}
   });{% endif %}
 </script>

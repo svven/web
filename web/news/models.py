@@ -122,7 +122,7 @@ class WebReader(MixedReader):
         
         # Friendships
         # TODO: Move this elsewhere and cache it
-        if not current_user.is_anonymous() and current_user.twitter_user:
+        if current_user and not current_user.is_anonymous() and current_user.twitter_user:
             twitter = current_user.twitter
             user_id = current_user.twitter_user.user_id
             twitter_fellows_dict = {f.twitter_user_id: f \
